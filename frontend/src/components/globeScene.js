@@ -1,6 +1,6 @@
 import { useLoader, useFrame } from "@react-three/fiber";
 import { useRef, useState } from "react";
-import { OrbitControls } from "@react-three/drei";
+import { OrbitControls, Stars } from "@react-three/drei";
 
 import EarthDayMap from "../assets/maps/8k_earth_daymap.jpg"
 import EarthNightMap from "../assets/maps/8k_earth_nightmap.jpg"
@@ -25,12 +25,12 @@ function Globe({ radius = 2, widthSegments = 256, heightSegments = 256 }) {
     <group ref={ref} >
       <mesh >
         <sphereGeometry args={[radius, widthSegments, heightSegments]} />
-        <meshPhongMaterial map={dayMap} bumpMap={normalMap} bumpScale={3} specularMap={specularMap} />
+        <meshStandardMaterial map={dayMap} bumpMap={normalMap} bumpScale={3} metalness={0.2} roughness={0.8} />
       </mesh>
 
       <mesh>
         <sphereGeometry args={[radius, widthSegments, heightSegments]} />
-        <meshPhongMaterial map={nightMap} blending={AdditiveBlending} />
+        <meshStandardMaterial map={nightMap} blending={AdditiveBlending} />
       </mesh>
 
 
@@ -49,6 +49,16 @@ function Scene() {
       />
       <ambientLight intensity={0.5} />
       <Globe />
+
+      <Stars
+        radius={300}
+        depth={60}
+        count={5000}
+        factor={7}
+        saturation={0}
+        fade={true}
+      />
+
       <OrbitControls enableZoom={true} enablePan={false} rotateSpeed={0.4} minZoom={1} maxZoom={5} />
     </>
   )
