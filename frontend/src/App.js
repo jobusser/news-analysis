@@ -1,17 +1,16 @@
 import React from "react";
+import { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
+import Scene from "./components/globeScene";
 import "./App.css";
 
 export default function App() {
   return (
     <div className="App">
       <Canvas>
-        <mesh>
-          <sphereGeometry args={[2]} />
-          <meshStandardMaterial color={'green'} />
-        </mesh>
-        <ambientLight args={[0xff0000]} intensity={0.1} />
-        <directionalLight position={[0, 0, 5]} intensity={0.5} />
+        < Suspense fallback={null} >
+          <Scene />
+        </ Suspense >
       </Canvas>
     </div>
   );
