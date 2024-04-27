@@ -7,8 +7,9 @@ import EarthNightMap from "../assets/maps/8k_earth_nightmap.jpg"
 import EarthSpecularMap from "../assets/maps/8k_earth_specular_map.jpg"
 import EarthNormalMap from "../assets/maps/8k_earth_normal_map.jpg"
 import { AdditiveBlending, IcosahedronGeometry, TextureLoader } from "three";
+import Country from "./country";
 
-function Globe({ radius = 2, widthSegments = 256, heightSegments = 256 }) {
+function Globe({ radius = 0.51, widthSegments = 256, heightSegments = 256 }) {
 
   const [dayMap, nightMap, specularMap, normalMap] = useLoader(
     TextureLoader,
@@ -18,7 +19,9 @@ function Globe({ radius = 2, widthSegments = 256, heightSegments = 256 }) {
   const ref = useRef();
 
   useFrame((state, delta, frame) => {
-    ref.current.rotation.y += delta * 0.004;
+    {/* 
+  ref.current.rotation.y += delta * 0.004;
+  */}
   });
 
   return (
@@ -33,12 +36,21 @@ function Globe({ radius = 2, widthSegments = 256, heightSegments = 256 }) {
         <meshStandardMaterial map={nightMap} blending={AdditiveBlending} />
       </mesh>
 
+      <Country />
+
 
     </group>
 
   );
 }
 function Scene() {
+  const controlsRef = useRef();
+
+  useFrame(() => {
+    {/*
+    console.log("Camera position:", controlsRef.current.object.position);
+  */}
+  });
 
   return (
     <>
@@ -59,7 +71,8 @@ function Scene() {
         fade={true}
       />
 
-      <OrbitControls enableZoom={true} enablePan={false} rotateSpeed={0.4} minZoom={1} maxZoom={5} />
+
+      <OrbitControls ref={controlsRef} target={[0, 0, 0]} position={[0, 0, 5]} enableZoom={true} enablePan={false} rotateSpeed={0.4} minZoom={1} maxZoom={5} />
     </>
   )
 };
