@@ -7,9 +7,9 @@ import EarthNightMap from "../assets/maps/8k_earth_nightmap.jpg"
 import EarthSpecularMap from "../assets/maps/8k_earth_specular_map.jpg"
 import EarthNormalMap from "../assets/maps/8k_earth_normal_map.jpg"
 import { AdditiveBlending, IcosahedronGeometry, TextureLoader } from "three";
-import Country from "./country";
+import CountryLayer from "./country";
 
-function Globe({ radius = 0.51, widthSegments = 256, heightSegments = 256 }) {
+function Globe({ radius = 1, widthSegments = 256, heightSegments = 256 }) {
 
   const [dayMap, nightMap, specularMap, normalMap] = useLoader(
     TextureLoader,
@@ -35,9 +35,7 @@ function Globe({ radius = 0.51, widthSegments = 256, heightSegments = 256 }) {
         <sphereGeometry args={[radius, widthSegments, heightSegments]} />
         <meshStandardMaterial map={nightMap} blending={AdditiveBlending} />
       </mesh>
-
-      <Country />
-
+      <CountryLayer globeRadius={1.0} />
 
     </group>
 

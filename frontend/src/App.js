@@ -8,9 +8,7 @@ export default function App() {
   return (
     <div className="App">
       <Canvas>
-        < Suspense fallback={null} >
-          <Scene />
-        </ Suspense >
+        <Scene />
       </Canvas>
     </div>
   );
