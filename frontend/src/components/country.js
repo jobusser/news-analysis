@@ -22,18 +22,30 @@ const Country = React.memo(({ feature, globeRadius }) => {
 
     });
 
-    localGroup.userData = { name: feature.properties.name };
+    localGroup.userData = {
+      name: feature.properties.name,
+      nameLong: feature.properties.namelong,
+      abbrev: feature.properties.abbrev,
+      iso_a2: feature.properties.iso_a2,
+      iso_a3: feature.properties.iso_a3,
+      continent: feature.properties.continent,
+      sovereignt: feature.properties.sovereignt,
+    };
     return localGroup;
 
   }, [feature, globeRadius]);
 
-  const isSelected = (selectedCountry == feature.properties.name);
+  const isSelected = (selectedCountry && selectedCountry.name == group.userData.name);
   const [isHovered, setIsHovered] = useState(false);
 
   function handleSelect() {
     // dot product to ensure front-facing country
     if (group.children[0].geometry.boundingSphere.center.dot(camera.position) > 0) {
-      selectCountry(feature.properties.name);
+      if (isSelected) {
+        selectCountry(null);
+      } else {
+        selectCountry(group.userData);
+      }
     }
   };
 
