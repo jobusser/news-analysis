@@ -1,52 +1,63 @@
-import React, { useState, useMemo } from 'react';
-import { createPolygon } from './utils';
-import { useCountry } from './countryProvider';
+import React, { useState, useEffect, useMemo } from 'react';
 import * as THREE from 'three';
 import { useThree } from '@react-three/fiber';
+
+import { createPolygon } from './utils';
+import { useCountry } from './countryProvider';
+
 
 const Country = React.memo(({ feature, globeRadius }) => {
   const { selectCountry, selectedCountry } = useCountry();
   const { camera } = useThree();
 
+  // creation
   const group = useMemo(() => {
-
     const localGroup = new THREE.Group();
     const { coordinates, type } = feature.geometry;
-    const meshCreator = type === 'Polygon' ? [coordinates] : coordinates;
+    const geometries = type === 'Polygon' ? [coordinates] : coordinates;
 
-    meshCreator.forEach(coords => {
+    geometries.forEach(coords => {
       const mesh = createPolygon(coords, globeRadius);
       localGroup.add(mesh);
+
     });
 
     localGroup.userData = { name: feature.properties.name };
     return localGroup;
+
   }, [feature, globeRadius]);
 
   const isSelected = (selectedCountry == feature.properties.name);
+  const [isHovered, setIsHovered] = useState(false);
 
-  const handleSelect = (event) => {
+  function handleSelect() {
     // dot product to ensure front-facing country
-    const samplePosition = group.children[0].geometry.boundingSphere.center;
-
-    if (samplePosition.dot(camera.position) > 0) {
+    if (group.children[0].geometry.boundingSphere.center.dot(camera.position) > 0) {
       selectCountry(feature.properties.name);
     }
   };
-  const [color, setColor] = useState('#ff0000');
 
-  // Change mesh color on hover
-  const onHover = (hovered) => {
+  const handleMouseOver = () => setIsHovered(true);
+  const handleMouseOut = () => setIsHovered(false);
+
+  useEffect(() => {
     group.children.forEach(mesh => {
-      mesh.material.color.set(hovered ? '#ffff00' : color);
+      mesh.material.visible = true; // Always make the material visible when hovered or selected
+      if (isSelected) {
+        mesh.material.color.set('#ff0000'); // Red when selected
+      } else if (isHovered) {
+        mesh.material.color.set('#ffff00'); // Yellow when hovered
+      } else {
+        mesh.material.visible = false; // Invisible otherwise
+      }
       mesh.material.needsUpdate = true;
     });
-  };
+  }, [isSelected, isHovered, group.children]);
 
   return <primitive
     object={group}
-    onPointerOver={() => onHover(true)}
-    onPointerOut={() => onHover(false)}
+    onPointerOver={handleMouseOver}
+    onPointerOut={handleMouseOut}
     onClick={handleSelect} />;
 });
 

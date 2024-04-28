@@ -1,6 +1,7 @@
 import { createRef } from 'react';
 import * as THREE from 'three'
 import earcut from "earcut";
+import { isVisible } from '@testing-library/user-event/dist/utils';
 
 export function convertCoordsTo3D(lat, lon, radius = 1) {
   const phi = THREE.MathUtils.degToRad(90 - lat);
@@ -39,7 +40,8 @@ export function createPolygon(polygonCoords, globeRadius) {
     color: 0xff0000,
     side: THREE.DoubleSide,
     transparent: true,
-    opacity: 0.8
+    opacity: 0.8,
+    visible: false
   });
 
   return new THREE.Mesh(geometry, material);

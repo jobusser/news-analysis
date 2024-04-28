@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import countriesData from '../assets/data/countries.geo.json';
-import Country from './country';
 
+import Country from './country';
+import countriesData from '../assets/data/countries.geo.json';
 
 const CountryLayer = ({ globeRadius }) => {
   const [countries, setCountries] = useState([]);
