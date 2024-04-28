@@ -7,7 +7,7 @@ import { useCountry } from './countryProvider';
 
 
 const Country = React.memo(({ feature, globeRadius }) => {
-  const { selectCountry, selectedCountry } = useCountry();
+  const { selectCountry, selectedCountry, hoveredCountry, setHoverCountry } = useCountry();
   const { camera } = useThree();
 
   // creation
@@ -35,8 +35,7 @@ const Country = React.memo(({ feature, globeRadius }) => {
 
   }, [feature, globeRadius]);
 
-  const isSelected = (selectedCountry && selectedCountry.name == group.userData.name);
-  const [isHovered, setIsHovered] = useState(false);
+  const isSelected = (selectedCountry && selectedCountry.name === group.userData.name);
 
   function handleSelect() {
     // dot product to ensure front-facing country
@@ -49,8 +48,20 @@ const Country = React.memo(({ feature, globeRadius }) => {
     }
   };
 
-  const handleMouseOver = () => setIsHovered(true);
-  const handleMouseOut = () => setIsHovered(false);
+  const isHovered = (hoveredCountry && hoveredCountry.name === group.userData.name);
+
+  function handleMouseOver() {
+    console.log(group.userData.name + " " + group.children[0].geometry.boundingSphere.center.dot(camera.position));
+    if (group.children[0].geometry.boundingSphere.center.dot(camera.position) > 0) {
+      setHoverCountry(group.userData);
+    }
+  }
+
+  function handleMouseOut() {
+    if (isHovered) {
+      setHoverCountry(null);
+    }
+  }
 
   useEffect(() => {
     group.children.forEach(mesh => {
