@@ -65,7 +65,8 @@ const Country = React.memo(({ feature, globeRadius }) => {
 
   useEffect(() => {
     group.children.forEach(mesh => {
-      mesh.material.visible = true; // Always make the material visible when hovered or selected
+      mesh.material.visible = true;
+      mesh.material.opacity = 0.2;
       if (isSelected) {
         mesh.material.color.set('#ff0000'); // Red when selected
       } else if (isHovered) {

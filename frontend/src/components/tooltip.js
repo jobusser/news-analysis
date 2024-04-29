@@ -22,17 +22,12 @@ function Tooltip() {
   if (!hoveredCountry) return null;
 
   const tooltipStyle = {
-    position: 'fixed',
-    top: `${cursorY}px`,
-    left: `${cursorX + 10}px`, // Offset by 10px from cursor for better visibility
+    top: `${cursorY - 20}px`,
+    left: `${cursorX}px`, // Offset by 10px from cursor for better visibility
     pointerEvents: 'none', // Ensure the tooltip doesn't interfere with mouse events
-    zIndex: 1000, // Make sure it's on top of other elements
-    background: 'white',
-    border: '1px solid black',
-    padding: '5px',
   };
 
-  return <div style={tooltipStyle}>{hoveredCountry.name}</div>;
+  return <div className="tooltip" style={tooltipStyle}>{hoveredCountry.name}</div>;
 };
 
 export default Tooltip;

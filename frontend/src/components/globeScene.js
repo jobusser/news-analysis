@@ -23,7 +23,7 @@ function Globe({ radius = 1, widthSegments = 256, heightSegments = 256 }) {
   });
 
   return (
-    <group ref={ref} >
+    <group ref={ref} rotation-z={-23.4 * Math.PI / 180} >
 
       {/* Earth at day with bumps */}
       <mesh >
@@ -52,7 +52,7 @@ function Scene() {
       {/* sunlight */}
       {/* TODO: when backend comes in, cacluate actual sun position */}
       <directionalLight
-        position={[-2, -0.5, 0]}
+        position={[1, 0, 0]}
         intensity={1}
         color={'white'}
       />
