@@ -1,9 +1,10 @@
 import { useRef, } from "react";
 import { AdditiveBlending, TextureLoader } from "three";
 import { useLoader, useFrame } from "@react-three/fiber";
-import { OrbitControls, Stars } from "@react-three/drei";
+import { OrbitControls } from "@react-three/drei";
 
 import CountryLayer from "./countryLayer";
+import Starfield from "./starfield";
 
 import EarthDayMap from "../assets/maps/8k_earth_daymap.jpg"
 import EarthNightMap from "../assets/maps/8k_earth_nightmap.jpg"
@@ -63,13 +64,15 @@ function Scene() {
 
       <Globe />
 
-      <Stars
+      <Starfield
         radius={300}
-        depth={60}
+        depth={90}
         count={5000}
         factor={7}
         saturation={0}
         fade={true}
+        speed={1}
+        noise={9}
       />
 
       {/* TODO: Limit and adjust movement */}
