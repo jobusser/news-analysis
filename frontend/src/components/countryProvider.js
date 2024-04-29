@@ -6,14 +6,14 @@ export function CountryProvider({ children }) {
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [hoveredCountry, setHoveredCountry] = useState(null);
 
-  function selectCountry(countryName) {
-    console.log("Selected Country:", countryName);
-    setSelectedCountry(countryName);
+  function selectCountry(country) {
+    console.log("Selected Country:", country);
+    setSelectedCountry(country);
   };
 
-  function setHoverCountry(countryName) {
-    console.log(countryName);
-    setHoveredCountry(countryName);
+  function setHoverCountry(country) {
+    console.log(country);
+    setHoveredCountry(country);
   };
 
 
@@ -22,7 +22,7 @@ export function CountryProvider({ children }) {
       selectedCountry,
       selectCountry,
       hoveredCountry,
-      setHoverCountry
+      setHoverCountry,
     }}>
       {children}
     </CountryContext.Provider>
