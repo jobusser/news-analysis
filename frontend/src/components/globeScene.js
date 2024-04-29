@@ -2,19 +2,21 @@ import { useRef, } from "react";
 import { AdditiveBlending, TextureLoader } from "three";
 import { useLoader, useFrame } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
+import { extend } from '@react-three/fiber'
 
+import { AtmosphereShaderMaterial } from './utils';
 import CountryLayer from "./countryLayer";
 import Starfield from "./starfield";
 
-import EarthDayMap from "../assets/maps/8k_earth_daymap.jpg"
-import EarthNightMap from "../assets/maps/8k_earth_nightmap.jpg"
+import EarthDayMap from "../assets/maps/blue-marble-oct.jpg"
 import EarthNormalMap from "../assets/maps/8k_earth_normal_map.jpg"
 
 function Globe({ radius = 1, widthSegments = 256, heightSegments = 256 }) {
 
-  const [dayMap, nightMap, normalMap] = useLoader(
+  // TODO: change map based on time of year
+  const [dayMap, normalMap] = useLoader(
     TextureLoader,
-    [EarthDayMap, EarthNightMap, EarthNormalMap]
+    [EarthDayMap, EarthNormalMap]
   );
 
   const ref = useRef();
@@ -22,6 +24,8 @@ function Globe({ radius = 1, widthSegments = 256, heightSegments = 256 }) {
   useFrame((state, delta, frame) => {
     ref.current.rotation.y += delta * 0.004;
   });
+
+  extend({ AtmosphereShaderMaterial });
 
   return (
     <group ref={ref} rotation-z={-23.4 * Math.PI / 180} >
@@ -31,12 +35,12 @@ function Globe({ radius = 1, widthSegments = 256, heightSegments = 256 }) {
         <sphereGeometry args={[radius, widthSegments, heightSegments]} />
         <meshStandardMaterial map={dayMap} bumpMap={normalMap} bumpScale={3} metalness={0.2} roughness={0.8} />
       </mesh>
-
-      {/* night map with additive blending for lights */}
+      {/*
       <mesh>
-        <sphereGeometry args={[radius, widthSegments, heightSegments]} />
-        <meshStandardMaterial map={nightMap} blending={AdditiveBlending} />
+        <sphereGeometry args={[radius * 1.1, widthSegments, heightSegments]} />
+        <atmosphereShaderMaterial />
       </mesh>
+      */}
 
       {/* Country polygons */}
       <CountryLayer globeRadius={1.0} />
@@ -60,7 +64,7 @@ function Scene() {
 
       {/* Minimum light */}
       {/* TODO: Play with darkness once polygon layer and skins finalised */}
-      <ambientLight intensity={0.5} />
+      <ambientLight intensity={0.7} />
 
       <Globe />
 
