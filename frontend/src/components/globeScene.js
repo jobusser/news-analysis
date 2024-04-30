@@ -1,22 +1,23 @@
 import { useRef, } from "react";
-import { AdditiveBlending, TextureLoader } from "three";
+import { TextureLoader } from "three";
 import { useLoader, useFrame } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import { extend } from '@react-three/fiber'
 
-import { AtmosphereShaderMaterial } from './utils';
+import { AtmosphereShaderMaterial } from './utils/shaderMaterials';
 import CountryLayer from "./countryLayer";
 import Starfield from "./starfield";
+import Atmosphere from "./atmosphere";
 
-import EarthDayMap from "../assets/maps/blue-marble-oct.jpg"
+import EarthMap from "../assets/maps/blue-marble-oct.jpg"
 import EarthNormalMap from "../assets/maps/8k_earth_normal_map.jpg"
 
 function Globe({ radius = 1, widthSegments = 256, heightSegments = 256 }) {
 
   // TODO: change map based on time of year
-  const [dayMap, normalMap] = useLoader(
+  const [earthMap, earthNormalMap] = useLoader(
     TextureLoader,
-    [EarthDayMap, EarthNormalMap]
+    [EarthMap, EarthNormalMap]
   );
 
   const ref = useRef();
@@ -33,14 +34,10 @@ function Globe({ radius = 1, widthSegments = 256, heightSegments = 256 }) {
       {/* Earth at day with bumps */}
       <mesh >
         <sphereGeometry args={[radius, widthSegments, heightSegments]} />
-        <meshStandardMaterial map={dayMap} bumpMap={normalMap} bumpScale={3} metalness={0.2} roughness={0.8} />
+        <meshStandardMaterial map={earthMap} bumpMap={earthNormalMap} bumpScale={3} metalness={0.2} roughness={0.8} />
       </mesh>
-      {/*
-      <mesh>
-        <sphereGeometry args={[radius * 1.1, widthSegments, heightSegments]} />
-        <atmosphereShaderMaterial />
-      </mesh>
-      */}
+
+      < Atmosphere globeRadius={radius} widthSegments={widthSegments} heightSegments={heightSegments} />
 
       {/* Country polygons */}
       <CountryLayer globeRadius={1.0} />

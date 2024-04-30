@@ -1,6 +1,5 @@
 import * as THREE from 'three'
 import earcut from "earcut";
-import { shaderMaterial } from '@react-three/drei'
 
 export function convertCoordsTo3D(lat, lon, radius = 1) {
   const phi = THREE.MathUtils.degToRad(90 - lat);
@@ -45,29 +44,3 @@ export function createPolygon(polygonCoords, globeRadius) {
 
   return new THREE.Mesh(geometry, material);
 }
-
-export const AtmosphereShaderMaterial = shaderMaterial(
-  // Uniforms
-  {
-    time: 0,
-    color: new THREE.Color(0.2, 0.0, 0.1),
-    glowColor: new THREE.Color(0.1, 0.5, 0.9), // Light blue color for the atmosphere
-    viewVector: new THREE.Vector3(0, 0, 1) // The direction the camera is looking from
-  },
-  //TODO: check out video on how to pass fragment shader globeTexture, and then finish tutorial
-  // Vertex shader
-  /*glsl*/`
-      void main() {
-      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-    }
-  `,
-  // Fragment shader
-  /*glsl*/`
-      uniform sampler2D globeTexture;
-      varying vec2 vertexUV;
-
-      void main() {
-      gl_FragColor = texture2D(globeTexture, vertexUV);
-    }
-  `
-);
