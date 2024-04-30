@@ -51,7 +51,7 @@ function Scene() {
       {/* sunlight */}
       {/* TODO: when backend comes in, cacluate actual sun position */}
 
-      <Sun position={[1000, 1, 1]} />
+      <Sun position={[100, 1, 1]} />
 
       <directionalLight
         position={[1, 0, 0]}

@@ -1,47 +1,53 @@
-import React, { useMemo } from 'react';
+import React, { useRef, useEffect } from 'react';
 import * as THREE from 'three';
-import { useThree } from '@react-three/fiber';
+import { useFrame, useThree } from '@react-three/fiber';
 
 function Sun({ position }) {
+  const meshRef = useRef();
+  const { camera } = useThree();
 
-  const group = useMemo(() => {
-    const radius = 5;
-    const detail = 16;
-
-    // Sunlight - Directional light
-    const sunlight = new THREE.DirectionalLight(0xfdfbd3, 5);
-
-
-    // Sun glow - Halo effect
-    const sunGeometry = new THREE.SphereGeometry(radius * 5, detail, detail);
-    const sunMaterial = new THREE.ShaderMaterial({
-      vertexShader: `
-        varying vec3 vertexNormal;
-        void main() {
-          vertexNormal = normalize(normalMatrix * normal);
-          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-        }
+  // Create the shader material
+  const sunMaterial = new THREE.ShaderMaterial({
+    uniforms: {
+      c: { value: new THREE.Color(0xffffff) },
+      p: { value: 0.13 },
+    },
+    vertexShader: `
+      varying vec2 vUv;
+      void main() {
+        vUv = uv;
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+      }
+    `,
+    fragmentShader: `
+      uniform vec3 c;
+      uniform float p;
+      varying vec2 vUv;
+      void main() {
+        float intensity = 1.0 - pow(length(vUv - vec2(0.5, 0.5)) * 2.0, p);
+        gl_FragColor = vec4(c, intensity);
+      } 
       `,
-      fragmentShader: `
-        varying vec3 vertexNormal;
-        void main() {
-          float intensity = pow(0.2 - dot(vertexNormal, vec3(0, 0, 1)), 2.0);
-          gl_FragColor = vec4(1, 1, 0.9, 1) * intensity;
-        }
-      `,
-      side: THREE.BackSide,
-    });
-    const sun = new THREE.Mesh(sunGeometry, sunMaterial);
+    transparent: true,
+    blending: THREE.AdditiveBlending,
+  });
 
-    // Group to hold sun components
-    const group = new THREE.Group();
-    group.add(sun);
-    group.add(sunlight);
+  // Update to always face the camera
+  useFrame(() => {
+    if (meshRef.current) {
+      meshRef.current.quaternion.copy(camera.quaternion);
+    }
+  });
 
-    return group;
-  }, []);
-
-  return <primitive object={group} position={position} />;
+  return (
+    <mesh
+      ref={meshRef}
+      position={position}
+      material={sunMaterial}
+      args={[new THREE.PlaneGeometry(55, 55, 59)]}  // Adjust size as needed
+    />
+  );
 }
 
 export default Sun;
+
