@@ -3,7 +3,7 @@ import React from "react";
 
 // TODO: add shooting stars
 
-function Starfield({ radius = 300, depth = 90, count = 5000, factor = 7, saturation = 0, fade = true, speed = 1, noise = 9 }) {
+function Starfield({ radius = 300, depth = 500, count = 5000, factor = 7, saturation = 0, fade = true, speed = 1, noise = 9 }) {
   return (
     <>
       <Stars

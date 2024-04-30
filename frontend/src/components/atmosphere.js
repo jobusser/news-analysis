@@ -1,5 +1,9 @@
 import * as THREE from 'three'
 
+
+// NOTE: The below is adapted from a 'Chirs Courses' tutorial found at
+// https://www.youtube.com/watch?v=vM8M4QloVL0&t=2901s 
+
 function Atmosphere({ globeRadius, widthSegments, heightSegments }) {
   return (
     <mesh
@@ -17,7 +21,7 @@ function Atmosphere({ globeRadius, widthSegments, heightSegments }) {
           varying vec3 vertexNormal;
 
           void main() {
-            float intensity = pow(0.4 - dot(vertexNormal, vec3(0, 0, 1)), 2.0);
+            float intensity = pow(0.5 - dot(vertexNormal, vec3(0, 0, 1)), 2.0);
             gl_FragColor = vec4(0.3, 0.6, 1, 1) * intensity;
           }
         `,

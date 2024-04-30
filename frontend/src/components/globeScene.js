@@ -2,12 +2,11 @@ import { useRef, } from "react";
 import { TextureLoader } from "three";
 import { useLoader, useFrame } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
-import { extend } from '@react-three/fiber'
 
-import { AtmosphereShaderMaterial } from './utils/shaderMaterials';
 import CountryLayer from "./countryLayer";
 import Starfield from "./starfield";
 import Atmosphere from "./atmosphere";
+import Sun from "./sun";
 
 import EarthMap from "../assets/maps/blue-marble-oct.jpg"
 import EarthNormalMap from "../assets/maps/8k_earth_normal_map.jpg"
@@ -25,8 +24,6 @@ function Globe({ radius = 1, widthSegments = 256, heightSegments = 256 }) {
   useFrame((state, delta, frame) => {
     ref.current.rotation.y += delta * 0.004;
   });
-
-  extend({ AtmosphereShaderMaterial });
 
   return (
     <group ref={ref} rotation-z={-23.4 * Math.PI / 180} >
@@ -53,21 +50,24 @@ function Scene() {
     <>
       {/* sunlight */}
       {/* TODO: when backend comes in, cacluate actual sun position */}
+
+      <Sun position={[1000, 1, 1]} />
+
       <directionalLight
         position={[1, 0, 0]}
-        intensity={1}
+        intensity={5}
         color={'white'}
       />
 
       {/* Minimum light */}
       {/* TODO: Play with darkness once polygon layer and skins finalised */}
-      <ambientLight intensity={0.7} />
+      <ambientLight intensity={0.9} />
 
       <Globe />
 
       <Starfield
         radius={300}
-        depth={90}
+        depth={150}
         count={5000}
         factor={7}
         saturation={0}
