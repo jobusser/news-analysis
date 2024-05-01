@@ -3,7 +3,7 @@ import { Canvas } from "@react-three/fiber";
 
 import "./App.css";
 import { CountryProvider } from './components/countryProvider';
-import Scene from "./components/globeScene";
+import Scene from "./components/scene";
 import Tooltip from './components/tooltip';
 
 export default function App() {
