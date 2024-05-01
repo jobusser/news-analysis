@@ -13,26 +13,28 @@ export function convertCoordsTo3D(lat, lon, radius = 1) {
 }
 
 export function createPolygon(polygonCoords, globeRadius) {
-  const vertices = [];
+  // const vertices = [];
+  const flatVertices = [];
   const holes = [];
 
   // NOTE: GeoJSON coordinate structure available at https://en.wikipedia.org/wiki/GeoJSON#TopoJSON_Schema 
   polygonCoords.forEach((ring, index) => {
     if (index > 0) {
       // Start index of this hole
-      holes.push(vertices.length / 3);
+      holes.push(flatVertices.length / 3);
     }
     ring.forEach(([lon, lat]) => {
       const vertex = convertCoordsTo3D(lat, lon, globeRadius);
-      vertices.push(vertex.x, vertex.y, vertex.z); // Flatten 
+      // vertices.push(vertex);
+      flatVertices.push(vertex.x, vertex.y, vertex.z); // Flatten 
     });
   });
 
   // Create polygon
-  const indices = earcut(vertices, holes, 3);
+  const indices = earcut(flatVertices, holes, 3);
   const geometry = new THREE.BufferGeometry();
   geometry.setIndex(indices);
-  geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+  geometry.setAttribute('position', new THREE.Float32BufferAttribute(flatVertices, 3));
 
   const material = new THREE.MeshBasicMaterial({
     color: 0xff0000,
@@ -42,5 +44,15 @@ export function createPolygon(polygonCoords, globeRadius) {
     visible: false
   });
 
-  return new THREE.Mesh(geometry, material);
+  {/*
+  // Create edge of polygon
+  const edgeGeometry = new THREE.BufferGeometry().setFromPoints(vertices);
+  const edgeMaterial = new THREE.LineBasicMaterial({ color: 0x00ff00 });
+*/}
+
+  const group = new THREE.Group();
+  group.add(new THREE.Mesh(geometry, material));
+  // group.add(new THREE.LineSegments(edgeGeometry, edgeMaterial));
+
+  return group;
 }

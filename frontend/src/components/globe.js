@@ -1,37 +1,27 @@
-import { useRef, } from "react";
+import { useRef, useMemo } from "react";
 import { TextureLoader } from "three";
 import { useLoader, useFrame } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
-
-import * as THREE from 'three';
 
 import CountryLayer from "./countryLayer";
-import Starfield from "./starfield";
 import Atmosphere from "./atmosphere";
-import Sun from "./sun";
 import { rotationAroundSun, rotationAroundAxis } from './utils/rotations.js'
 
-import EarthMap from "../assets/maps/blue-marble-oct.jpg"
-import EarthNormalMap from "../assets/maps/8k_earth_normal_map.jpg"
+import { monthTextures } from "./utils/earthTextures";
 
 function Globe({ radius = 1, widthSegments = 256, heightSegments = 256 }) {
 
-  // TODO: change map based on time of year
+  const date = new Date();
+
   const [earthMap, earthNormalMap] = useLoader(
     TextureLoader,
-    [EarthMap, EarthNormalMap]
+    useMemo(() => [monthTextures[date.getMonth()], "/maps/8k_earth_normal_map.jpg"], [date.getMonth()])
   );
 
   const ref = useRef();
 
-  useFrame((state, delta, frame) => {
-    ref.current.rotation.y += delta * 0.004;
-  });
 
-  const date = new Date();
-
-  const rotateAroundSun = rotationAroundSun(date);
-  const rotateAroundAxis = rotationAroundAxis(date);
+  const rotateAroundSun = useMemo(() => rotationAroundSun(date), [date]);
+  const rotateAroundAxis = useMemo(() => rotationAroundAxis(date), [date]);
 
   return (
     <group rotation-y={Math.PI / 2 - rotateAroundSun} rotation-z={23.4 * Math.PI / 180}>
@@ -39,7 +29,7 @@ function Globe({ radius = 1, widthSegments = 256, heightSegments = 256 }) {
         {/* Earth at day with bumps */}
         <mesh >
           <sphereGeometry args={[radius, widthSegments, heightSegments]} />
-          <meshStandardMaterial map={earthMap} bumpMap={earthNormalMap} bumpScale={3} metalness={0.2} roughness={0.8} />
+          <meshStandardMaterial map={earthMap} bumpMap={earthNormalMap} bumpScale={3} metalness={0.4} roughness={1} />
         </mesh>
 
         < Atmosphere globeRadius={radius} widthSegments={widthSegments} heightSegments={heightSegments} />

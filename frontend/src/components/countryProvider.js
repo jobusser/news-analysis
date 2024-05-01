@@ -7,12 +7,10 @@ export function CountryProvider({ children }) {
   const [hoveredCountry, setHoveredCountry] = useState(null);
 
   function selectCountry(country) {
-    console.log("Selected Country:", country);
     setSelectedCountry(country);
   };
 
   function setHoverCountry(country) {
-    console.log(country);
     setHoveredCountry(country);
   };
 

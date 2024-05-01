@@ -64,7 +64,7 @@ function Sun({ position }) {
       />
 
       {/* Minimum light */}
-      <ambientLight intensity={0.9} />
+      <ambientLight intensity={1.2} />
 
     </group>
   );

@@ -1,19 +1,9 @@
 import { useRef, } from "react";
-import { TextureLoader } from "three";
-import { useLoader, useFrame } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 
-
-import CountryLayer from "./countryLayer";
 import Starfield from "./starfield";
-import Atmosphere from "./atmosphere";
 import Sun from "./sun";
 import Globe from "./globe";
-import { rotationAroundSun, rotationAroundAxis } from './utils/rotations.js'
-
-import EarthMap from "../assets/maps/blue-marble-oct.jpg"
-import EarthNormalMap from "../assets/maps/8k_earth_normal_map.jpg"
-
 
 function Scene() {
   const controlsRef = useRef();
@@ -23,6 +13,17 @@ function Scene() {
       <Sun position={[0, 0, 100]} />
 
       <Globe />
+
+      <mesh position={[-0.634674, -0.684526, -0.42062]}>
+        <sphereGeometry args={[0.05]} />
+        <meshStandardMaterial color={0xffffff} />
+      </ mesh>
+
+      <mesh position={[-0.63467, -0.684525, -0.4206190]}>
+        <sphereGeometry args={[0.05]} />
+        <meshStandardMaterial color={0xffffff} />
+      </ mesh>
+
 
       <Starfield
         radius={300}

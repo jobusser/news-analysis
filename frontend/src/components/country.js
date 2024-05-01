@@ -17,8 +17,8 @@ const Country = React.memo(({ feature, globeRadius }) => {
     const geometries = type === 'Polygon' ? [coordinates] : coordinates;
 
     geometries.forEach(coords => {
-      const mesh = createPolygon(coords, globeRadius);
-      localGroup.add(mesh);
+      const polygon = createPolygon(coords, globeRadius);
+      localGroup.add(polygon);
 
     });
 
@@ -37,9 +37,11 @@ const Country = React.memo(({ feature, globeRadius }) => {
 
   const isSelected = (selectedCountry && selectedCountry.name === group.userData.name);
 
+
+
   function handleSelect() {
     // dot product to ensure front-facing country
-    if (group.children[0].geometry.boundingSphere.center.dot(camera.position) > 0) {
+    if (group.children[0].children[0].geometry.boundingSphere.center.dot(camera.position) > 0) {
       if (isSelected) {
         selectCountry(null);
       } else {
@@ -51,8 +53,11 @@ const Country = React.memo(({ feature, globeRadius }) => {
   const isHovered = (hoveredCountry && hoveredCountry.name === group.userData.name);
 
   function handleMouseOver() {
-    console.log(group.userData.name + " " + group.children[0].geometry.boundingSphere.center.dot(camera.position));
-    if (group.children[0].geometry.boundingSphere.center.dot(camera.position) > 0) {
+    console.log(group.userData.name);
+    group.children[0].children[0].geometry.computeBoundingSphere();
+    console.log(group.children[0].children[0].geometry.boundingSphere.center);
+
+    if (group.children[0].children[0].geometry.boundingSphere.center.dot(camera.position) > 0) {
       setHoverCountry(group.userData);
     }
   }
@@ -64,17 +69,17 @@ const Country = React.memo(({ feature, globeRadius }) => {
   }
 
   useEffect(() => {
-    group.children.forEach(mesh => {
-      mesh.material.visible = true;
-      mesh.material.opacity = 0.2;
+    group.children.forEach(polygon => {
+      polygon.children[0].material.visible = true;
+      polygon.children[0].material.opacity = 0.2;
       if (isSelected) {
-        mesh.material.color.set('#ff0000'); // Red when selected
+        polygon.children[0].material.color.set('#ff0000'); // Red when selected
       } else if (isHovered) {
-        mesh.material.color.set('#ffff00'); // Yellow when hovered
+        polygon.children[0].material.color.set('#ffff00'); // Yellow when hovered
       } else {
-        mesh.material.visible = false; // Invisible otherwise
+        polygon.children[0].material.visible = false; // Invisible otherwise
       }
-      mesh.material.needsUpdate = true;
+      polygon.children[0].material.needsUpdate = true;
     });
   }, [isSelected, isHovered, group.children]);
 
