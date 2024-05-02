@@ -13,7 +13,7 @@ const CountryLayer = ({ globeRadius }) => {
   return (
     <>
       {countries.map((feature, index) => (
-        <Country key={index} feature={feature} globeRadius={globeRadius * 1.02} />
+        <Country key={index} feature={feature} globeRadius={globeRadius * 1.04} />
       ))}
     </>
   );

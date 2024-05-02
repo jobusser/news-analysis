@@ -14,17 +14,6 @@ function Scene() {
 
       <Globe />
 
-      <mesh position={[-0.634674, -0.684526, -0.42062]}>
-        <sphereGeometry args={[0.05]} />
-        <meshStandardMaterial color={0xffffff} />
-      </ mesh>
-
-      <mesh position={[-0.63467, -0.684525, -0.4206190]}>
-        <sphereGeometry args={[0.05]} />
-        <meshStandardMaterial color={0xffffff} />
-      </ mesh>
-
-
       <Starfield
         radius={300}
         depth={150}

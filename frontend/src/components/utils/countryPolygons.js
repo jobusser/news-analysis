@@ -13,7 +13,6 @@ export function convertCoordsTo3D(lat, lon, radius = 1) {
 }
 
 export function createPolygon(polygonCoords, globeRadius) {
-  // const vertices = [];
   const flatVertices = [];
   const holes = [];
 
@@ -25,8 +24,7 @@ export function createPolygon(polygonCoords, globeRadius) {
     }
     ring.forEach(([lon, lat]) => {
       const vertex = convertCoordsTo3D(lat, lon, globeRadius);
-      // vertices.push(vertex);
-      flatVertices.push(vertex.x, vertex.y, vertex.z); // Flatten 
+      flatVertices.push(vertex.x, vertex.y, vertex.z);
     });
   });
 
@@ -40,19 +38,12 @@ export function createPolygon(polygonCoords, globeRadius) {
     color: 0xff0000,
     side: THREE.DoubleSide,
     transparent: true,
-    opacity: 0.8,
+    opacity: 0.4,
     visible: false
   });
 
-  {/*
-  // Create edge of polygon
-  const edgeGeometry = new THREE.BufferGeometry().setFromPoints(vertices);
-  const edgeMaterial = new THREE.LineBasicMaterial({ color: 0x00ff00 });
-*/}
-
   const group = new THREE.Group();
   group.add(new THREE.Mesh(geometry, material));
-  // group.add(new THREE.LineSegments(edgeGeometry, edgeMaterial));
 
   return group;
 }

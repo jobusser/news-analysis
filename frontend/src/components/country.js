@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import * as THREE from 'three';
 import { useThree } from '@react-three/fiber';
 
@@ -36,8 +36,7 @@ const Country = React.memo(({ feature, globeRadius }) => {
   }, [feature, globeRadius]);
 
   const isSelected = (selectedCountry && selectedCountry.name === group.userData.name);
-
-
+  const isHovered = (hoveredCountry && hoveredCountry.name === group.userData.name);
 
   function handleSelect() {
     // dot product to ensure front-facing country
@@ -49,8 +48,6 @@ const Country = React.memo(({ feature, globeRadius }) => {
       }
     }
   };
-
-  const isHovered = (hoveredCountry && hoveredCountry.name === group.userData.name);
 
   function handleMouseOver() {
     console.log(group.userData.name);
@@ -70,14 +67,18 @@ const Country = React.memo(({ feature, globeRadius }) => {
 
   useEffect(() => {
     group.children.forEach(polygon => {
-      polygon.children[0].material.visible = true;
-      polygon.children[0].material.opacity = 0.2;
       if (isSelected) {
-        polygon.children[0].material.color.set('#ff0000'); // Red when selected
+        polygon.children[0].material.visible = true;
+        polygon.children[0].material.color.set('#ff0000');
+        polygon.children[0].material.opacity = 0.5;
+
       } else if (isHovered) {
-        polygon.children[0].material.color.set('#ffff00'); // Yellow when hovered
+        polygon.children[0].material.visible = true;
+        polygon.children[0].material.color.set('#ffff00');
+        polygon.children[0].material.opacity = 0.3;
+
       } else {
-        polygon.children[0].material.visible = false; // Invisible otherwise
+        polygon.children[0].material.visible = false;
       }
       polygon.children[0].material.needsUpdate = true;
     });
