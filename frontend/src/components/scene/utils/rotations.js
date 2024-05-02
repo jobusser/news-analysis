@@ -18,7 +18,6 @@ export function rotationAroundSun(date) {
   const solstice = previousSolstice(date);
 
   const degrees = 360 * (date - solstice) / MILLISECONDS_PER_YEAR;
-  console.log("!!!", degrees);
   return degrees * Math.PI / 180;
 }
 

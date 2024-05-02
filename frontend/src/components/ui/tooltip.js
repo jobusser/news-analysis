@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useCountry } from "./countryProvider";
+import { useCountry } from "../context/countryProvider";
 
 function Tooltip() {
   const { hoveredCountry } = useCountry();

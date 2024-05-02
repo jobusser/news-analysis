@@ -2,9 +2,9 @@ import React from "react";
 import { Canvas } from "@react-three/fiber";
 
 import "./App.css";
-import { CountryProvider } from './components/countryProvider';
+import { CountryProvider } from './components/context/countryProvider';
 import Scene from "./components/scene/scene";
-import Tooltip from './components/tooltip';
+import Tooltip from './components/ui/tooltip';
 
 export default function App() {
   return (

@@ -2,8 +2,8 @@ import React, { useEffect, useMemo } from 'react';
 import * as THREE from 'three';
 import { useThree } from '@react-three/fiber';
 
-import { createPolygon } from '../utils/countryPolygons';
-import { useCountry } from '../countryProvider';
+import { createPolygon } from './utils/countryPolygons';
+import { useCountry } from '../context/countryProvider';
 
 
 const Country = React.memo(({ feature, globeRadius }) => {
@@ -50,10 +50,7 @@ const Country = React.memo(({ feature, globeRadius }) => {
   };
 
   function handleMouseOver() {
-    console.log(group.userData.name);
     group.children[0].children[0].geometry.computeBoundingSphere();
-    console.log(group.children[0].children[0].geometry.boundingSphere.center);
-
     if (group.children[0].children[0].geometry.boundingSphere.center.dot(camera.position) > 0) {
       setHoverCountry(group.userData);
     }
