@@ -4,9 +4,9 @@ import { useLoader } from "@react-three/fiber";
 
 import CountryLayer from "./countryLayer";
 import Atmosphere from "./atmosphere";
-import { rotationAroundSun, rotationAroundAxis } from './utils/rotations.js'
+import { rotationAroundSun, rotationAroundAxis } from '../utils/rotations.js'
 
-import { monthTextures } from "./utils/earthTextures";
+import { monthTextures } from "../utils/earthTextures";
 
 function Globe({ radius = 1, widthSegments = 256, heightSegments = 256 }) {
 

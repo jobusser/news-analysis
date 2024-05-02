@@ -2,8 +2,8 @@ import React, { useEffect, useMemo } from 'react';
 import * as THREE from 'three';
 import { useThree } from '@react-three/fiber';
 
-import { createPolygon } from './utils/countryPolygons';
-import { useCountry } from './countryProvider';
+import { createPolygon } from '../utils/countryPolygons';
+import { useCountry } from '../countryProvider';
 
 
 const Country = React.memo(({ feature, globeRadius }) => {

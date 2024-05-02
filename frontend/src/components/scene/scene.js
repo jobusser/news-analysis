@@ -26,7 +26,18 @@ function Scene() {
       />
 
       {/* TODO: Limit and adjust movement */}
-      <OrbitControls ref={controlsRef} target={[0, 0, 0]} position={[0, 0, 5]} enableZoom={true} enablePan={false} rotateSpeed={0.4} minZoom={1} maxZoom={5} />
+      <OrbitControls
+        ref={controlsRef}
+        target={[0, 0, 0]}
+        position={[0, 0, -5]}
+        enableZoom={true}
+        enablePan={false}
+        rotateSpeed={0.2}
+        minDistance={1.5}
+        maxDistance={10}
+        minZoom={1}
+        maxZoom={1}
+      />
     </>
   )
 };
