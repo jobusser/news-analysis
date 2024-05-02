@@ -1,6 +1,6 @@
 import React from "react";
 
-function introText() {
+function IntroText() {
   return (
     <h1>
       Select a country to start.
@@ -8,4 +8,4 @@ function introText() {
   );
 }
 
-export default introText;
+export default IntroText;
