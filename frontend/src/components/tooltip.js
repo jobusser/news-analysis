@@ -23,11 +23,15 @@ function Tooltip() {
 
   const tooltipStyle = {
     top: `${cursorY - 20}px`,
-    left: `${cursorX}px`, // Offset by 10px from cursor for better visibility
-    pointerEvents: 'none', // Ensure the tooltip doesn't interfere with mouse events
+    left: `${cursorX + 20}px`,
   };
 
-  return <div className="tooltip" style={tooltipStyle}>{hoveredCountry.name}</div>;
-};
+  return (
+    <div className="tooltip" style={tooltipStyle}>
+      {hoveredCountry.name}
+    </div>
+  );
+
+}
 
 export default Tooltip;
