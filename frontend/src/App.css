@@ -7,7 +7,8 @@ html, body, #root, .App {
 
 body {
   background-color: black;
-  font-family: "Soehne", Helvetica Neue, "Times New Roman", Times, serif; 
+  font-family: "Courier New", "Lucida Console", "Consolas", "Times New Roman", monospace;
+  font-size: 14px;
 }
 
 .tooltip {
@@ -15,9 +16,7 @@ body {
   z-index: 1000;
   color: white;
   background-color: black;
-  padding: 3px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding: 5px 8px 3px 8px;
   border: 1px solid white;
   };
 
