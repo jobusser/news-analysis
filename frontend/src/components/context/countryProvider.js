@@ -6,21 +6,13 @@ export function CountryProvider({ children }) {
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [hoveredCountry, setHoveredCountry] = useState(null);
 
-  function selectCountry(country) {
-    setSelectedCountry(country);
-  };
-
-  function setHoverCountry(country) {
-    setHoveredCountry(country);
-  };
-
 
   return (
     <CountryContext.Provider value={{
       selectedCountry,
-      selectCountry,
+      setSelectedCountry,
       hoveredCountry,
-      setHoverCountry,
+      setHoveredCountry,
     }}>
       {children}
     </CountryContext.Provider>

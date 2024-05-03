@@ -7,7 +7,7 @@ import { useCountry } from '../context/countryProvider';
 
 
 const Country = React.memo(({ feature, globeRadius }) => {
-  const { selectCountry, selectedCountry, hoveredCountry, setHoverCountry } = useCountry();
+  const { selectedCountry, setSelectedCountry, hoveredCountry, setHoveredCountry } = useCountry();
   const { camera } = useThree();
 
   // creation
@@ -42,9 +42,9 @@ const Country = React.memo(({ feature, globeRadius }) => {
     // dot product to ensure front-facing country
     if (group.children[0].children[0].geometry.boundingSphere.center.dot(camera.position) > 0) {
       if (isSelected) {
-        selectCountry(null);
+        setSelectedCountry(null);
       } else {
-        selectCountry(group.userData);
+        setSelectedCountry(group.userData);
       }
     }
   };
@@ -52,13 +52,13 @@ const Country = React.memo(({ feature, globeRadius }) => {
   function handleMouseOver() {
     group.children[0].children[0].geometry.computeBoundingSphere();
     if (group.children[0].children[0].geometry.boundingSphere.center.dot(camera.position) > 0) {
-      setHoverCountry(group.userData);
+      setHoveredCountry(group.userData);
     }
   }
 
   function handleMouseOut() {
     if (isHovered) {
-      setHoverCountry(null);
+      setHoveredCountry(null);
     }
   }
 

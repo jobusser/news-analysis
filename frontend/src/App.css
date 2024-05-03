@@ -4,26 +4,47 @@ html, body, #root, .App {
   margin: 0;
   padding: 0;
   color: white;
+  background-color: black;
+  font-family: "Courier New", "Lucida Console", "Consolas", monospace;
+  font-size: 14px;
+
 }
 
-body {
-  background-color: black;
-  font-family: "Courier New", "Lucida Console", "Consolas", "Times New Roman", monospace;
-  font-size: 14px;
+h1 {
+  font-size: 40px;
+  font-weight: normal;
+  text-decoration: underline;
+  text-decoration-color: white;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 13px;
 }
+
 
 .UI-container {
+  pointer-events: none;
   position: absolute;
-  top: 0;
-  right: 0;
-  width: 35%; 
-  height: 100%;
   background: rgba(0, 0, 0, 0); /* transparent */
   z-index: 10;
   display: flex; 
   flex-direction: column; 
   align-items: center; 
   justify-content: center; 
+}
+
+.left {
+  top: 0;
+  left: 0;
+  width: 35%; 
+  height: 100%;
+  padding-left: 30px;
+}
+
+.right {
+  top: 0;
+  right: 0;
+  width: 35%; 
+  height: 100%;
+  padding-right: 30px;
 }
 
 .tooltip {

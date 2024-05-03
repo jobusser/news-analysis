@@ -3,9 +3,13 @@ import IntroText from "./intro";
 
 function UI() {
   return (
-    <div className="UI-container">
-      <IntroText />
-    </ div>
+    <>
+      <div className="left UI-container">
+      </ div>
+      <div className="right UI-container">
+        <IntroText />
+      </ div>
+    </>
   );
 
 }
