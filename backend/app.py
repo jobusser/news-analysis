@@ -35,3 +35,12 @@ def fetch_data():
         print(data["articles"][0])  # Print the first article to console
     return jsonify(data)
 
+@app.route('/api/get-country')
+def fetch_country():
+    data = request.get_json();
+    fips = data['fips_10'];
+    url = f"https://api.gdeltproject.org/api/v2/doc/doc?query=sourcecountry:{data['fips_10']}%20AND%20theme:election&mode=artlist&maxrecords={data['max_records']}&format=json"
+    response = requests.get(url)
+    gdelt_data = response.json()
+
+    return jsonify(gdelt_data)
