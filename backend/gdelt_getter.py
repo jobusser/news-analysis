@@ -41,7 +41,7 @@ def query_param(keys=None, country=None, theme=None):
 
 def mode_param(mode):
     if not mode in ['artlist', 'timelinevolraw', 'timelinesourcecountry']:
-        raise BadRequest('Mode must be "artlist," "timelinevolraw," or "timelinesourcecountry"')
+        raise BadRequest('Mode must be artlist, timelinevolraw, or timelinesourcecountry')
     
     return '&mode=' + mode
 
@@ -49,16 +49,20 @@ def mode_param(mode):
 def max_records_param(max_records=20):
     return '&maxrecords=' + str(max_records)
 
-def time_params():
-    return '&startdatetime=20240501235900&enddatetime=20240506235900'
+def time_params(start, end):
+    if end is None:
+        end = 20240507235959
+    if start is None:
+        start = end - 7000000
+    return '&startdatetime=' + str(start) + '&enddatetime=' + str(end)
 
 
 def format_param():
     return '&format=json'
 
 
-def get_articles(keys, country, theme, max_records):
-    url = 'https://api.gdeltproject.org/api/v2/doc/doc?' + query_param(keys, country, theme) + time_params() + mode_param('artlist') + max_records_param(max_records) + format_param()
+def get_articles(keys, country, theme, start, end, max_records):
+    url = 'https://api.gdeltproject.org/api/v2/doc/doc?' + query_param(keys, country, theme) + time_params(start, end) + mode_param('artlist') + max_records_param(max_records) + format_param()
     print("GET ARTICLES URL", url)
     response = requests.get(url)
 
@@ -66,16 +70,16 @@ def get_articles(keys, country, theme, max_records):
     return data
 
 
-def get_raw_volume(keys, country, theme, max_records):
-    url = 'https://api.gdeltproject.org/api/v2/doc/doc?' + query_param(keys, country, theme) + time_params() + mode_param('timelinerawvol') + max_records_param(max_records) + format_param()
+def get_raw_volume(keys, country, theme, start, end, max_records):
+    url = 'https://api.gdeltproject.org/api/v2/doc/doc?' + query_param(keys, country, theme) + time_params(start, end) + mode_param('timelinevolraw') + max_records_param(max_records) + format_param()
     response = requests.get(url)
 
     data = response.json()
     return data
 
 
-def get_country_volumes(keys, country, theme, max_records):
-    url = 'https://api.gdeltproject.org/api/v2/doc/doc?' + query_param(keys, country, theme) + time_params() + mode_param('timelinesourcecountry') + max_records_param(max_records) + format_param()
+def get_country_volumes(keys, country, theme, start, end,  max_records):
+    url = 'https://api.gdeltproject.org/api/v2/doc/doc?' + query_param(keys, country, theme) + time_params(start, end) + mode_param('timelinesourcecountry') + max_records_param(max_records) + format_param()
     response = requests.get(url)
 
     data = response.json()

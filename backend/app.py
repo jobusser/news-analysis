@@ -2,6 +2,8 @@ from flask import Flask
 from flask import request, jsonify
 import requests
 
+from backend.gdelt_getter import get_articles, get_raw_volume, get_country_volumes
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -35,12 +37,32 @@ def fetch_data():
         print(data["articles"][0])  # Print the first article to console
     return jsonify(data)
 
-@app.route('/api/get-country')
+@app.route('/api/country')
 def fetch_country():
     data = request.get_json();
-    fips = data['fips_10'];
-    url = f"https://api.gdeltproject.org/api/v2/doc/doc?query=sourcecountry:{data['fips_10']}%20AND%20theme:election&mode=artlist&maxrecords={data['max_records']}&format=json"
-    response = requests.get(url)
-    gdelt_data = response.json()
 
-    return jsonify(gdelt_data)
+    article_data = get_articles(data.get('keys'), data.get('country'), data.get('themes'), data.get('start'), data.get('end'), data.get('maxrecords'))
+
+    return jsonify(article_data)
+
+
+@app.route('/api/country-volume')
+def fetch_country_volume():
+    data = request.get_json();
+
+    article_data = get_raw_volume(data.get('keys'), data.get('country'), data.get('themes'), data.get('start'), data.get('end'), data.get('maxrecords'))
+
+    return jsonify(article_data)
+
+@app.route('/api/world-volume')
+def fetch_world_volume():
+    data = request.get_json();
+
+    article_data = get_country_volumes(data.get('keys'), None, data.get('themes'), data.get('start'), data.get('end'), data.get('maxrecords'))
+
+    return jsonify(article_data)
+
+
+
+
+
