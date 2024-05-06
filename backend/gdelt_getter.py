@@ -80,8 +80,28 @@ def get_raw_volume(keys, country, theme, start, end, max_records):
 
 def get_country_volumes(keys, country, theme, start, end,  max_records):
     url = 'https://api.gdeltproject.org/api/v2/doc/doc?' + query_param(keys, country, theme) + time_params(start, end) + mode_param('timelinesourcecountry') + max_records_param(max_records) + format_param()
+    print("URL:\n", url)
     response = requests.get(url)
 
     data = response.json()
-    return data
+
+    formatted_data = {}
+
+    for country in data['timeline']:
+        name = country['series'][:-17]
+        
+        if name == 'United States':
+            name = 'United States of America'
+        elif name == 'Congo':
+            name = 'Republic of the Congo'
+        elif name == 'Bosnia-Herzegovina':
+            name = 'Bosnia and Herzegovina'
+        elif name == 'Czech Republic':
+            name = 'Czechia'
+        elif name == 'Slovak Republic':
+            name = 'Slovakia'
+
+        formatted_data[name] = country['data']
+
+    return formatted_data
 
