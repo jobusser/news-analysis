@@ -1,22 +1,20 @@
-import flask from Flask
 from werkzeug.exceptions import BadRequest
 import requests
-from requests.exceptions import RequestException
 
 def query_keys(keys):
-    if not isinstance(keys, list):
+    if not isinstance(keys, list) or len(keys) == 0:
         return ''
 
     url_string = ''
 
-    url_string = keys[1]
-    keys = keys[1:4] # only consider first three
-
-    for key in keys:
+    url_string = keys[0]
+    for idx, key in enumerate(keys):
+        if idx == 0: continue
+        if idx == 3: break # only consider first three
         url_string = url_string + ' OR ' + key
 
-    if len(keys) > 0:
-        url_string = '(' + ')'
+    if len(keys) > 1:
+        url_string = '(' + url_string + ')'
 
     return url_string
 
@@ -60,64 +58,26 @@ def format_param():
 
 
 def get_articles(keys, country, theme, max_records):
-    try:
-        url = 'https://api.gdeltproject.org/api/v2/doc/doc?' + query_param(keys, country, theme) + time_params() + mode_param('artlist') + max_records_param(max_records) + format_param()
-        response = requests.get(url)
+    url = 'https://api.gdeltproject.org/api/v2/doc/doc?' + query_param(keys, country, theme) + time_params() + mode_param('artlist') + max_records_param(max_records) + format_param()
+    print("GET ARTICLES URL", url)
+    response = requests.get(url)
 
-        if response.status_code != 200:
-            response.raise_for_status()
-
-        data = response.json()
-        return data
-
-    except RequestException as e:
-        raise BadRequest(f"Network error occurred: {str(e)}")
-
-    except ValueError:
-        raise BadRequest("Failed to parse JSON data")
-
-    except Exception as e:
-        raise BadRequest(f"An error occurred: {str(e)}")
+    data = response.json()
+    return data
 
 
 def get_raw_volume(keys, country, theme, max_records):
-    try:
-        url = 'https://api.gdeltproject.org/api/v2/doc/doc?' + query_param(keys, country, theme) + time_params() + mode_param('timelinevolraw') + max_records_param(max_records) + format_param()
-        response = requests.get(url)
+    url = 'https://api.gdeltproject.org/api/v2/doc/doc?' + query_param(keys, country, theme) + time_params() + mode_param('timelinerawvol') + max_records_param(max_records) + format_param()
+    response = requests.get(url)
 
-        if response.status_code != 200:
-            response.raise_for_status()
-
-        data = response.json()
-        return data
-
-    except RequestException as e:
-        raise BadRequest(f"Network error occurred: {str(e)}")
-
-    except ValueError:
-        raise BadRequest("Failed to parse JSON data")
-
-    except Exception as e:
-        raise BadRequest(f"An error occurred: {str(e)}")
+    data = response.json()
+    return data
 
 
 def get_country_volumes(keys, country, theme, max_records):
-    try:
-        url = 'https://api.gdeltproject.org/api/v2/doc/doc?' + query_param(keys, country, theme) + time_params() + mode_param('timelinesourcecountry') + max_records_param(max_records) + format_param()
-        response = requests.get(url)
+    url = 'https://api.gdeltproject.org/api/v2/doc/doc?' + query_param(keys, country, theme) + time_params() + mode_param('timelinesourcecountry') + max_records_param(max_records) + format_param()
+    response = requests.get(url)
 
-        if response.status_code != 200:
-            response.raise_for_status()
-
-        data = response.json()
-        return data
-
-    except RequestException as e:
-        raise BadRequest(f"Network error occurred: {str(e)}")
-
-    except ValueError:
-        raise BadRequest("Failed to parse JSON data")
-
-    except Exception as e:
-        raise BadRequest(f"An error occurred: {str(e)}")
+    data = response.json()
+    return data
 
