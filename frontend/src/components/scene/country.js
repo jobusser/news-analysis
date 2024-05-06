@@ -26,6 +26,7 @@ const Country = React.memo(({ feature, globeRadius }) => {
       name: feature.properties.name,
       nameLong: feature.properties.namelong,
       abbrev: feature.properties.abbrev,
+      fips_10: feature.properties.fips_10,
       iso_a2: feature.properties.iso_a2,
       iso_a3: feature.properties.iso_a3,
       continent: feature.properties.continent,
