@@ -24,7 +24,7 @@ def query_country(country):
         return ''
 
     return ' sourcecountry:' + country
- 
+
 def query_theme(theme):
     if not isinstance(theme, str):
         return ''
@@ -42,7 +42,7 @@ def query_param(keys=None, country=None, theme=None):
 def mode_param(mode):
     if not mode in ['artlist', 'timelinevolraw', 'timelinesourcecountry']:
         raise BadRequest('Mode must be artlist, timelinevolraw, or timelinesourcecountry')
-    
+
     return '&mode=' + mode
 
 
