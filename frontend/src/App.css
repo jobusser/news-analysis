@@ -54,5 +54,15 @@ h1 {
   background-color: black;
   padding: 5px 8px 3px 8px;
   border: 1px solid white;
-  };
+  }
+
+/* input, select, textarea, and button do not inherit by defalt */
+input, select, textarea, button {
+  pointer-events: auto;
+  color: inherit;
+  background-color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+
+}
 
