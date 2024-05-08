@@ -28,8 +28,8 @@ const processFile = () => {
             const secondToken = tokens[1];
 
             processedData.push({
-                langCode: firstToken,
-                langName: secondToken
+                key: secondToken,
+                value: secondToken
             });
         }
 

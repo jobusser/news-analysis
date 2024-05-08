@@ -1,258 +1,258 @@
 [
   {
-    "langCode": "afr",
-    "langName": "Afrikaans"
+    "key": "Afrikaans",
+    "value": "Afrikaans"
   },
   {
-    "langCode": "sqi",
-    "langName": "Albanian"
+    "key": "Albanian",
+    "value": "Albanian"
   },
   {
-    "langCode": "ara",
-    "langName": "Arabic"
+    "key": "Arabic",
+    "value": "Arabic"
   },
   {
-    "langCode": "hye",
-    "langName": "Armenian"
+    "key": "Armenian",
+    "value": "Armenian"
   },
   {
-    "langCode": "axe",
-    "langName": "Azerbaijani"
+    "key": "Azerbaijani",
+    "value": "Azerbaijani"
   },
   {
-    "langCode": "ben",
-    "langName": "Bengali"
+    "key": "Bengali",
+    "value": "Bengali"
   },
   {
-    "langCode": "bos",
-    "langName": "Bosnian"
+    "key": "Bosnian",
+    "value": "Bosnian"
   },
   {
-    "langCode": "bul",
-    "langName": "Bulgarian"
+    "key": "Bulgarian",
+    "value": "Bulgarian"
   },
   {
-    "langCode": "cat",
-    "langName": "Catalan"
+    "key": "Catalan",
+    "value": "Catalan"
   },
   {
-    "langCode": "zho",
-    "langName": "Chinese"
+    "key": "Chinese",
+    "value": "Chinese"
   },
   {
-    "langCode": "hrv",
-    "langName": "Croatian"
+    "key": "Croatian",
+    "value": "Croatian"
   },
   {
-    "langCode": "ces",
-    "langName": "Czech"
+    "key": "Czech",
+    "value": "Czech"
   },
   {
-    "langCode": "dan",
-    "langName": "Danish"
+    "key": "Danish",
+    "value": "Danish"
   },
   {
-    "langCode": "nld",
-    "langName": "Dutch"
+    "key": "Dutch",
+    "value": "Dutch"
   },
   {
-    "langCode": "est",
-    "langName": "Estonian"
+    "key": "Estonian",
+    "value": "Estonian"
   },
   {
-    "langCode": "fin",
-    "langName": "Finnish"
+    "key": "Finnish",
+    "value": "Finnish"
   },
   {
-    "langCode": "fra",
-    "langName": "French"
+    "key": "French",
+    "value": "French"
   },
   {
-    "langCode": "glg",
-    "langName": "Galician"
+    "key": "Galician",
+    "value": "Galician"
   },
   {
-    "langCode": "kat",
-    "langName": "Georgian"
+    "key": "Georgian",
+    "value": "Georgian"
   },
   {
-    "langCode": "deu",
-    "langName": "German"
+    "key": "German",
+    "value": "German"
   },
   {
-    "langCode": "ell",
-    "langName": "Greek"
+    "key": "Greek",
+    "value": "Greek"
   },
   {
-    "langCode": "guj",
-    "langName": "Gujarati"
+    "key": "Gujarati",
+    "value": "Gujarati"
   },
   {
-    "langCode": "heb",
-    "langName": "Hebrew"
+    "key": "Hebrew",
+    "value": "Hebrew"
   },
   {
-    "langCode": "hin",
-    "langName": "Hindi"
+    "key": "Hindi",
+    "value": "Hindi"
   },
   {
-    "langCode": "hun",
-    "langName": "Hungarian"
+    "key": "Hungarian",
+    "value": "Hungarian"
   },
   {
-    "langCode": "isl",
-    "langName": "Icelandic"
+    "key": "Icelandic",
+    "value": "Icelandic"
   },
   {
-    "langCode": "ind",
-    "langName": "Indonesian"
+    "key": "Indonesian",
+    "value": "Indonesian"
   },
   {
-    "langCode": "ita",
-    "langName": "Italian"
+    "key": "Italian",
+    "value": "Italian"
   },
   {
-    "langCode": "jpn",
-    "langName": "Japanese"
+    "key": "Japanese",
+    "value": "Japanese"
   },
   {
-    "langCode": "kan",
-    "langName": "Kannada"
+    "key": "Kannada",
+    "value": "Kannada"
   },
   {
-    "langCode": "kaz",
-    "langName": "Kazakh"
+    "key": "Kazakh",
+    "value": "Kazakh"
   },
   {
-    "langCode": "kor",
-    "langName": "Korean"
+    "key": "Korean",
+    "value": "Korean"
   },
   {
-    "langCode": "lav",
-    "langName": "Latvian"
+    "key": "Latvian",
+    "value": "Latvian"
   },
   {
-    "langCode": "lit",
-    "langName": "Lithuanian"
+    "key": "Lithuanian",
+    "value": "Lithuanian"
   },
   {
-    "langCode": "mkd",
-    "langName": "Macedonian"
+    "key": "Macedonian",
+    "value": "Macedonian"
   },
   {
-    "langCode": "msa",
-    "langName": "Malay"
+    "key": "Malay",
+    "value": "Malay"
   },
   {
-    "langCode": "mal",
-    "langName": "Malayalam"
+    "key": "Malayalam",
+    "value": "Malayalam"
   },
   {
-    "langCode": "mar",
-    "langName": "Marathi"
+    "key": "Marathi",
+    "value": "Marathi"
   },
   {
-    "langCode": "mon",
-    "langName": "Mongolian"
+    "key": "Mongolian",
+    "value": "Mongolian"
   },
   {
-    "langCode": "nep",
-    "langName": "Nepali"
+    "key": "Nepali",
+    "value": "Nepali"
   },
   {
-    "langCode": "nor",
-    "langName": "Norwegian"
+    "key": "Norwegian",
+    "value": "Norwegian"
   },
   {
-    "langCode": "nno",
-    "langName": "NorwegianNynorsk"
+    "key": "NorwegianNynorsk",
+    "value": "NorwegianNynorsk"
   },
   {
-    "langCode": "fas",
-    "langName": "Persian"
+    "key": "Persian",
+    "value": "Persian"
   },
   {
-    "langCode": "pol",
-    "langName": "Polish"
+    "key": "Polish",
+    "value": "Polish"
   },
   {
-    "langCode": "por",
-    "langName": "Portuguese"
+    "key": "Portuguese",
+    "value": "Portuguese"
   },
   {
-    "langCode": "pan",
-    "langName": "Punjabi"
+    "key": "Punjabi",
+    "value": "Punjabi"
   },
   {
-    "langCode": "ron",
-    "langName": "Romanian"
+    "key": "Romanian",
+    "value": "Romanian"
   },
   {
-    "langCode": "rus",
-    "langName": "Russian"
+    "key": "Russian",
+    "value": "Russian"
   },
   {
-    "langCode": "srp",
-    "langName": "Serbian"
+    "key": "Serbian",
+    "value": "Serbian"
   },
   {
-    "langCode": "sin",
-    "langName": "Sinhalese"
+    "key": "Sinhalese",
+    "value": "Sinhalese"
   },
   {
-    "langCode": "slk",
-    "langName": "Slovak"
+    "key": "Slovak",
+    "value": "Slovak"
   },
   {
-    "langCode": "slv",
-    "langName": "Slovenian"
+    "key": "Slovenian",
+    "value": "Slovenian"
   },
   {
-    "langCode": "som",
-    "langName": "Somali"
+    "key": "Somali",
+    "value": "Somali"
   },
   {
-    "langCode": "spa",
-    "langName": "Spanish"
+    "key": "Spanish",
+    "value": "Spanish"
   },
   {
-    "langCode": "swa",
-    "langName": "Swahili"
+    "key": "Swahili",
+    "value": "Swahili"
   },
   {
-    "langCode": "swe",
-    "langName": "Swedish"
+    "key": "Swedish",
+    "value": "Swedish"
   },
   {
-    "langCode": "tam",
-    "langName": "Tamil"
+    "key": "Tamil",
+    "value": "Tamil"
   },
   {
-    "langCode": "tel",
-    "langName": "Telugu"
+    "key": "Telugu",
+    "value": "Telugu"
   },
   {
-    "langCode": "tha",
-    "langName": "Thai"
+    "key": "Thai",
+    "value": "Thai"
   },
   {
-    "langCode": "bod",
-    "langName": "Tibetan"
+    "key": "Tibetan",
+    "value": "Tibetan"
   },
   {
-    "langCode": "tur",
-    "langName": "Turkish"
+    "key": "Turkish",
+    "value": "Turkish"
   },
   {
-    "langCode": "ukr",
-    "langName": "Ukrainian"
+    "key": "Ukrainian",
+    "value": "Ukrainian"
   },
   {
-    "langCode": "urd",
-    "langName": "Urdu"
+    "key": "Urdu",
+    "value": "Urdu"
   },
   {
-    "langCode": "vie",
-    "langName": "Vietnamese"
+    "key": "Vietnamese",
+    "value": "Vietnamese"
   }
 ]

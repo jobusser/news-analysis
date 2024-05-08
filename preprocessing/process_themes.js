@@ -2,6 +2,7 @@
 // Original txt file can be found at
 // http://data.gdeltproject.org/api/v2/guides/LOOKUP-GKGTHEMES.TXT
 
+const fs = require('fs');
 const path = require('path');
 
 const inputFile = path.join(__dirname, 'LOOKUP-GKGTHEMES.TXT');
@@ -25,8 +26,8 @@ const processFile = () => {
             const adjustedToken = firstToken.toLowerCase().replace(/_/g, ' ');
 
             processedData.push({
-                gdeltKey: firstToken,
-                searchKey: adjustedToken
+                key: adjustedToken,
+                value: firstToken
             });
         }
 

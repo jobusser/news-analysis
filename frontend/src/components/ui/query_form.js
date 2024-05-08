@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Fuse from 'fuse.js';
 
+
+import { getLanguageSearch } from './utils/fuzzySearchers';
+
 import languages from '../../assets/data/GDELT_options/processedLanguages.json';
+import InputFromList from './inputs/inputFromList';
 
 function QueryForm() {
   const [formData, setFormData] = useState({
@@ -40,6 +44,7 @@ function QueryForm() {
   }, [selectedLang]);
 
   const handleSelect = (item) => {
+    console.log("IN select:", item)
     setSelectedLang(item);
     setLangSearchResults([]); // Clear results after selection
   };
@@ -54,7 +59,8 @@ function QueryForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    console.log('e:', e);
+    console.log('formData:', formData);
     // Here you can add code to handle the submission of the form data
   };
 
@@ -99,6 +105,15 @@ function QueryForm() {
             ))}
           </ul>
         )}
+
+      <InputFromList
+        label={"langSearch"}
+        placeholder={"Search language"}
+        fuzzySearcher={getLanguageSearch()}
+        onFormChange={handleSubmit}
+      />
+
+
       <input
         type="text"
         name="start"
