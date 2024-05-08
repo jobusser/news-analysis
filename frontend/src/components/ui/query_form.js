@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import Fuse from 'fuse.js';
-
-
-import { getLanguageSearch } from './utils/fuzzySearchers';
-
-import languages from '../../assets/data/GDELT_options/processedLanguages.json';
 import InputFromList from './inputs/inputFromList';
 
+import { getLanguageSearch, getThemeSearch } from './utils/fuzzySearchers';
+
+// TODO: add error for each input type, and bigger error for specifying query needs at least one
 function QueryForm() {
   const [formData, setFormData] = useState({
     key1: '',
@@ -18,36 +15,18 @@ function QueryForm() {
     end: ''
   });
 
-  const [selectedLang, setSelectedLang] = useState('');
-  const [langSearchResults, setLangSearchResults] = useState([]);
-
-  const fuseLanguageOptions = {
-    isCaseSensitive: false,
-    includeScore: true,
-    keys: [
-      "langCode",
-      "langName"
-    ]
-  };
-
-  const fuseLang = new Fuse(languages, fuseLanguageOptions);
+  function formSubmit(key, value) {
+    setFormData(prevState => ({
+      ...prevState,
+      [key]: value
+    }));
+    //TODO: add form validation
+  }
 
   useEffect(() => {
-    if (selectedLang.length > 2) { // Start searching when the query is 3 or more characters
-      const searchResults = fuseLang.search(selectedLang).map(result => result.item.langName);
-      console.log(fuseLang.search(selectedLang))
-      console.log(searchResults)
-      setLangSearchResults(searchResults);
-    } else {
-      setLangSearchResults([]);
-    }
-  }, [selectedLang]);
+    console.log('Form data after update: ', formData);
+  }, [formData]);
 
-  const handleSelect = (item) => {
-    console.log("IN select:", item)
-    setSelectedLang(item);
-    setLangSearchResults([]); // Clear results after selection
-  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -69,57 +48,43 @@ function QueryForm() {
       <input
         type="text"
         name="key1" value={formData.key1}
-        onChange={handleChange}
         placeholder="key1"
+        defaultValue={""}
       />
       <input
         type="text"
         name="key2"
         value={formData.key2}
-        onChange={handleChange}
         placeholder="key2"
+        defaultValue={""}
       />
       <input
         type="text"
         name="key3"
         value={formData.key3}
-        onChange={handleChange}
         placeholder="key3"
+        defaultValue={""}
       />
-      <input
-        type="text"
-        name="theme"
-        value={formData.theme}
-        onChange={handleChange}
-        placeholder="theme"
+      <InputFromList
+        label={"themeSearch"}
+        placeholder={"Search theme"}
+        fuzzySearcher={getThemeSearch()}
+        formKey={'theme'}
+        formSubmit={formSubmit}
       />
-      <input
-        type="text"
-        value={selectedLang}
-        onChange={(e) => setSelectedLang(e.target.value)} placeholder="Search language" /> {langSearchResults.length > 0 && (
-          <ul>
-            {langSearchResults.map((item, index) => (
-              <li key={index} onClick={() => handleSelect(item)}>
-                {item}
-              </li>
-            ))}
-          </ul>
-        )}
-
       <InputFromList
         label={"langSearch"}
         placeholder={"Search language"}
         fuzzySearcher={getLanguageSearch()}
-        onFormChange={handleSubmit}
+        formKey={'sourceLang'}
+        formSubmit={formSubmit}
       />
-
-
       <input
         type="text"
         name="start"
         value={formData.start}
-        onChange={handleChange}
         placeholder="start"
+        defaultValue={""}
       />
       <input
         type="text"
@@ -127,8 +92,8 @@ function QueryForm() {
         value={formData.end}
         onChange={handleChange}
         placeholder="end"
+        defaultValue={""}
       />
-      <button type="submit">Submit</button>
     </form>
   );
 }
