@@ -1,3 +1,8 @@
+// NOTE: Country component groups all country polygons into a single component
+// Countries are now managed per individual polygon within CountryTerritory
+// This file is only serving as history and is not in use
+
+
 import React, { useEffect, useMemo } from 'react';
 import * as THREE from 'three';
 import { useThree } from '@react-three/fiber';
@@ -90,4 +95,3 @@ const Country = React.memo(({ feature, globeRadius }) => {
 });
 
 export default Country;
-

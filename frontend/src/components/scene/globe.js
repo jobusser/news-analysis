@@ -1,4 +1,4 @@
-import { useRef, useMemo } from "react";
+import { useMemo } from "react";
 import { TextureLoader } from "three";
 import { useLoader } from "@react-three/fiber";
 

@@ -1,7 +1,5 @@
 import { useRef, } from "react";
-import * as THREE from 'three';
 import { OrbitControls } from "@react-three/drei";
-import { useFrame, useThree } from "@react-three/fiber";
 
 import Starfield from "./starfield";
 import Sun from "./sun";
@@ -9,8 +7,6 @@ import Globe from "./globe";
 
 function Scene() {
   const controlsRef = useRef();
-
-
 
   return (
     <>
@@ -29,7 +25,6 @@ function Scene() {
         noise={9}
       />
 
-      {/* TODO: Limit and adjust movement */}
       <OrbitControls
         ref={controlsRef}
         target={[0, 0, 0]}
@@ -37,7 +32,7 @@ function Scene() {
         enableZoom={true}
         enablePan={false}
         rotateSpeed={0.2}
-        minDistance={2.7}
+        minDistance={0.7}
         maxDistance={10}
         minZoom={1}
         maxZoom={1}

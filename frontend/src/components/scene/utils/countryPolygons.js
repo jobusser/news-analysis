@@ -42,8 +42,17 @@ export function createPolygon(polygonCoords, globeRadius) {
     visible: false
   });
 
+
+  geometry.computeBoundingSphere();
+  const boundingSphere = geometry.boundingSphere;
+  const centerSphereGeometry = new THREE.SphereGeometry(0.02, 32, 32); // Small size
+  const centerSphereMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
+  const centerSphere = new THREE.Mesh(centerSphereGeometry, centerSphereMaterial);
+  centerSphere.position.copy(boundingSphere.center);
+
   const group = new THREE.Group();
   group.add(new THREE.Mesh(geometry, material));
+  group.add(centerSphere)
 
   return group;
 }
