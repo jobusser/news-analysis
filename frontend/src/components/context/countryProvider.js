@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
 const CountryContext = createContext();
 
@@ -16,6 +16,12 @@ export function CountryProvider({ children }) {
 
   });
 
+  {/*
+  useEffect(() => {
+    console.log("Hovered", hoveredCountry);
+    console.log("Selected", selectedCountry);
+  }, [hoveredCountry, selectedCountry]);
+*/}
 
   return (
     <CountryContext.Provider value={{
