@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import InputFromList from './inputs/inputFromList';
+import InputDate from './inputs/inputDate';
+import InputText from './inputs/inputText';
 
 import { getLanguageSearch, getThemeSearch } from './utils/fuzzySearchers';
 
@@ -11,8 +13,8 @@ function QueryForm() {
     key3: '',
     theme: '',
     sourceLang: '',
-    start: '',
-    end: ''
+    dateStart: '',
+    dateEnd: ''
   });
 
   function formSubmit(key, value) {
@@ -45,54 +47,50 @@ function QueryForm() {
 
   return (
     <form className="query-form" onSubmit={handleSubmit}>
-      <input
-        type="text"
-        name="key1" value={formData.key1}
-        placeholder="key1"
-        defaultValue={""}
+      <InputText
+        label={"Key 1"}
+        placeholder={''}
+        formKey={"key1"}
+        formSubmit={formSubmit}
       />
-      <input
-        type="text"
-        name="key2"
-        value={formData.key2}
-        placeholder="key2"
-        defaultValue={""}
+      <InputText
+        label={"Key 2"}
+        placeholder={''}
+        formKey={"key2"}
+        formSubmit={formSubmit}
       />
-      <input
-        type="text"
-        name="key3"
-        value={formData.key3}
-        placeholder="key3"
-        defaultValue={""}
+      <InputText
+        label={"Key 3"}
+        placeholder={''}
+        formKey={"key3"}
+        formSubmit={formSubmit}
       />
       <InputFromList
-        label={"themeSearch"}
+        label={"Theme:"}
         placeholder={"Search theme"}
         fuzzySearcher={getThemeSearch()}
         formKey={'theme'}
         formSubmit={formSubmit}
       />
       <InputFromList
-        label={"langSearch"}
+        label={"Language:"}
         placeholder={"Search language"}
         fuzzySearcher={getLanguageSearch()}
         formKey={'sourceLang'}
         formSubmit={formSubmit}
       />
-      <input
-        type="text"
-        name="start"
-        value={formData.start}
-        placeholder="start"
-        defaultValue={""}
+      <InputDate
+        label={"From"}
+        placeholder={"DD/MM/YYYY"}
+        formKey={'dateStart'}
+        formSubmit={formSubmit}
       />
-      <input
-        type="text"
-        name="end"
-        value={formData.end}
-        onChange={handleChange}
-        placeholder="end"
-        defaultValue={""}
+
+      <InputDate
+        label={"To"}
+        placeholder={"DD/MM/YYYY"}
+        formKey={'dateEnd'}
+        formSubmit={formSubmit}
       />
     </form>
   );

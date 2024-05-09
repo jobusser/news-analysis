@@ -54,27 +54,30 @@ function InputFromList({ label, placeholder, fuzzySearcher, formKey, formSubmit 
 
 
   return (
-    <div className="input-container">
-
+    <div className="input-container" style={{ display: 'flex', alignItems: 'center' }}>
+      <label htmlFor="input-field" >{label}</label>
       <input
+        id="input-field"
         type="text"
         value={inputText}
         ref={inputRef}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
         onKeyDown={handleKeyDown}
-        onChange={(e) => setInputText(e.target.value)} placeholder={placeholder} /> {searchResults.length > 0 && (
-          <ul>
-            {searchResults.map((item, index) => (
-              <li key={index} onClick={() => handleSuggestionSelect(item)}>
-                {item.item.key}
-              </li>
-            ))}
-          </ul>
-        )}
+        onChange={(e) => setInputText(e.target.value)}
+        placeholder={placeholder}
+      />
+      {searchResults.length > 0 && (
+        <ul>
+          {searchResults.map((item, index) => (
+            <li key={index} onClick={() => handleSuggestionSelect(item)}>
+              {item.item.key}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
 
 export default InputFromList;
-
