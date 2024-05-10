@@ -2,45 +2,39 @@ from werkzeug.exceptions import BadRequest
 import requests
 
 def query_keys(keys):
-    if not isinstance(keys, list) or len(keys) == 0:
+    if not isinstance(keys, list) or not keys:  # Checks if keys is not a list or is empty
         return ''
 
-    url_string = ''
+    # Filter out empty strings and limit to the first three items
+    filtered_keys = [key for key in keys if key.strip() != ''][:3]
 
-    url_string = keys[0]
-    if ' ' in url_string:
-        url_string = '\"' + url_string + '\"'
+    # Apply double quotes to keys with spaces
+    quoted_keys = ['"' + key + '"' if ' ' in key else key for key in filtered_keys]
 
+    # Join keys with ' OR ' if there are multiple keys, otherwise return the single key
+    url_string = ' OR '.join(quoted_keys)
 
-    for idx, key in enumerate(keys):
-        if idx == 0: continue
-        if idx == 3: break # only consider first three
-
-        if ' ' in key:
-            key = '\"' + key + '\"'
-
-        url_string = url_string + ' OR ' + key
-
-    if len(keys) > 1:
+    # Enclose in parentheses if there's more than one key
+    if len(quoted_keys) > 1:
         url_string = '(' + url_string + ')'
 
     return url_string
 
 
 def query_country(country):
-    if not isinstance(country, str):
+    if not isinstance(country, str) or country == '':
         return ''
 
     return ' sourcecountry:' + country
 
 def query_theme(theme):
-    if not isinstance(theme, str):
+    if not isinstance(theme, str) or theme == '':
         return ''
 
     return ' theme:' + theme
 
 def query_sourcelang(sourcelang):
-    if not isinstance(sourcelang, str):
+    if not isinstance(sourcelang, str) or sourcelang == '':
         return ''
 
     return ' sourcelang:' + sourcelang
@@ -61,6 +55,7 @@ def mode_param(mode):
 
 
 def max_records_param(max_records=20):
+    print('\n\n\n\n\n\n\n\nmaxrecords=', max_records)
     return '&maxrecords=' + str(max_records)
 
 def time_params(start, end):
