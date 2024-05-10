@@ -69,7 +69,19 @@ li {
   background-color: black;
   padding: 5px 8px 3px 8px;
   border: 1px solid white;
-  }
+}
+
+.big-error {
+  z-index: 55550;
+  pointer-events: none;
+  position: fixed;
+  background: rgba(250, 0, 0, 255); /* transparent */
+  color: white;
+  top: 5%;
+  left: 32.5%;
+  width: 35%; 
+
+}
 
 #options-button {
   position: absolute;
