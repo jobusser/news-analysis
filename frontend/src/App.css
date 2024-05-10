@@ -19,6 +19,21 @@ h1 {
   text-underline-offset: 13px;
 }
 
+/* input, select, textarea, and button do not inherit by defalt */
+input, select, textarea, button {
+  pointer-events: auto;
+  color: inherit;
+  background-color: rgba(0, 0, 0, 255);
+  font-family: inherit;
+  font-size: inherit;
+
+
+}
+
+li {
+  pointer-events: auto;
+}
+
 
 .UI-container {
   pointer-events: none;
@@ -56,16 +71,9 @@ h1 {
   border: 1px solid white;
   }
 
-/* input, select, textarea, and button do not inherit by defalt */
-input, select, textarea, button {
-  pointer-events: auto;
-  color: inherit;
-  background-color: inherit;
-  font-family: inherit;
-  font-size: inherit;
-
+#options-button {
+  position: absolute;
+  top: 10px;
+  left: 10px;
 }
 
-li {
-  pointer-events: auto;
-}

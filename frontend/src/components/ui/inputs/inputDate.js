@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 
 function InputDate({ label, placeholder, formKey, formSubmit }) {
   const [date, setDate] = useState('');
+  const [error, setError] = useState('');
 
   const [isFocused, setIsFocused] = useState(false);
   const inputRef = useRef(null);
@@ -17,13 +18,13 @@ function InputDate({ label, placeholder, formKey, formSubmit }) {
   // submit
   useEffect(() => {
     if (!isFocused) {
-      // TODO: add input validation/ error message
       const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[012])\/(19|20)\d\d$/;
 
-      if (date.match(dateRegex)) {
+      if (date === '' || date.match(dateRegex)) {
+        setError('');
         formSubmit(formKey, date);
       } else {
-        console.log('Invalid date format. Please use DD/MM/YYYY.');
+        setError('Must be DD/MM/YYYY')
       }
     }
   }, [isFocused]);
@@ -42,6 +43,7 @@ function InputDate({ label, placeholder, formKey, formSubmit }) {
         onChange={(e) => setDate(e.target.value)}
         placeholder={placeholder}
       />
+      {error && (<p> {error} </p>)}
     </div>
   );
 }

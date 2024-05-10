@@ -11,7 +11,6 @@ function InputFromList({ label, placeholder, fuzzySearcher, formKey, formSubmit 
   useEffect(() => {
     if (inputText.length > 0) {
       const searchResults = fuzzySearcher.search(inputText).filter(item => item.score < 0.1).slice(0, 4);
-      console.log(searchResults);
 
       if (searchResults.length > 0 && searchResults[0].score < 0.0000001) {
         setSearchResults([]);

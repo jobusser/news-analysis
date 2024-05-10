@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 
 function InputText({ label, placeholder, formKey, formSubmit }) {
   const [text, setText] = useState('');
+  const [error, setError] = useState('');
 
   const [isFocused, setIsFocused] = useState(false);
   const inputRef = useRef(null);
@@ -17,8 +18,13 @@ function InputText({ label, placeholder, formKey, formSubmit }) {
   // submit
   useEffect(() => {
     if (!isFocused) {
-      if (text !== '') {
-        formSubmit(formKey, text);
+      const alphaNumeric = /^[a-z0-9]*$/;
+
+      if (text.match(alphaNumeric)) {
+        setError('');
+        formSubmit(formKey, text)
+      } else {
+        setError('No special characters');
       }
     }
   }, [isFocused]);
@@ -37,6 +43,7 @@ function InputText({ label, placeholder, formKey, formSubmit }) {
         onChange={(e) => setText(e.target.value)}
         placeholder={placeholder}
       />
+      {error && (<p> {error} </p>)}
     </div>
   );
 }
