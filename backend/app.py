@@ -10,9 +10,7 @@ CORS(app)
 
 @app.route('/api/country', methods=['POST'])
 def fetch_country():
-    print("\n\nArrived in backend!")
     data = request.get_json();
-    print(data);
     from_date, to_date = get_query_date_inputs(data.get('start'), data.get('end'))
     article_data = get_articles(data.get('keys'), data.get('country'), data.get('themes'), data.get('sourcelang'), from_date, to_date, data.get('max_records'))
     return jsonify(article_data)

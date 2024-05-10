@@ -26,18 +26,6 @@ function QueryForm() {
     //TODO: add form validation
   }
 
-  useEffect(() => {
-    console.log('Form data after update: ', formData);
-  }, [formData]);
-
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('e:', e);
-    console.log('formData:', formData);
-    // Here you can add code to handle the submission of the form data
-  };
-
   return (
     <>
       <ToggleButton
@@ -51,7 +39,7 @@ function QueryForm() {
         Query
       </h1>
 
-      <form className="query-form" onSubmit={handleSubmit}>
+      <form className="query-form" >
         <InputText
           label={showMoreOptions ? "Key 1" : 'Key'}
           placeholder={''}

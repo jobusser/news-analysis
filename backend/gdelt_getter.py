@@ -55,7 +55,6 @@ def mode_param(mode):
 
 
 def max_records_param(max_records=20):
-    print('\n\n\n\n\n\n\n\nmaxrecords=', max_records)
     return '&maxrecords=' + str(max_records)
 
 def time_params(start, end):
@@ -72,7 +71,6 @@ def format_param():
 
 def get_articles(keys, country, theme, sourcelang, start, end, max_records):
     url = 'https://api.gdeltproject.org/api/v2/doc/doc?' + query_param(keys, country, theme, sourcelang) + time_params(start, end) + mode_param('artlist') + max_records_param(max_records) + format_param()
-    print("GET ARTICLES URL", url)
     response = requests.get(url)
 
     data = response.json()
@@ -89,7 +87,6 @@ def get_raw_volume(keys, country, theme, sourcelang, start, end):
 
 def get_country_volumes(keys, theme, sourcelang, start, end):
     url = 'https://api.gdeltproject.org/api/v2/doc/doc?' + query_param(keys, None, theme, sourcelang) + time_params(start, end) + mode_param('timelinesourcecountry') + format_param()
-    print("URL:\n", url)
     response = requests.get(url)
 
     data = response.json()
@@ -98,7 +95,7 @@ def get_country_volumes(keys, theme, sourcelang, start, end):
 
     for country in data['timeline']:
         name = country['series'][:-17]
-        
+
         if name == 'United States':
             name = 'United States of America'
         elif name == 'Bosnia-Herzegovina':

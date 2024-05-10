@@ -23,8 +23,6 @@ export function getErrorMessage(selectedCountry, formData) {
     const firstDate = transformDate(formData.dateStart);
     const secondDate = transformDate(formData.dateEnd);
 
-    console.log("DATES", firstDate, secondDate)
-
     if (firstDate > secondDate) {
       return "From cannot be before To"
     }
