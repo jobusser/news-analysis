@@ -19,13 +19,16 @@ function InputDate({ label, placeholder, formKey, formSubmit }) {
   useEffect(() => {
     if (!isFocused) {
       const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[012])\/(19|20)\d\d$/;
-      const today = new Date();
-      today.setHours(23, 59, 59)
+      const lowerLimit = new Date(2017, 0, 1);
+      const upperLimit = new Date().setHours(23, 59, 59);
 
       if (date !== '' && !date.match(dateRegex)) {
         setError('Must be DD/MM/YYYY');
-      } else if (date !== '' && new Date(date.split('/').reverse().join('-')) > today) {
+      } else if (date !== '' && new Date(date.split('/').reverse().join('-')) > upperLimit) {
         setError("Date cannot be in the future");
+      } else if (date !== '' && new Date(date.split('/').reverse().join('-')) < lowerLimit) {
+        setError("Date must be 2017 or later");
+
       } else {
         setError('')
         formSubmit(formKey, date);

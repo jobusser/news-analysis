@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { getCountry, getCountryVolume, getWorldVolume } from './requests';
 
-import { getErrorMessage } from './utils';
+import { isQuery, getErrorMessage } from './utils';
 
 const CountryContext = createContext();
 
@@ -22,13 +23,17 @@ export function CountryProvider({ children }) {
   // TODO: change to only be if dates are filled in and country not selected
   useEffect(() => {
     setError(getErrorMessage(selectedCountry, formData))
-    console.log('ERROR', error);
 
-    if (!error) {
-      console.log('Make backend call');
+    if (!error && isQuery(selectedCountry, formData)) {
+      (async function() {
+        const response = await getCountry(selectedCountry, formData);
+        if (!response.success) {
+          setError(response.data);
+        } else {
+          console.log("Received data successfully");
+        }
+      })();
     }
-    console.log("Hovered", hoveredCountry);
-    console.log("Selected", selectedCountry);
   }, [selectedCountry, formData]);
 
   // error timeout

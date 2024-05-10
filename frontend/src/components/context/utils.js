@@ -6,11 +6,16 @@ export function transformDate(date) {
   return parseInt(formatString);
 }
 
-export function getErrorMessage(selectedCountry, formData) {
-  const isQuery = selectedCountry || formData.key1 || formData.key2 || formData.key3 || formData.theme || formData.sourcelang
-  const isDate = formData.dateStart || formData.dateEnd;
+export function isQuery(selectedCountry, formData) {
+  return selectedCountry || formData.key1 || formData.key2 || formData.key3 || formData.theme || formData.sourcelang
+}
 
-  if (!isQuery && isDate) {
+export function isDate(formData) {
+  return formData.dateStart || formData.dateEnd;
+}
+
+export function getErrorMessage(selectedCountry, formData) {
+  if (!isQuery(selectedCountry, formData) && isDate(formData)) {
     return 'Enter more than dates to start';
   }
 
