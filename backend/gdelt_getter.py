@@ -7,11 +7,19 @@ def query_keys(keys):
 
     url_string = ''
 
-    url_string = '\"' + keys[0] + '\"'
+    url_string = keys[0]
+    if ' ' in url_string:
+        url_string = '\"' + url_string + '\"'
+
+
     for idx, key in enumerate(keys):
         if idx == 0: continue
         if idx == 3: break # only consider first three
-        url_string = url_string + ' OR ' + '\"' + key + '\"'
+
+        if ' ' in key:
+            key = '\"' + key + '\"'
+
+        url_string = url_string + ' OR ' + key
 
     if len(keys) > 1:
         url_string = '(' + url_string + ')'
@@ -76,16 +84,16 @@ def get_articles(keys, country, theme, sourcelang, start, end, max_records):
     return data
 
 
-def get_raw_volume(keys, country, theme, sourcelang, start, end, max_records):
-    url = 'https://api.gdeltproject.org/api/v2/doc/doc?' + query_param(keys, country, theme, sourcelang) + time_params(start, end) + mode_param('timelinevolraw') + max_records_param(max_records) + format_param()
+def get_raw_volume(keys, country, theme, sourcelang, start, end):
+    url = 'https://api.gdeltproject.org/api/v2/doc/doc?' + query_param(keys, country, theme, sourcelang) + time_params(start, end) + mode_param('timelinevolraw') + format_param()
     response = requests.get(url)
 
     data = response.json()
     return data
 
 
-def get_country_volumes(keys, country, theme, sourcelang, start, end,  max_records):
-    url = 'https://api.gdeltproject.org/api/v2/doc/doc?' + query_param(keys, country, theme, sourcelang) + time_params(start, end) + mode_param('timelinesourcecountry') + max_records_param(max_records) + format_param()
+def get_country_volumes(keys, theme, sourcelang, start, end):
+    url = 'https://api.gdeltproject.org/api/v2/doc/doc?' + query_param(keys, None, theme, sourcelang) + time_params(start, end) + mode_param('timelinesourcecountry') + format_param()
     print("URL:\n", url)
     response = requests.get(url)
 
