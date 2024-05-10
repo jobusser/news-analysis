@@ -4,21 +4,14 @@ import InputDate from './inputs/inputDate';
 import InputText from './inputs/inputText';
 import ToggleButton from './inputs/toggleButton';
 
+import { useCountry } from '../context/countryProvider';
+
 import { getLanguageSearch, getThemeSearch } from './utils/fuzzySearchers';
 
 // TODO: add error for each input type, and bigger error for specifying query needs at least one
 function QueryForm() {
   const [showMoreOptions, setShowMoreOptions] = useState(false);
-
-  const [formData, setFormData] = useState({
-    key1: '',
-    key2: '',
-    key3: '',
-    theme: '',
-    sourceLang: '',
-    dateStart: '',
-    dateEnd: ''
-  });
+  const { formData, setFormData } = useCountry();
 
   function toggleOptions() {
     setShowMoreOptions(!showMoreOptions)

@@ -7,15 +7,22 @@ export function transformDate(date) {
 }
 
 export function getErrorMessage(selectedCountry, formData) {
-  if (!selectedCountry && !formData.key1 && !formData.key2 && !formData.key3 && !formData.theme && !formData.sourcelang) {
-    return "Enter a query or select a country";
+  const isQuery = selectedCountry || formData.key1 || formData.key2 || formData.key3 || formData.theme || formData.sourcelang
+  const isDate = formData.dateStart || formData.dateEnd;
+
+  if (!isQuery && isDate) {
+    return 'Enter more than dates to start';
   }
 
-  const firstDate = transformDate(formData.dateStart);
-  const secondDate = transformDate(formData.dateEnd);
+  if (formData.dateStart && formData.dateEnd) {
+    const firstDate = transformDate(formData.dateStart);
+    const secondDate = transformDate(formData.dateEnd);
 
-  if (firstDate > secondDate) {
-    return "From cannot be before To"
+    console.log("DATES", firstDate, secondDate)
+
+    if (firstDate > secondDate) {
+      return "From cannot be before To"
+    }
   }
 
   return "";

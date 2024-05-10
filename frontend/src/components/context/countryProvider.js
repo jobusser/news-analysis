@@ -19,6 +19,7 @@ export function CountryProvider({ children }) {
     dateEnd: '',
   });
 
+  // TODO: change to only be if dates are filled in and country not selected
   useEffect(() => {
     setError(getErrorMessage(selectedCountry, formData))
     console.log('ERROR', error);
@@ -46,6 +47,8 @@ export function CountryProvider({ children }) {
       setSelectedCountry,
       hoveredCountry,
       setHoveredCountry,
+      formData,
+      setFormData
     }}>
       {children}
       {error && <div className={'big-error'}>

@@ -18,7 +18,7 @@ function InputText({ label, placeholder, formKey, formSubmit }) {
   // submit
   useEffect(() => {
     if (!isFocused) {
-      const alphaNumeric = /^[a-z0-9]*$/;
+      const alphaNumeric = /^[a-z0-9 ]*$/;
 
       if (text.match(alphaNumeric)) {
         setError('');
