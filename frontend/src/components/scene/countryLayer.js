@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-import Country from './country';
 import CountryTerritory from './countryTerritory';
 import countriesData from '../../assets/data/custom.geo.json';
 

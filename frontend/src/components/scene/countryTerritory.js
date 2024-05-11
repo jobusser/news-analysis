@@ -6,7 +6,7 @@ import { useCountry } from '../context/countryProvider';
 
 
 const CountryTerritory = React.memo(({ countryData, coordinates, globeRadius }) => {
-  const { selectedCountry, setSelectedCountry, hoveredCountry, setHoveredCountry } = useCountry();
+  const { selectedCountry, setSelectedCountry, hoveredCountry, setHoveredCountry, worldVolume } = useCountry();
   const { camera } = useThree();
 
   // creation
@@ -15,6 +15,7 @@ const CountryTerritory = React.memo(({ countryData, coordinates, globeRadius }) 
   }, [globeRadius]);
 
   // update effect
+  {/*
   useEffect(() => {
     const isSelected = (selectedCountry && selectedCountry.name === countryData.name);
     const isHovered = (hoveredCountry && hoveredCountry.name === countryData.name);
@@ -35,6 +36,36 @@ const CountryTerritory = React.memo(({ countryData, coordinates, globeRadius }) 
     polygon.children[0].material.needsUpdate = true;
 
   }, [selectedCountry, hoveredCountry]);
+*/}
+
+  useEffect(() => {
+
+    if (worldVolume) {
+      polygon.children[0].material.visible = true;
+      polygon.children[0].material.opacity = 0.8;
+
+      if (worldVolume[countryData.name]) {
+        // set the color corresponingly
+        const intensity = Math.min(1, worldVolume[countryData.name] / 0.2);
+
+        const red = 255;
+        const green = Math.round(255 * (1 - intensity));
+        const blue = 0;
+
+
+        console.log(countryData.name, worldVolume[countryData.name], intensity, 'rgb(' + red + ', ' + green + ', ' + blue + ')')
+
+        polygon.children[0].material.color.set('rgb(' + red + ', ' + green + ', ' + blue + ')');
+      } else {
+        polygon.children[0].material.color.set('#646464');
+
+      }
+    } else {
+      polygon.children[0].material.visible = false;
+    }
+
+  }, [worldVolume]);
+
 
 
   function handleSelect() {

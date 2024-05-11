@@ -29,7 +29,7 @@ export function CountryProvider({ children }) {
 
     // make requests
     (async function() {
-      // requrest country data
+      // request country data
       if (!localError && isQuery(selectedCountry, formData)) {
         // request country data
         const articlesResponse = await getCountry(selectedCountry, formData);
@@ -40,6 +40,8 @@ export function CountryProvider({ children }) {
         } else {
           localError = articlesResponse.data;
         }
+      } else {
+        setArticles(null);
       }
 
       // request raw volume
@@ -53,6 +55,8 @@ export function CountryProvider({ children }) {
         } else {
           localError = countryVolumeResponse.data;
         }
+      } else {
+        setCountryVolume(null);
       }
 
       // request world volume
@@ -66,6 +70,8 @@ export function CountryProvider({ children }) {
         } else {
           localError = worldVolumeResponse.data;
         }
+      } else {
+        setWorldVolume(null);
       }
 
       if (localError) {
@@ -92,7 +98,10 @@ export function CountryProvider({ children }) {
       hoveredCountry,
       setHoveredCountry,
       formData,
-      setFormData
+      setFormData,
+      articles,
+      worldVolume,
+      countryVolume
     }}>
       {children}
       {error && <div className={'big-error'}>
