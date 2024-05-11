@@ -30,8 +30,7 @@ def fetch_country_volume():
         'dates': date_details_string(data.get('start'), data.get('end')),
         'country': data.get('country') if isinstance(data.get('country'), str) and data.get('country') != '' else 'World'
     }
-    
-    print('\n\n\n\n\n\n', volume_data['timeline'][0])
+
     total_entries = len(volume_data['timeline'][0]['data'])
     total_articles = 0
     relevant_articles = 0

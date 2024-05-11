@@ -1,13 +1,11 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { getCountry, getCountryVolume, getWorldVolume } from './requests';
 
-import { isQuery, getErrorMessage } from './utils';
+import { isQuery, isForm, getErrorMessage } from './utils';
 
 const CountryContext = createContext();
 
 export function CountryProvider({ children }) {
-  const [error, setError] = useState('');
-
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [hoveredCountry, setHoveredCountry] = useState(null);
   const [formData, setFormData] = useState({
@@ -20,20 +18,61 @@ export function CountryProvider({ children }) {
     dateEnd: '',
   });
 
+  const [articles, setArticles] = useState(null);
+  const [worldVolume, setWorldVolume] = useState(null);
+  const [countryVolume, setCountryVolume] = useState(null);
+  const [error, setError] = useState('');
+
   // TODO: change to only be if dates are filled in and country not selected
   useEffect(() => {
-    setError(getErrorMessage(selectedCountry, formData))
+    let localError = getErrorMessage(selectedCountry, formData); // avoid asynchronously updating error state
 
-    if (!error && isQuery(selectedCountry, formData)) {
-      (async function() {
-        const response = await getCountry(selectedCountry, formData);
-        if (!response.success) {
-          setError(response.data);
+    // make requests
+    (async function() {
+      // requrest country data
+      if (!localError && isQuery(selectedCountry, formData)) {
+        // request country data
+        const articlesResponse = await getCountry(selectedCountry, formData);
+        if (articlesResponse.success) {
+          console.log("Received country data successfully");
+          console.log(articlesResponse.data)
+          setArticles(articlesResponse.data)
         } else {
-          console.log("Received data successfully");
+          localError = articlesResponse.data;
         }
-      })();
-    }
+      }
+
+      // request raw volume
+      if (!localError && isQuery(selectedCountry, formData)) {
+        // request country data
+        const countryVolumeResponse = await getCountryVolume(selectedCountry, formData);
+        if (countryVolumeResponse.success) {
+          console.log("Received country volume data successfully");
+          console.log(countryVolumeResponse.data)
+          setCountryVolume(countryVolumeResponse.data)
+        } else {
+          localError = countryVolumeResponse.data;
+        }
+      }
+
+      // request world volume
+      if (!localError && isForm(formData)) {
+        // request country data
+        const worldVolumeResponse = await getWorldVolume(selectedCountry, formData);
+        if (worldVolumeResponse.success) {
+          console.log("Received world volume data successfully");
+          console.log(worldVolumeResponse.data)
+          setWorldVolume(worldVolumeResponse.data)
+        } else {
+          localError = worldVolumeResponse.data;
+        }
+      }
+
+      if (localError) {
+        setError(localError);
+      }
+    })();
+
   }, [selectedCountry, formData]);
 
   // error timeout
@@ -41,7 +80,7 @@ export function CountryProvider({ children }) {
     if (error !== '') {
       const timer = setTimeout(() => {
         setError('');
-      }, 25000); // Clear error after 5 seconds
+      }, 5000); // Clear error after 5 seconds
       return () => clearTimeout(timer); // Cleanup timer
     }
   }, [error]);
