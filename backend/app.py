@@ -52,21 +52,26 @@ def fetch_world_volume():
     raw_volume_data = get_country_volumes(data.get('keys'), data.get('themes'), data.get('sourcelang'), from_date, to_date)
  
     # return average volume per country
+    world_total = 0;
+    for country, entries in raw_volume_data.items():
+        for entry in entries:
+            world_total += entry['value']
+
     averages = {}
 
     for country, entries in raw_volume_data.items():
-        total_value = 0
-        count = len(entries)
+        country_value = 0
 
         for entry in entries:
-            total_value += entry['value']
+            country_value += entry['value']
 
-        if count > 0:
-            average_value = total_value / count
+        if world_total > 0:
+            average_value = country_value / world_total
         else:
             average_value = 0
 
         averages[country] = average_value
+    print('\n\n\n', averages)
 
     return jsonify(averages)
 

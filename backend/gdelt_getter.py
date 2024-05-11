@@ -71,6 +71,7 @@ def format_param():
 
 def get_articles(keys, country, theme, sourcelang, start, end, max_records):
     url = 'https://api.gdeltproject.org/api/v2/doc/doc?' + query_param(keys, country, theme, sourcelang) + time_params(start, end) + mode_param('artlist') + max_records_param(max_records) + format_param()
+    print('Get Articles:', url)
     response = requests.get(url)
 
     data = response.json()
@@ -79,6 +80,7 @@ def get_articles(keys, country, theme, sourcelang, start, end, max_records):
 
 def get_raw_volume(keys, country, theme, sourcelang, start, end):
     url = 'https://api.gdeltproject.org/api/v2/doc/doc?' + query_param(keys, country, theme, sourcelang) + time_params(start, end) + mode_param('timelinevolraw') + format_param()
+    print('Get raw volume:', url)
     response = requests.get(url)
 
     data = response.json()
@@ -87,6 +89,7 @@ def get_raw_volume(keys, country, theme, sourcelang, start, end):
 
 def get_country_volumes(keys, theme, sourcelang, start, end):
     url = 'https://api.gdeltproject.org/api/v2/doc/doc?' + query_param(keys, None, theme, sourcelang) + time_params(start, end) + mode_param('timelinesourcecountry') + format_param()
+    print('Get country volume:', url)
     response = requests.get(url)
 
     data = response.json()
@@ -104,6 +107,10 @@ def get_country_volumes(keys, theme, sourcelang, start, end):
             name = 'Czechia'
         elif name == 'Slovak Republic':
             name = 'Slovakia'
+        elif name == 'Democratic Republic of the Congo':
+            name = 'Dem. Rep. Congo'
+        elif name == 'Ivory Coast':
+            name = 'Côte d\'Ivoire'
 
         formatted_data[name] = country['data']
 
