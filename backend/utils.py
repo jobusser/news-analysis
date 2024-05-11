@@ -28,3 +28,14 @@ def get_query_date_inputs(start_date, end_date):
 
     return from_date.strftime("%Y%m%d%H%M%S"), to_date.strftime("%Y%m%d%H%M%S")
 
+def date_details_string(start_date, end_date):
+    from_date, to_date = parse_entered_date_strings(str(start_date), str(end_date))
+
+    if to_date - from_date < datetime.timedelta(days=1):
+        if to_date - datetime.datetime.today() < datetime.timedelta(days=1):
+            return 'Showing results of today'
+        else:
+            return "Showing results of " + to_date.strftime("%Y/%m/%d")
+    else:
+        return "Showing results from " + from_date.strftime("%Y/%m/%d") + " to " + to_date.strftime("%Y/%m/%d")
+
