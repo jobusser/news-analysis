@@ -1,6 +1,6 @@
 import React from "react";
 import IntroText from "./intro";
-import CountryNews from "./countryNews";
+import News from "./news";
 import QueryForm from "./query_form";
 
 function UI() {
@@ -10,7 +10,7 @@ function UI() {
         < QueryForm />
       </ div>
       <div className="right UI-container">
-        <CountryNews />
+        <News />
         <IntroText />
 
       </ div>

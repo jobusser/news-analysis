@@ -52,9 +52,6 @@ const CountryTerritory = React.memo(({ countryData, coordinates, globeRadius }) 
         const green = Math.round(255 * (1 - intensity));
         const blue = 0;
 
-
-        console.log(countryData.name, worldVolume[countryData.name], intensity, 'rgb(' + red + ', ' + green + ', ' + blue + ')')
-
         polygon.children[0].material.color.set('rgb(' + red + ', ' + green + ', ' + blue + ')');
       } else {
         polygon.children[0].material.color.set('#646464');
