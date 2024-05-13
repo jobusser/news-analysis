@@ -20,6 +20,7 @@ function InputText({ label, placeholder, formKey, formSubmit }) {
     if (!isFocused) {
       const alphaNumeric = /^[a-z0-9 ]*$/;
 
+      // TODO: cut leading/trailing spaces, at least three characters long
       if (text.match(alphaNumeric)) {
         setError('');
         formSubmit(formKey, text)
