@@ -7,6 +7,7 @@ html, body, #root, .App {
   background-color: black;
   font-family: "Courier New", "Lucida Console", "Consolas", monospace;
   font-size: 14px;
+  overflow: hidden;
 
 }
 
@@ -75,7 +76,7 @@ li {
   z-index: 55550;
   pointer-events: none;
   position: fixed;
-  background: rgba(250, 0, 0, 255); /* transparent */
+  background: rgba(250, 0, 0, 255);
   color: white;
   top: 5%;
   left: 32.5%;
@@ -83,12 +84,35 @@ li {
 
 }
 
+.news-container {
+  pointer-events: auto;
+  overflow-y: auto;
+  overflow-x: hidden; 
+  display: flex;
+  flex-direction: column;
+}
+
+.news-container::-webkit-scrollbar {
+  width: 8px; 
+}
+
+.news-container::-webkit-scrollbar-track {
+  background: transparent; 
+}
+
+.news-container::-webkit-scrollbar-thumb {
+  background-color: #ffffff; 
+  border-radius: 10px; 
+}
+
+/* Articles */
 .article {
   display: flex;
   flex-direction: column;
   border: 1px solid #fff;
   padding: 10px;
-  margin: 10px;
+  margin-bottom: 10px;
+  margin-right: 10px;
   border-radius: 5px;
   background-color: #000;
   pointer-events: auto;
@@ -102,6 +126,7 @@ li {
 
 .article-title {
   flex: 1;
+  margin: 3px;
 }
 
 .article-image-wrapper {
@@ -118,7 +143,7 @@ li {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 5px;
+  border-radius: 15px;
 }
 
 .article-tags {
@@ -136,9 +161,13 @@ li {
   font-size: 0.9em;
 }
 
+
+/* Button */
 #options-button {
   position: absolute;
   top: 10px;
   left: 10px;
 }
+
+
 

@@ -14,39 +14,18 @@ const CountryTerritory = React.memo(({ countryData, coordinates, globeRadius }) 
     return createPolygon(coordinates, globeRadius);
   }, [globeRadius]);
 
-  // update effect
-  {/*
-  useEffect(() => {
-    const isSelected = (selectedCountry && selectedCountry.name === countryData.name);
-    const isHovered = (hoveredCountry && hoveredCountry.name === countryData.name);
-
-    if (isSelected) {
-      polygon.children[0].material.visible = true;
-      polygon.children[0].material.color.set('#ff0000');
-      polygon.children[0].material.opacity = 0.5;
-
-    } else if (isHovered) {
-      polygon.children[0].material.visible = true;
-      polygon.children[0].material.color.set('#ffff00');
-      polygon.children[0].material.opacity = 0.3;
-
-    } else {
-      polygon.children[0].material.visible = false;
-    }
-    polygon.children[0].material.needsUpdate = true;
-
-  }, [selectedCountry, hoveredCountry]);
-*/}
+  const VISIBLE_OPACITY = 0.5;
+  const HOVERED_OPACITY = 0.4;
 
   useEffect(() => {
 
     if (worldVolume) {
       polygon.children[0].material.visible = true;
-      polygon.children[0].material.opacity = 0.8;
+      polygon.children[0].material.opacity = VISIBLE_OPACITY;
 
       if (worldVolume[countryData.name]) {
         // set the color corresponingly
-        const intensity = Math.min(1, worldVolume[countryData.name] / 0.2);
+        const intensity = Math.min(1, worldVolume[countryData.name] / 0.1);
 
         const red = 255;
         const green = Math.round(255 * (1 - intensity));
@@ -62,6 +41,29 @@ const CountryTerritory = React.memo(({ countryData, coordinates, globeRadius }) 
     }
 
   }, [worldVolume]);
+
+  useEffect(() => {
+
+    const isHovered = (hoveredCountry && hoveredCountry.name === countryData.name);
+
+    if (worldVolume) {
+      if (isHovered) {
+        polygon.children[0].material.opacity = VISIBLE_OPACITY + HOVERED_OPACITY;
+      } else {
+        polygon.children[0].material.opacity = VISIBLE_OPACITY;
+      }
+    } else {
+      if (isHovered) {
+        polygon.children[0].material.color.set('#ffff00');
+        polygon.children[0].material.opacity = HOVERED_OPACITY;
+        polygon.children[0].material.visible = true;
+      } else {
+        polygon.children[0].material.visible = false;
+      }
+    }
+
+  }, [hoveredCountry, worldVolume]);
+
 
 
 
