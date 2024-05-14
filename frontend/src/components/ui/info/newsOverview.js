@@ -35,7 +35,7 @@ function NewsOverview() {
   );
 
   return (
-    <>
+    <div className="content">
       {countryVolume && (
         <>
           <h2> Results overview </h2>
@@ -45,7 +45,7 @@ function NewsOverview() {
           <p> {graph} </p>
         </>
       )}
-    </>
+    </div>
   );
 
 }

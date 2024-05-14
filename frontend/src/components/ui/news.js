@@ -23,14 +23,14 @@ function News() {
       {isVisible && (
         <div className="content-container">
           <NewsHeader />
+          <hr className="separator" />
           <NewsOverview />
+          <hr className="separator" />
           <Feed />
         </div>
       )}
     </>
   );
-
-
 }
 
 export default News;

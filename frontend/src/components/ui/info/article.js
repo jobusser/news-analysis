@@ -15,7 +15,7 @@ function Article({ number, article, includeCountry }) {
   const defaultImage = "https://via.placeholder.com/150?text=News";
 
   return (
-    <div className="article">
+    <div className="article content">
       <div className="article-header">
         <div className="article-title">
           <h2>
@@ -33,7 +33,26 @@ function Article({ number, article, includeCountry }) {
           />
         </div>
       </div>
-
+      <div className="article-tags">
+        <span>
+          <strong>
+            <a href={baseSiteUrl} target="_blank" rel="noopener noreferrer">
+              {domain}
+            </a>
+          </strong>
+        </span>
+        <span>
+          <strong>{seendate.substring(6, 8) + "/" + seendate.substring(4, 6) + "/" + seendate.substring(0, 4)}</strong>
+        </span>
+        <span>
+          <strong>{language}</strong>
+        </span>
+        {includeCountry && (
+          <span>
+            <strong>{sourcecountry}</strong>
+          </span>
+        )}
+      </div>
     </div>
   );
 }

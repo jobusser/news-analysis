@@ -24,14 +24,8 @@ function NewsHeader() {
   );
 
   return (
-    <div>
-      <h2>{name}</h2>
-      {selectedCountry && (
-        <>
-          <h3>{iso}</h3>
-          <h3>{continent}</h3>
-        </>
-      )}
+    <div id="news-header" className="content">
+      <h1>{name}</h1>
     </div>
   );
 

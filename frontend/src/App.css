@@ -5,19 +5,16 @@ html, body, #root, .App {
   padding: 0;
   color: white;
   background-color: black;
-  font-family: "Courier New", "Lucida Console", "Consolas", monospace;
+  font-family: Roboto, "Soehne", Helvetica Neue, "Times New Roman", Times, serif;
   font-size: 14px;
   overflow: hidden;
 
 }
 
 h1 {
-  font-size: 40px;
+  font-size: 50px;
   font-weight: normal;
-  text-decoration: underline;
-  text-decoration-color: white;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 13px;
+  color: #999;
 }
 
 /* input, select, textarea, and button do not inherit by defalt */
@@ -55,6 +52,12 @@ a:hover {
 /* Active state */
 a:active {
   text-decoration: underline; /* Underline on active */
+}
+
+.separator {
+  border: none; 
+  border-top: 1px solid #444;
+  margin: 20px 0;
 }
 
 
@@ -126,26 +129,34 @@ a:active {
 }
 
 .content-container::-webkit-scrollbar-thumb {
-  background-color: #ffffff; 
+  background-color: #444; 
   border-radius: 10px; 
 }
 
-/* Articles */
-.article {
+.content {
   display: flex;
   flex-direction: column;
-  background-color: #222;
   padding: 10px;
   margin-bottom: 10px;
   margin-right: 10px;
   border-radius: 10px;
   pointer-events: auto;
 }
+
+
+/* News header */
+
+#news-header {
+}
+
+/* Articles */
+
 /*
 .article {
-  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.2);
+  flex-direction: column;
 }
 */
+
 .article-header {
   display: flex;
   justify-content: space-between;
@@ -182,8 +193,7 @@ a:active {
 }
 
 .article-tags span {
-  background-color: #f1f1f1;
-  color: black;
+  background-color: #111;
   padding: 5px 10px;
   border-radius: 3px;
   font-size: 0.9em;
