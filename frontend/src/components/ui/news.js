@@ -21,7 +21,7 @@ function News() {
   return (
     <>
       {isVisible && (
-        <div className="news-container">
+        <div className="content-container">
           <NewsHeader />
           <NewsOverview />
           <Feed />

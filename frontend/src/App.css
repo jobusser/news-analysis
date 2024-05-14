@@ -35,6 +35,28 @@ li {
   pointer-events: auto;
 }
 
+/* Link style */
+a {
+  color: #3186f5; /* Blue color */
+  text-decoration: none; /* Remove underline */
+}
+
+/* Visited link style */
+a:visited {
+  color: #6486f8; /* Dark purple color */
+  text-decoration: none; /* Remove underline */
+}
+
+/* Hover state */
+a:hover {
+  color: #1084d3; /* Darker blue color */
+}
+
+/* Active state */
+a:active {
+  text-decoration: underline; /* Underline on active */
+}
+
 
 .UI-container {
   pointer-events: none;
@@ -45,8 +67,7 @@ li {
   flex-direction: column; 
   align-items: center; 
   justify-content: center; 
-  padding-left: 30px;
-  padding-right: 30px;
+  overflow: hidden;
 }
 
 .left {
@@ -84,23 +105,27 @@ li {
 
 }
 
-.news-container {
+.content-container {
   pointer-events: auto;
   overflow-y: auto;
   overflow-x: hidden; 
   display: flex;
   flex-direction: column;
+  background-color: #111;
+  margin: 30px;
+  padding: 20px;
+  border-radius: 10px;
 }
 
-.news-container::-webkit-scrollbar {
+.content-container::-webkit-scrollbar {
   width: 8px; 
 }
 
-.news-container::-webkit-scrollbar-track {
+.content-container::-webkit-scrollbar-track {
   background: transparent; 
 }
 
-.news-container::-webkit-scrollbar-thumb {
+.content-container::-webkit-scrollbar-thumb {
   background-color: #ffffff; 
   border-radius: 10px; 
 }
@@ -109,15 +134,18 @@ li {
 .article {
   display: flex;
   flex-direction: column;
-  border: 1px solid #fff;
+  background-color: #222;
   padding: 10px;
   margin-bottom: 10px;
   margin-right: 10px;
-  border-radius: 5px;
-  background-color: #000;
+  border-radius: 10px;
   pointer-events: auto;
 }
-
+/*
+.article {
+  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.2);
+}
+*/
 .article-header {
   display: flex;
   justify-content: space-between;
@@ -160,7 +188,6 @@ li {
   border-radius: 3px;
   font-size: 0.9em;
 }
-
 
 /* Button */
 #options-button {

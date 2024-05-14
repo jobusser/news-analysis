@@ -19,8 +19,8 @@ function Feed() {
   }, [articles, selectedCountry]);
 
   return (
-    <div>
-      {feedArticles && feedArticles.slice(0, 5).map((article, index) => (
+    <div className="feed-container">
+      {feedArticles && feedArticles.map((article, index) => (
         <Article key={index} number={index + 1} article={article} includeCountry={includeCountry} />
       ))}
     </div>
