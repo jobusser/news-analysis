@@ -1,48 +1,49 @@
 import React, { useState, useEffect } from "react";
 import { useCountry } from "../../context/countryProvider";
+import VolumeChart from "./volumeChart";
 
 function NewsOverview() {
-  const { countryVolume } = useCountry();
+  const { countryVolume, worldVolume } = useCountry();
+  const [isReady, setIsReady] = useState(false);
 
   const [dates, setDates] = useState("");
   const [relevantArticles, setRelevantArticles] = useState("");
   const [totalArticles, setTotalArticles] = useState("");
   const [percentage, setPercentage] = useState("");
-  const [graph, setGraph] = useState(null);
+  const [graphData, setGraphData] = useState(null);
 
   useEffect(() => {
     if (countryVolume) {
       setDates(countryVolume.query.dates);
-
       setRelevantArticles(countryVolume.relevant_articles.toString());
       setTotalArticles(countryVolume.total_articles.toString());
-
       setPercentage((countryVolume.relevant_articles / countryVolume.total_articles).toString());
+      setGraphData(countryVolume.articles_per_day);
 
-      setGraph("A graph wow! Visually appealing to me!");
+      setIsReady(true);
 
     } else {
       setDates("");
-
       setRelevantArticles("");
       setTotalArticles("");
       setPercentage("");
+      setGraphData(null);
 
-      setGraph(null);
+      setIsReady(false);
+
     }
-
   }, [countryVolume]
   );
 
   return (
     <div className="content">
-      {countryVolume && (
+      {isReady && (
         <>
           <h2> Results overview </h2>
           <p>{dates} </p>
           <p> {relevantArticles} relevant articles out of {totalArticles}. </p>
           <p> That is {percentage} % </p>
-          <p> {graph} </p>
+          <VolumeChart data={graphData} />
         </>
       )}
     </div>
