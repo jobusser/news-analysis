@@ -38,7 +38,7 @@ function VolumeChart({ data }) {
         />
         <Bar
           dataKey="value"
-          fill="#8884d8"
+          fill="#8884fa"
           radius={[10, 10, 0, 0]}
           onMouseEnter={(data, index, e) => e.target.style.fill = '#ffffff'}
           onMouseLeave={(data, index, e) => e.target.style.fill = '#8884d8'}

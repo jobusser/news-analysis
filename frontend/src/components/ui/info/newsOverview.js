@@ -20,11 +20,13 @@ function NewsOverview() {
   useEffect(() => {
     if (selectedCountry && countryVolume && worldVolume) {
       setTotalArticles(countryVolume.total_articles.toString());
+      // TODO: adjust dates from countryVolume
       setDates(countryVolume.query.dates);
 
       // find articles relevant to query
       const fraction = worldVolume[selectedCountry.name];
 
+      // TODO: find out what is going on with number of articles found in query
       setQueryArticles(Math.round(countryVolume.relevant_articles / fraction));
       setCountryArticles(countryVolume.relevant_articles.toString());
 
@@ -35,7 +37,7 @@ function NewsOverview() {
       const red = 255;
       const green = Math.round(255 * (1 - intensity));
       const blue = 0;
-      setColor('rgb(' + red + ', ' + green + ', ' + blue + ')');
+      setColor('rgb(' + red + ', ' + green + ', ' + blue + ', 0.9)');
 
       setGraphData(countryVolume.articles_per_day);
 
@@ -57,18 +59,24 @@ function NewsOverview() {
   );
 
   return (
-    <div className="content">
+    <div className="news-overview content">
       {isReady && (
         <>
-          <p> A total of {totalArticles} were found during {dates}.
-            Of the <span> {queryArticles} </span> articles related to the search,
-            <span> {countryArticles} </span> were produced in {selectedCountry.name}</p>
+          <div className="summary">
+            <p>
+              A total of {totalArticles} were found during {dates}.
+              Of the <span>{queryArticles}</span> articles related to the search,
+              <span>{countryArticles}</span> were produced in {selectedCountry.name}
+            </p>
+            <div className="percentage-box" style={{ backgroundColor: color }}>
+              {percentage}%
+            </div>
+          </div>
           <VolumeChart data={graphData} />
         </>
       )}
     </div>
   );
-
 }
 
 export default NewsOverview;
