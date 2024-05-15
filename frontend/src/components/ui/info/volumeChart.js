@@ -3,7 +3,6 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } fro
 import ChartTooltip from './chartTooltip';
 
 function VolumeChart({ data }) {
-  console.log('GRAPH DATA:', data);
 
   const formattedData = data.map(entry => {
     const date = new Date(
@@ -17,7 +16,6 @@ function VolumeChart({ data }) {
     );
 
     const localDate = new Date(date.getTime() - (date.getTimezoneOffset() * 60000));
-    console.log("difference in time: ", date.getTimezoneOffset());
 
     const day = String(localDate.getDate()) + " " + localDate.toLocaleString('default', { month: 'long' }) + ", " + String(localDate.getFullYear());
     const time = String(localDate.getHours()) + ":" + String(localDate.getMinutes());

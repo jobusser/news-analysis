@@ -34,8 +34,7 @@ export function CountryProvider({ children }) {
         // request country data
         const articlesResponse = await getCountry(selectedCountry, formData);
         if (articlesResponse.success) {
-          console.log("Received country data successfully");
-          console.log(articlesResponse.data)
+          console.log("Received country data", articlesResponse.data)
           setArticles(articlesResponse.data)
         } else {
           localError = articlesResponse.data;
@@ -49,8 +48,7 @@ export function CountryProvider({ children }) {
         // request country data
         const countryVolumeResponse = await getCountryVolume(selectedCountry, formData);
         if (countryVolumeResponse.success) {
-          console.log("Received country volume data successfully");
-          console.log(countryVolumeResponse.data)
+          console.log("Received country volume data", countryVolumeResponse.data)
           setCountryVolume(countryVolumeResponse.data)
         } else {
           localError = countryVolumeResponse.data;
@@ -64,8 +62,7 @@ export function CountryProvider({ children }) {
         // request country data
         const worldVolumeResponse = await getWorldVolume(selectedCountry, formData);
         if (worldVolumeResponse.success) {
-          console.log("Received world volume data successfully");
-          console.log(worldVolumeResponse.data)
+          console.log("Received world volume data", worldVolumeResponse.data)
           setWorldVolume(worldVolumeResponse.data)
         } else {
           localError = worldVolumeResponse.data;
