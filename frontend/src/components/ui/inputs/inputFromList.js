@@ -10,7 +10,7 @@ function InputFromList({ label, placeholder, fuzzySearcher, formKey, formSubmit 
   // search suggestions
   useEffect(() => {
     if (inputText.length > 0) {
-      const searchResults = fuzzySearcher.search(inputText).filter(item => item.score < 0.1).slice(0, 4);
+      const searchResults = fuzzySearcher.search(inputText).filter(item => item.score < 0.1);
 
       if (searchResults.length > 0 && searchResults[0].score < 0.0000001) {
         setSearchResults([]);
@@ -53,28 +53,30 @@ function InputFromList({ label, placeholder, fuzzySearcher, formKey, formSubmit 
 
 
   return (
-    <div className="input-container" style={{ display: 'flex', alignItems: 'center' }}>
-      <label htmlFor="input-field" >{label}</label>
-      <input
-        id="input-field"
-        type="text"
-        value={inputText}
-        ref={inputRef}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
-        onKeyDown={handleKeyDown}
-        onChange={(e) => setInputText(e.target.value)}
-        placeholder={placeholder}
-      />
-      {searchResults.length > 0 && (
-        <ul>
-          {searchResults.map((item, index) => (
-            <li key={index} onClick={() => handleSuggestionSelect(item)}>
-              {item.item.key}
-            </li>
-          ))}
-        </ul>
-      )}
+    <div className="input-container">
+      <label htmlFor="input-field">{label}</label>
+      <div className="input-wrapper">
+        <input
+          id="input-field"
+          type="text"
+          value={inputText}
+          ref={inputRef}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+          onKeyDown={handleKeyDown}
+          onChange={(e) => setInputText(e.target.value)}
+          placeholder={placeholder}
+        />
+        {isFocused && searchResults.length > 0 && (
+          <ul>
+            {searchResults.slice(0, 4).map((item, index) => (
+              <li key={index} onMouseDown={() => handleSuggestionSelect(item)}>
+                {item.item.key}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </div>
   );
 }

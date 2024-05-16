@@ -6,7 +6,7 @@ html, body, #root, .App {
   color: white;
   background-color: black;
   font-family: Roboto, "Soehne", Helvetica Neue, "Times New Roman", Times, serif;
-  font-size: 14px;
+  font-size: 16px;
   overflow: hidden;
 
 }
@@ -17,6 +17,7 @@ h1 {
   color: #999;
 }
 
+/* Inputs */
 /* input, select, textarea, and button do not inherit by defalt */
 input, select, textarea, button {
   pointer-events: auto;
@@ -24,23 +25,70 @@ input, select, textarea, button {
   background-color: rgba(0, 0, 0, 255);
   font-family: inherit;
   font-size: inherit;
-
-
 }
 
-li {
+.input-container {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.input-container label {
+  margin-right: 15px;
+  font-size: 16px;
+}
+
+.input-container input {
+  flex: 1;
+  padding: 8px 8px;
+  border: none;
+  border-radius: 10px;
+}
+
+.input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.input-wrapper input {
+  width: 100%;
+}
+
+.input-wrapper ul {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background-color: #000;
+  border-radius: 10px;
+  z-index: 100;
+}
+
+.input-wrapper ul li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.input-wrapper ul li:hover {
+  background-color: #222;
+}
+
+.input-container li {
   pointer-events: auto;
 }
 
 /* Link style */
 a {
-  color: #3186f5; /* Blue color */
+  color: #8884fa;
   text-decoration: none; /* Remove underline */
 }
 
 /* Visited link style */
 a:visited {
-  color: #6486f8; /* Dark purple color */
+  color: #8884fa;
   text-decoration: none; /* Remove underline */
 }
 
@@ -78,6 +126,7 @@ a:active {
   left: 0;
   width: 35%; 
   height: 100%;
+  display: flex;
 }
 
 .right {

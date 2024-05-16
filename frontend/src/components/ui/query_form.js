@@ -27,7 +27,7 @@ function QueryForm() {
   }
 
   return (
-    <>
+    <div className='content-container'>
       <ToggleButton
         id={'options-button'}
         textOff={'Show more options'}
@@ -96,7 +96,7 @@ function QueryForm() {
           </>
         )}
       </form>
-    </>
+    </div>
   );
 }
 
