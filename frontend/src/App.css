@@ -23,6 +23,8 @@ input, select, textarea, button {
   pointer-events: auto;
   color: inherit;
   background-color: rgba(0, 0, 0, 255);
+  border-radius: 10px;
+  padding: 8px, 8px;
   font-family: inherit;
   font-size: inherit;
 }
@@ -42,7 +44,6 @@ input, select, textarea, button {
   flex: 1;
   padding: 8px 8px;
   border: none;
-  border-radius: 10px;
 }
 
 .input-wrapper {
@@ -79,6 +80,22 @@ input, select, textarea, button {
 .input-container li {
   pointer-events: auto;
 }
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.button-container button {
+  margin-left: 10px;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border: solid 1px white;
+}
+
+
 
 /* Link style */
 a {
@@ -227,19 +244,7 @@ a:active {
 }
 
 
-/* News header */
-
-#news-header {
-}
-
 /* Articles */
-
-/*
-.article {
-  flex-direction: column;
-}
-*/
-
 .article-header {
   display: flex;
   justify-content: space-between;
@@ -282,13 +287,4 @@ span {
   font-size: 0.9em;
   font-weight: bold;
 }
-
-/* Button */
-#options-button {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-}
-
-
 

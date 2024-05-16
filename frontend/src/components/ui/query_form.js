@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import InputFromList from './inputs/inputFromList';
 import InputDate from './inputs/inputDate';
 import InputText from './inputs/inputText';
@@ -13,10 +13,18 @@ function QueryForm() {
   const [showMoreOptions, setShowMoreOptions] = useState(false);
   const { formData, setFormData } = useCountry();
 
+  const key1Ref = useRef();
+  const key2Ref = useRef();
+  const key3Ref = useRef();
+  const themeRef = useRef();
+  const languageRef = useRef();
+  const dateStartRef = useRef();
+  const dateEndRef = useRef();
+
+
   function toggleOptions() {
     setShowMoreOptions(!showMoreOptions)
   }
-
 
   function formSubmit(key, value) {
     setFormData(prevState => ({
@@ -26,42 +34,39 @@ function QueryForm() {
     //TODO: add form validation
   }
 
+  function handleFormSubmit() {
+    console.log("SUBMIT BUTTON");
+  }
+
   return (
     <div className='content-container'>
-      <ToggleButton
-        id={'options-button'}
-        textOff={'Show more options'}
-        textOn={'Show less options'}
-        toggleCallback={toggleOptions}
-      />
-
-      <h1>
-        Query
-      </h1>
-
-      <form className="query-form" >
+      <h1>Query</h1>
+      <form className="query-form" onSubmit={(e) => e.preventDefault()}>
         <InputText
+          ref={key1Ref}
           label={showMoreOptions ? "Key 1" : 'Key'}
           placeholder={''}
           formKey={"key1"}
           formSubmit={formSubmit}
         />
-
         {showMoreOptions && (
           <>
             <InputText
+              ref={key2Ref}
               label={"Key 2"}
               placeholder={''}
               formKey={"key2"}
               formSubmit={formSubmit}
             />
             <InputText
+              ref={key3Ref}
               label={"Key 3"}
               placeholder={''}
               formKey={"key3"}
               formSubmit={formSubmit}
             />
             <InputFromList
+              ref={themeRef}
               label={"Theme:"}
               placeholder={"Search theme"}
               fuzzySearcher={getThemeSearch()}
@@ -69,25 +74,23 @@ function QueryForm() {
               formSubmit={formSubmit}
             />
             <InputFromList
+              ref={languageRef}
               label={"Language:"}
               placeholder={"Search language"}
               fuzzySearcher={getLanguageSearch()}
               formKey={'sourceLang'}
               formSubmit={formSubmit}
             />
-
-            <h1>
-              Dates
-            </h1>
-
+            <h1>Dates</h1>
             <InputDate
+              ref={dateStartRef}
               label={"From"}
               placeholder={"DD/MM/YYYY"}
               formKey={'dateStart'}
               formSubmit={formSubmit}
             />
-
             <InputDate
+              ref={dateEndRef}
               label={"To"}
               placeholder={"DD/MM/YYYY"}
               formKey={'dateEnd'}
@@ -95,9 +98,24 @@ function QueryForm() {
             />
           </>
         )}
+        <div className="button-container">
+          <ToggleButton
+            id={'options-button'}
+            textOff={'Show more options'}
+            textOn={'Show less options'}
+            toggleCallback={toggleOptions}
+          />
+          <button
+            id="submit-button"
+            type="button"
+            onClick={handleFormSubmit}
+          >
+            Submit
+          </button>
+        </div>
       </form>
     </div>
   );
-}
 
-export default QueryForm;
+
+} export default QueryForm;

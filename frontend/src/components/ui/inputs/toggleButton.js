@@ -9,8 +9,9 @@ function ToggleButton({ id, textOff, textOn, toggleCallback }) {
   };
 
   return (
-    <div id={id} className='input-box'>
+    <div id={id}>
       <button
+        type='button'
         onClick={toggleOptions}
       >
         {toggle ? textOn : textOff}
