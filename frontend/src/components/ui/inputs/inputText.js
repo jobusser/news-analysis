@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, forwardRef, useImperativeHandle } from 'react';
 
-function InputText({ label, placeholder, formKey, formSubmit }) {
+const InputText = forwardRef(({ label, placeholder, formSubmit }, ref) => {
   const [text, setText] = useState('');
   const [error, setError] = useState('');
 
@@ -12,22 +12,31 @@ function InputText({ label, placeholder, formKey, formSubmit }) {
       event.preventDefault();
       setIsFocused(false);
       inputRef.current.blur();
+
+      formSubmit()
     }
   }
 
-  // submit
-  useEffect(() => {
-    if (!isFocused) {
-      const alphaNumeric = /^[a-z0-9 ]*$/;
-
-      // TODO: cut leading/trailing spaces, at least three characters long
-      if (text.match(alphaNumeric)) {
-        setError('');
-        formSubmit(formKey, text)
-      } else {
-        setError('No special characters');
-      }
+  // TODO: at least three characters and other validations
+  const validate = () => {
+    console.log("IN VALIDATE!!!");
+    const alphaNumeric = /^[a-z0-9 ]*$/;
+    if (text.match(alphaNumeric)) {
+      setError('');
+      return text;
+    } else {
+      setError('No special characters');
+      return null;
     }
+  };
+
+
+  useImperativeHandle(ref, () => ({
+    getValue: () => validate(),
+  }));
+
+  useEffect(() => {
+    validate();
   }, [isFocused]);
 
   return (
@@ -47,7 +56,7 @@ function InputText({ label, placeholder, formKey, formSubmit }) {
       {error && (<p> {error} </p>)}
     </div>
   );
-}
+});
 
 export default InputText;
 

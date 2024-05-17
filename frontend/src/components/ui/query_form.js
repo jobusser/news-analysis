@@ -26,16 +26,40 @@ function QueryForm() {
     setShowMoreOptions(!showMoreOptions)
   }
 
-  function formSubmit(key, value) {
-    setFormData(prevState => ({
-      ...prevState,
-      [key]: value
-    }));
-    //TODO: add form validation
-  }
-
   function handleFormSubmit() {
+    const localForm = {
+      key1: '',
+      key2: '',
+      key3: '',
+      theme: '',
+      sourcelang: '',
+      dateStart: '',
+      dateEnd: '',
+    };
+
+    let isQuery = false;
+    let isError = false;
+
     console.log("SUBMIT BUTTON");
+
+    if (key1Ref.current) {
+      const val = key1Ref.current.getValue();
+      console.log('KEY1VAL', val);
+      if (val) {
+        localForm.key1 = val;
+        isQuery = true;
+      } else if (val !== '') {
+        isError = true;
+      }
+    }
+
+    console.log("LOCALFORM", localForm);
+
+    if (isQuery && !isError) {
+      setFormData(localForm);
+    }
+
+
   }
 
   return (
@@ -46,8 +70,7 @@ function QueryForm() {
           ref={key1Ref}
           label={showMoreOptions ? "Key 1" : 'Key'}
           placeholder={''}
-          formKey={"key1"}
-          formSubmit={formSubmit}
+          formSubmit={handleFormSubmit}
         />
         {showMoreOptions && (
           <>
@@ -55,46 +78,40 @@ function QueryForm() {
               ref={key2Ref}
               label={"Key 2"}
               placeholder={''}
-              formKey={"key2"}
-              formSubmit={formSubmit}
+              formSubmit={handleFormSubmit}
             />
             <InputText
               ref={key3Ref}
               label={"Key 3"}
               placeholder={''}
-              formKey={"key3"}
-              formSubmit={formSubmit}
+              formSubmit={handleFormSubmit}
             />
             <InputFromList
               ref={themeRef}
               label={"Theme:"}
               placeholder={"Search theme"}
               fuzzySearcher={getThemeSearch()}
-              formKey={'theme'}
-              formSubmit={formSubmit}
+              formSubmit={handleFormSubmit}
             />
             <InputFromList
               ref={languageRef}
               label={"Language:"}
               placeholder={"Search language"}
               fuzzySearcher={getLanguageSearch()}
-              formKey={'sourceLang'}
-              formSubmit={formSubmit}
+              formSubmit={handleFormSubmit}
             />
             <h1>Dates</h1>
             <InputDate
               ref={dateStartRef}
               label={"From"}
               placeholder={"DD/MM/YYYY"}
-              formKey={'dateStart'}
-              formSubmit={formSubmit}
+              formSubmit={handleFormSubmit}
             />
             <InputDate
               ref={dateEndRef}
               label={"To"}
               placeholder={"DD/MM/YYYY"}
-              formKey={'dateEnd'}
-              formSubmit={formSubmit}
+              formSubmit={handleFormSubmit}
             />
           </>
         )}

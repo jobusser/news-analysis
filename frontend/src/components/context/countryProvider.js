@@ -25,6 +25,7 @@ export function CountryProvider({ children }) {
 
   // TODO: change to only be if dates are filled in and country not selected
   useEffect(() => {
+    console.log('FORMDATA', formData);
     let localError = getErrorMessage(selectedCountry, formData); // avoid asynchronously updating error state
 
     // make requests
@@ -77,6 +78,7 @@ export function CountryProvider({ children }) {
     })();
 
   }, [selectedCountry, formData]);
+
 
   // error timeout
   useEffect(() => {
