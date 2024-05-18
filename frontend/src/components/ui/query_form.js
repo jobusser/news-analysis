@@ -7,11 +7,14 @@ import ToggleButton from './inputs/toggleButton';
 import { useCountry } from '../context/countryProvider';
 
 import { getLanguageSearch, getThemeSearch } from './utils/fuzzySearchers';
+import { comparableDate } from './utils/dateCompare';
 
 // TODO: add error for each input type, and bigger error for specifying query needs at least one
 function QueryForm() {
-  const [showMoreOptions, setShowMoreOptions] = useState(false);
   const { formData, setFormData } = useCountry();
+  const [showMoreOptions, setShowMoreOptions] = useState(false);
+  const [dateError, setDateError] = useState('');
+  const [searchNote, setSearchNote] = useState('');
 
   const key1Ref = useRef();
   const key2Ref = useRef();
@@ -109,19 +112,32 @@ function QueryForm() {
       }
     }
 
-    if (isQuery && !isError) {
+    //check for form errors before submitting to provider
+    const bothDates = localForm.dateStart && localForm.dateEnd;
+
+    if (bothDates && (comparableDate(localForm.dateStart) > comparableDate(localForm.dateEnd))) {
+      setDateError('Date "From" must be before date "To".');
+      setSearchNote('');
+    } else {
+      if (!isQuery && (localForm.dateStart !== '' || localForm.dateEnd !== '')) {
+        setSearchNote('Note that a search cannot only contain dates. Either a country must be selected or a query box must be filled in.')
+      } else {
+        setSearchNote('');
+      }
+
+      setDateError('');
       setFormData(localForm);
     }
   }
 
   return (
     <div className='content-container'>
-      <h1>Query</h1>
+      <h1>{showMoreOptions ? "Query" : "Search"}</h1>
       <form className="query-form" onSubmit={(e) => e.preventDefault()}>
         <InputText
           ref={key1Ref}
           label={showMoreOptions ? "Key 1:" : 'Keyword:'}
-          placeholder={''}
+          placeholder={'cyber'}
           formSubmit={handleFormSubmit}
         />
         {showMoreOptions && (
@@ -129,49 +145,64 @@ function QueryForm() {
             <InputText
               ref={key2Ref}
               label={"Key 2:"}
-              placeholder={''}
+              placeholder={'hacker'}
               formSubmit={handleFormSubmit}
             />
             <InputText
               ref={key3Ref}
               label={"Key 3:"}
-              placeholder={''}
+              placeholder={'security'}
               formSubmit={handleFormSubmit}
             />
             <InputFromList
               ref={themeRef}
               label={"Theme:"}
-              placeholder={"Search theme"}
+              placeholder={"cyber attack"}
               fuzzySearcher={getThemeSearch()}
               formSubmit={handleFormSubmit}
             />
             <InputFromList
               ref={languageRef}
               label={"Language:"}
-              placeholder={"Search language"}
+              placeholder={"spanish"}
               fuzzySearcher={getLanguageSearch()}
               formSubmit={handleFormSubmit}
             />
+
+            <hr className="separator" />
+
             <h1>Dates</h1>
             <InputDate
               ref={dateStartRef}
-              label={"From"}
+              label={"From:"}
               placeholder={"DD/MM/YYYY"}
               formSubmit={handleFormSubmit}
             />
             <InputDate
               ref={dateEndRef}
-              label={"To"}
+              label={"To:"}
               placeholder={"DD/MM/YYYY"}
               formSubmit={handleFormSubmit}
             />
+            {dateError && (
+              <div className='date-error'>
+                {dateError}
+              </div>
+
+            )}
           </>
         )}
+        {searchNote && (
+          <div className='search-note'>
+            {searchNote}
+          </div>
+        )}
+
         <div className="button-container">
           <ToggleButton
             id={'options-button'}
-            textOff={'Show more options'}
-            textOn={'Show less options'}
+            textOff={'More options'}
+            textOn={'Less options'}
             toggleCallback={toggleOptions}
           />
           <button

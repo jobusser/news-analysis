@@ -55,6 +55,14 @@ input, select, textarea, button {
   width: 100%;
 }
 
+.input-error {
+  color: red;
+  margin-top: 2px;
+  padding-bottom: 5px;
+  text-align: right;
+  margin-left: 0;
+}
+
 .input-wrapper ul {
   position: absolute;
   top: calc(100% + 5px);
@@ -93,6 +101,18 @@ input, select, textarea, button {
   border: none;
   cursor: pointer;
   border: solid 1px white;
+}
+
+.date-error {
+  color: red;
+  padding-top: 5px;
+  padding-bottom: 15px;
+  margin-left: 0;
+}
+
+.search-note {
+   padding-top: 20px;
+  padding-bottom: 10px;
 }
 
 

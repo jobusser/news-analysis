@@ -19,7 +19,6 @@ const InputText = forwardRef(({ label, placeholder, formSubmit }, ref) => {
 
   // TODO: at least three characters and other validations
   function validate() {
-    console.log("IN VALIDATE!!!");
     const alphaNumeric = /^[a-z0-9 ]*$/;
     if (text.match(alphaNumeric)) {
       setError('');
@@ -40,21 +39,24 @@ const InputText = forwardRef(({ label, placeholder, formSubmit }, ref) => {
   }, [isFocused]);
 
   return (
-    <div className="input-container" style={{ display: 'flex', alignItems: 'center' }}>
-      <label htmlFor="text-input" >{label}</label>
-      <input
-        id="text-input"
-        type="text"
-        value={text}
-        ref={inputRef}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
-        onKeyDown={handleKeyDown}
-        onChange={(e) => setText(e.target.value)}
-        placeholder={placeholder}
-      />
-      {error && (<p> {error} </p>)}
-    </div>
+    <>
+      <div className="input-container" style={{ display: 'flex', alignItems: 'center' }}>
+        <label htmlFor="text-input" >{label}</label>
+        <input
+          id="text-input"
+          type="text"
+          value={text}
+          ref={inputRef}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+          onKeyDown={handleKeyDown}
+          onChange={(e) => setText(e.target.value)}
+          placeholder={placeholder}
+        />
+      </div>
+
+      {error && (<p className='input-error'>{error}</p>)}
+    </>
   );
 });
 

@@ -42,11 +42,11 @@ const InputDate = forwardRef(({ label, placeholder, formSubmit }, ref) => {
     }
 
     const parts = date.split('/');
-    const formattedDate = new Date(parts[2], parts[1] - 1, parts[0]);
+    const formattedDate = new Date(parseInt(parts[2]), parseInt(parts[1]) - 1, parseInt(parts[0]));
 
     if (!formattedDate.valueOf()
-      || parseInt(parts[0]) !== formattedDate.getDay()
-      || parseInt(parts[1]) !== formattedDate.getMonth() - 1
+      || parseInt(parts[0]) !== formattedDate.getDate()
+      || parseInt(parts[1]) - 1 !== formattedDate.getMonth()
       || parseInt(parts[2]) !== formattedDate.getFullYear()) {
 
       setError('Invalid date');
@@ -80,21 +80,24 @@ const InputDate = forwardRef(({ label, placeholder, formSubmit }, ref) => {
   }, [isFocused]);
 
   return (
-    <div className="input-container" style={{ display: 'flex', alignItems: 'center' }}>
-      <label htmlFor="date-input" >{label}</label>
-      <input
-        id="date-input"
-        type="text"
-        value={date}
-        ref={inputRef}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
-        onKeyDown={handleKeyDown}
-        onChange={handleChange}
-        placeholder={placeholder}
-      />
-      {error && (<p> {error} </p>)}
-    </div>
+    <>
+      <div className="input-container" style={{ display: 'flex', alignItems: 'center' }}>
+        <label htmlFor="date-input" >{label}</label>
+        <input
+          id="date-input"
+          type="text"
+          value={date}
+          ref={inputRef}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+          onKeyDown={handleKeyDown}
+          onChange={handleChange}
+          placeholder={placeholder}
+        />
+      </div>
+
+      {error && (<p className='input-error'>{error}</p>)}
+    </>
   );
 });
 
