@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { getCountry, getCountryVolume, getWorldVolume } from './requests';
+import { fetchCountryArticles } from '../../api/requests';
 
 import { isQuery, isForm, getErrorMessage } from './utils';
 
