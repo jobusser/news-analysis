@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, forwardRef, useImperativeHandle } from 'react';
 
-function InputDate({ label, placeholder, formKey, formSubmit }) {
+const InputDate = forwardRef(({ label, placeholder, formSubmit }, ref) => {
   const [date, setDate] = useState('');
   const [error, setError] = useState('');
 
@@ -12,28 +12,41 @@ function InputDate({ label, placeholder, formKey, formSubmit }) {
       event.preventDefault();
       setIsFocused(false);
       inputRef.current.blur();
+
+      formSubmit();
     }
   }
 
-  // submit
-  useEffect(() => {
-    if (!isFocused) {
-      const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[012])\/(19|20)\d\d$/;
-      const lowerLimit = new Date(2017, 0, 1);
-      const upperLimit = new Date().setHours(23, 59, 59);
 
-      if (date !== '' && !date.match(dateRegex)) {
-        setError('Must be DD/MM/YYYY');
-      } else if (date !== '' && new Date(date.split('/').reverse().join('-')) > upperLimit) {
-        setError("Date cannot be in the future");
-      } else if (date !== '' && new Date(date.split('/').reverse().join('-')) < lowerLimit) {
-        setError("Date must be 2017 or later");
+  function validate() {
+    const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[012])\/(19|20)\d\d$/;
+    const lowerLimit = new Date(2017, 0, 1);
+    const upperLimit = new Date().setHours(23, 59, 59);
 
-      } else {
-        setError('')
-        formSubmit(formKey, date);
-      }
+    if (date !== '' && !date.match(dateRegex)) {
+      setError('Must be DD/MM/YYYY');
+      return null;
+    } else if (date !== '' && new Date(date.split('/').reverse().join('-')) > upperLimit) {
+      setError("Date cannot be in the future");
+      return null;
+    } else if (date !== '' && new Date(date.split('/').reverse().join('-')) < lowerLimit) {
+      setError("Date must be 2017 or later");
+      return null;
+
+    } else {
+      setError('')
+      return date;
     }
+
+  }
+
+
+  useImperativeHandle(ref, () => ({
+    getValue: () => validate(),
+  }));
+
+  useEffect(() => {
+    validate();
   }, [isFocused]);
 
   return (
@@ -53,7 +66,7 @@ function InputDate({ label, placeholder, formKey, formSubmit }) {
       {error && (<p> {error} </p>)}
     </div>
   );
-}
+});
 
 export default InputDate;
 

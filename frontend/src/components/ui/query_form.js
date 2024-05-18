@@ -40,14 +40,70 @@ function QueryForm() {
     let isQuery = false;
     let isError = false;
 
-    console.log("SUBMIT BUTTON");
 
     if (key1Ref.current) {
       const val = key1Ref.current.getValue();
-      console.log('KEY1VAL', val);
       if (val) {
         localForm.key1 = val;
         isQuery = true;
+      } else if (val !== '') {
+        isError = true;
+      }
+    }
+
+    if (key2Ref.current) {
+      const val = key2Ref.current.getValue();
+      if (val) {
+        localForm.key2 = val;
+        isQuery = true;
+      } else if (val !== '') {
+        isError = true;
+      }
+    }
+
+    if (key3Ref.current) {
+      const val = key3Ref.current.getValue();
+      if (val) {
+        localForm.key3 = val;
+        isQuery = true;
+      } else if (val !== '') {
+        isError = true;
+      }
+    }
+
+    if (themeRef.current) {
+      const val = themeRef.current.getValue();
+      if (val) {
+        localForm.theme = val;
+        isQuery = true;
+      } else if (val !== '') {
+        isError = true;
+      }
+    }
+
+    if (languageRef.current) {
+      const val = languageRef.current.getValue();
+      if (val) {
+        localForm.sourcelang = val;
+        isQuery = true;
+      } else if (val !== '') {
+        isError = true;
+      }
+    }
+
+    if (dateStartRef.current) {
+      const val = dateStartRef.current.getValue();
+      if (val) {
+        localForm.dateStart = val;
+      } else if (val !== '') {
+        isError = true;
+      }
+    }
+
+    if (dateEndRef.current) {
+      const val = dateEndRef.current.getValue();
+      if (val) {
+        localForm.dateEnd = val;
       } else if (val !== '') {
         isError = true;
       }

@@ -1,11 +1,24 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, forwardRef, useImperativeHandle } from 'react';
 
-function InputFromList({ label, placeholder, fuzzySearcher, formKey, formSubmit }) {
+
+const InputFromList = forwardRef(({ label, placeholder, fuzzySearcher, formSubmit }, ref) => {
   const [inputText, setInputText] = useState('');
   const [searchResults, setSearchResults] = useState('');
 
   const [isFocused, setIsFocused] = useState(false);
   const inputRef = useRef(null);
+
+
+  function handleKeyDown(event) {
+    if (event.key === 'Enter' && isFocused) {
+      event.preventDefault();
+      setIsFocused(false);
+      inputRef.current.blur();
+
+      formSubmit();
+    }
+  }
+
 
   // search suggestions
   useEffect(() => {
@@ -27,27 +40,26 @@ function InputFromList({ label, placeholder, fuzzySearcher, formKey, formSubmit 
     setInputText(item.item.key);
   };
 
-  function handleKeyDown(event) {
-    if (event.key === 'Enter' && isFocused) {
-      event.preventDefault();
-      setIsFocused(false);
-      inputRef.current.blur();
+
+
+  function validate() {
+    const searchRes = fuzzySearcher.search(inputText);
+
+    let inputValue = '';
+    if (searchRes.length > 0) {
+      setInputText(searchRes[0].item.key);
+      inputValue = searchRes[0].item.value;
     }
+    return inputValue;
   }
 
-  // submit
-  useEffect(() => {
-    if (!isFocused) {
-      // TODO: add input validation/ error message
-      const searchRes = fuzzySearcher.search(inputText);
 
-      let inputValue = '';
-      if (searchRes.length > 0) {
-        setInputText(searchRes[0].item.key);
-        inputValue = searchRes[0].item.value;
-      }
-      formSubmit(formKey, inputValue);
-    }
+  useImperativeHandle(ref, () => ({
+    getValue: () => validate(),
+  }));
+
+  useEffect(() => {
+    validate();
   }, [isFocused]);
 
 
@@ -79,6 +91,6 @@ function InputFromList({ label, placeholder, fuzzySearcher, formKey, formSubmit 
       </div>
     </div>
   );
-}
+});
 
 export default InputFromList;

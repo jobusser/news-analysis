@@ -18,7 +18,7 @@ const InputText = forwardRef(({ label, placeholder, formSubmit }, ref) => {
   }
 
   // TODO: at least three characters and other validations
-  const validate = () => {
+  function validate() {
     console.log("IN VALIDATE!!!");
     const alphaNumeric = /^[a-z0-9 ]*$/;
     if (text.match(alphaNumeric)) {
