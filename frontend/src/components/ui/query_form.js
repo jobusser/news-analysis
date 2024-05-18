@@ -109,13 +109,9 @@ function QueryForm() {
       }
     }
 
-    console.log("LOCALFORM", localForm);
-
     if (isQuery && !isError) {
       setFormData(localForm);
     }
-
-
   }
 
   return (
@@ -124,7 +120,7 @@ function QueryForm() {
       <form className="query-form" onSubmit={(e) => e.preventDefault()}>
         <InputText
           ref={key1Ref}
-          label={showMoreOptions ? "Key 1" : 'Key'}
+          label={showMoreOptions ? "Key 1:" : 'Keyword:'}
           placeholder={''}
           formSubmit={handleFormSubmit}
         />
@@ -132,13 +128,13 @@ function QueryForm() {
           <>
             <InputText
               ref={key2Ref}
-              label={"Key 2"}
+              label={"Key 2:"}
               placeholder={''}
               formSubmit={handleFormSubmit}
             />
             <InputText
               ref={key3Ref}
-              label={"Key 3"}
+              label={"Key 3:"}
               placeholder={''}
               formSubmit={handleFormSubmit}
             />
@@ -183,7 +179,7 @@ function QueryForm() {
             type="button"
             onClick={handleFormSubmit}
           >
-            Submit
+            Find articles
           </button>
         </div>
       </form>

@@ -7,6 +7,23 @@ const InputDate = forwardRef(({ label, placeholder, formSubmit }, ref) => {
   const [isFocused, setIsFocused] = useState(false);
   const inputRef = useRef(null);
 
+  function handleChange(event) {
+    const input = event.target.value.replace(/[^\d/]/g, '');
+    let formattedDate = input;
+
+    if (input.length === 2) {
+      formattedDate = input + '/';
+    } else if (input.length === 5) {
+      formattedDate = input + '/';
+    }
+
+    if (input.length > 10) {
+      formattedDate = input.slice(0, 11);
+    }
+
+    setDate(formattedDate);
+  }
+
   function handleKeyDown(event) {
     if (event.key === 'Enter' && isFocused) {
       event.preventDefault();
@@ -19,24 +36,37 @@ const InputDate = forwardRef(({ label, placeholder, formSubmit }, ref) => {
 
 
   function validate() {
-    const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[012])\/(19|20)\d\d$/;
+    if (date === '') {
+      setError('');
+      return date;
+    }
+
+    const parts = date.split('/');
+    const formattedDate = new Date(parts[2], parts[1] - 1, parts[0]);
+
+    if (!formattedDate.valueOf()
+      || parseInt(parts[0]) !== formattedDate.getDay()
+      || parseInt(parts[1]) !== formattedDate.getMonth() - 1
+      || parseInt(parts[2]) !== formattedDate.getFullYear()) {
+
+      setError('Invalid date');
+      return null;
+    }
+
     const lowerLimit = new Date(2017, 0, 1);
     const upperLimit = new Date().setHours(23, 59, 59);
 
-    if (date !== '' && !date.match(dateRegex)) {
-      setError('Must be DD/MM/YYYY');
-      return null;
-    } else if (date !== '' && new Date(date.split('/').reverse().join('-')) > upperLimit) {
+    if (formattedDate > upperLimit) {
       setError("Date cannot be in the future");
       return null;
-    } else if (date !== '' && new Date(date.split('/').reverse().join('-')) < lowerLimit) {
+
+    } else if (formattedDate < lowerLimit) {
       setError("Date must be 2017 or later");
       return null;
-
-    } else {
-      setError('')
-      return date;
     }
+
+    setError('');
+    return date;
 
   }
 
@@ -60,7 +90,7 @@ const InputDate = forwardRef(({ label, placeholder, formSubmit }, ref) => {
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
         onKeyDown={handleKeyDown}
-        onChange={(e) => setDate(e.target.value)}
+        onChange={handleChange}
         placeholder={placeholder}
       />
       {error && (<p> {error} </p>)}
