@@ -1,5 +1,5 @@
 import { getArticlesList, getCountryTimeline, getCountryVolumes, getWorldTimeline } from "./gdelt_getter";
-import { isQuery, isForm, adjustDates, findCountryTotals } from "./utils";
+import { isQuery, isForm, isCountry, adjustDates, makeTimeline } from "./utils";
 
 
 // TODO: error checking
@@ -21,13 +21,6 @@ export async function fetchTimeline(formData) {
 
   let totalArticles = 0;
   let relevantArticles = 0;
-
-
-  let countryTotal = 0;
-  countryTimelineData.timeline[0].data.forEach(entry => {
-    countryTotal += entry.value;
-  });
-
 
   const timelineData = {
     countryTimelineData: countryTimelineData,
@@ -51,31 +44,58 @@ export async function fetchWorldVolume(formData) {
 
 
 export async function fetchData(formData) {
+  const { keys, theme, country, sourceLang, start, end, maxRecords, countryLongName } = formData;
+  const { timeDifference, dateStartUTC, dateEndUTC, dateStartString, dateEndString } = adjustDates(start, end);
 
   const data = {
     articleList: null,
-    countryTimeline: null,
+    newsOverview: null,
     worldVolume: null,
   }
 
-  if (isQuery(formData)) {
-    data.articleList = await fetchCountryArticles(formData);
-    var timelineData = await fetchTimeline(formData);
-    data.countryTimeline = timelineData.countryTimelineData;
+  // fetch all data
+  const articleList = await getArticlesList(keys, country, theme, sourceLang, dateStartString, dateEndString, maxRecords);
+  const countryTimeline = await getCountryTimeline(keys, country, theme, sourceLang, dateStartString, dateEndString);
+  const worldTimeline = await getWorldTimeline(keys, theme, sourceLang, dateStartString, dateEndString);
+  const worldVolume = isForm(formData) ? await fetchWorldVolume(formData) : null;
+
+
+  // work out totals
+  let relevantInCountry = 0;
+  let relevantInWorld = 0;
+  let totalInWorld = 0;
+
+  for (let i = 0; i < countryTimeline.timeline[0].data.length; i++) {
+    relevantInCountry += countryTimeline.timeline[0].data[i].value;
+    relevantInWorld += worldTimeline.timeline[0].data[i].value;
+    totalInWorld += worldTimeline.timeline[0].data[i].norm;
   }
+
+
+  // make timeline
+
+
+  const newsOverview = {};
+
+  newsOverview.relevantInWorld = relevantInWorld;
+  newsOverview.totalInWorld = totalInWorld;
+  if (isCountry(formData)) {
+    newsOverview.countryTotal = relevantInCountry;
+  }
+
+  const timeline = makeTimeline(countryTimeline, worldVolume, formData);
+
+
+
+
+
 
 
 
   if (isForm(formData)) {
     var volumePerCountry = await fetchWorldVolume(formData);
-    var worldTimeline = timelineData.worldTimelineData;
     // data.worldVolume = findCountryTotals(worldTimeline, volumePerCountry);
   }
-
-  console.log('Article list', data.articleList);
-  console.log('country timeline', data.countryTimeline);
-  console.log('world timeline', worldTimeline);
-  console.log('volumepercountry', volumePerCountry);
 
   return data;
 

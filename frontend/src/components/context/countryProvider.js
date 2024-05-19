@@ -24,6 +24,7 @@ export function CountryProvider({ children }) {
   const [error, setError] = useState('');
 
   useEffect(() => {
+    // TODO: only search if isQuery
     console.log('FORMDATA', formData);
     let localError = ''; // avoid asynchronously updating error state
 
