@@ -55,25 +55,31 @@ export function adjustDates(start, end) {
 
 
 
-export function findCountryTotals(countryTimeline, worldVoume) {
+export function findCountryTotals(worldTimeline, volumePerCountry) {
   // Mapping timestamps to total articles
+
   const totalArticlesByTimestamp = {};
-  countryTimeline.forEach(entry => {
-    totalArticlesByTimestamp[entry.timestamp] = entry.norm;
+  let bigTotal = 0;
+  worldTimeline.timeline[0].data.forEach(entry => {
+    bigTotal += entry.value;
+    totalArticlesByTimestamp[entry.timestamp] = entry.value;
   });
+
+
+
 
   // find total per country
   const totalArticlesPerCountry = {};
 
-  Object.keys(worldVoume).forEach(country => {
-    const countryData = worldVoume[country];
+  Object.keys(volumePerCountry).forEach(country => {
+    const countryData = volumePerCountry[country];
 
     let totalCountryArticles = 0;
     let totalGlobalArticles = 0;
 
     countryData.forEach(entry => {
       const globalArticleCount = totalArticlesByTimestamp[entry.timestamp] || 0;
-      const countryArticleCount = (entry.value / 100) * globalArticleCount;
+      const countryArticleCount = globalArticleCount !== 0 ? (entry.value / 100) * globalArticleCount : 0;
 
       totalCountryArticles += countryArticleCount;
       totalGlobalArticles += globalArticleCount;

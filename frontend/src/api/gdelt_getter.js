@@ -15,6 +15,13 @@ export async function getCountryTimeline(keys, country, theme, sourcelang, start
   return response.data;
 }
 
+export async function getWorldTimeline(keys, theme, sourcelang, start, end) {
+  const url = `https://api.gdeltproject.org/api/v2/doc/doc?${queryParam(keys, null, theme, sourcelang)}${timeParams(start, end)}${modeParam('timelinevolraw')}${formatParam()}`;
+  console.log('Get raw volume:', url);
+  const response = await axios.get(url);
+  return response.data;
+}
+
 export async function getCountryVolumes(keys, theme, sourcelang, start, end) {
   const url = `https://api.gdeltproject.org/api/v2/doc/doc?${queryParam(keys, null, theme, sourcelang)}${timeParams(start, end)}${modeParam('timelinesourcecountry')}${formatParam()}`;
   console.log('Get country volume:', url);

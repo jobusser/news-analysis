@@ -36,9 +36,10 @@ export function formatRequestData(selectedCountry, formData) {
     keys: [formData.key1, formData.key2, formData.key3],
     theme: formData.theme,
     country: selectedCountry ? selectedCountry.fips_10 : '',
-    sourcelang: formData.sourcelang,
+    sourceLang: formData.sourcelang,
     start: fromDate,
     end: toDate,
-    max_records: 10
+    maxRecords: 10,
+    countryLongName: selectedCountry ? selectedCountry.name : '',
   };
 }

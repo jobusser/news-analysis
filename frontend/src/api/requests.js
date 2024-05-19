@@ -1,10 +1,10 @@
-import { getArticlesList, getCountryTimeline, getCountryVolumes } from "./gdelt_getter";
+import { getArticlesList, getCountryTimeline, getCountryVolumes, getWorldTimeline } from "./gdelt_getter";
 import { isQuery, isForm, adjustDates, findCountryTotals } from "./utils";
 
 
 // TODO: error checking
 export async function fetchCountryArticles(formData) {
-  const { keys, theme, country, sourceLang, start, end, maxRecords } = formData;
+  const { keys, theme, country, sourceLang, start, end, maxRecords, countryLongName } = formData;
   const { timeDifference, dateStartUTC, dateEndUTC, dateStartString, dateEndString } = adjustDates(start, end);
 
   const articlesData = await getArticlesList(keys, country, theme, sourceLang, dateStartString, dateEndString, maxRecords);
@@ -12,29 +12,34 @@ export async function fetchCountryArticles(formData) {
 
 }
 
-export async function fetchCountryTimeline(formData) {
-  const { keys, theme, country, sourceLang, start, end, maxRecords } = formData;
+export async function fetchTimeline(formData) {
+  const { keys, theme, country, sourceLang, start, end, maxRecords, countryLongName } = formData;
   const { timeDifference, dateStartUTC, dateEndUTC, dateStartString, dateEndString } = adjustDates(start, end);
 
-  const timelineData = await getCountryTimeline(keys, country, theme, sourceLang, dateStartString, dateEndString);
+  const countryTimelineData = await getCountryTimeline(keys, country, theme, sourceLang, dateStartString, dateEndString);
+  const worldTimelineData = await getWorldTimeline(keys, theme, sourceLang, dateStartString, dateEndString);
 
   let totalArticles = 0;
   let relevantArticles = 0;
 
-  timelineData.timeline[0].data.forEach(entry => {
-    totalArticles += entry.norm;
-    relevantArticles += entry.value;
+
+  let countryTotal = 0;
+  countryTimelineData.timeline[0].data.forEach(entry => {
+    countryTotal += entry.value;
   });
 
-  timelineData.total = totalArticles;
-  timelineData.relevant = relevantArticles;
+
+  const timelineData = {
+    countryTimelineData: countryTimelineData,
+    worldTimelineData: worldTimelineData,
+  }
 
   return timelineData;
 
 }
 
 export async function fetchWorldVolume(formData) {
-  const { keys, theme, country, sourceLang, start, end, maxRecords } = formData;
+  const { keys, theme, country, sourceLang, start, end, maxRecords, countryLongName } = formData;
   const { timeDifference, dateStartUTC, dateEndUTC, dateStartString, dateEndString } = adjustDates(start, end);
 
   const countryVolumes = getCountryVolumes(keys, theme, sourceLang, dateStartString, dateEndString);
@@ -46,7 +51,6 @@ export async function fetchWorldVolume(formData) {
 
 
 export async function fetchData(formData) {
-  console.log('Form data in api:', formData);
 
   const data = {
     articleList: null,
@@ -54,18 +58,24 @@ export async function fetchData(formData) {
     worldVolume: null,
   }
 
-  console.log("ISes", isQuery(formData), isForm(formData));
-
   if (isQuery(formData)) {
     data.articleList = await fetchCountryArticles(formData);
-    data.countryTimeline = await fetchCountryTimeline(formData);
+    var timelineData = await fetchTimeline(formData);
+    data.countryTimeline = timelineData.countryTimelineData;
   }
 
-  let volume = null
+
+
   if (isForm(formData)) {
-    volume = await fetchWorldVolume(formData);
-    data.worldVolume = findCountryTotals(data.countryTimeline.timeline[0].data, volume);
+    var volumePerCountry = await fetchWorldVolume(formData);
+    var worldTimeline = timelineData.worldTimelineData;
+    // data.worldVolume = findCountryTotals(worldTimeline, volumePerCountry);
   }
+
+  console.log('Article list', data.articleList);
+  console.log('country timeline', data.countryTimeline);
+  console.log('world timeline', worldTimeline);
+  console.log('volumepercountry', volumePerCountry);
 
   return data;
 
