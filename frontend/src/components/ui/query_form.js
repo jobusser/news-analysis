@@ -36,8 +36,8 @@ function QueryForm() {
       key3: '',
       theme: '',
       sourcelang: '',
-      dateStart: '',
-      dateEnd: '',
+      dateStart: null,
+      dateEnd: null,
     };
 
     let isQuery = false;
@@ -115,7 +115,7 @@ function QueryForm() {
     //check for form errors before submitting to provider
     const bothDates = localForm.dateStart && localForm.dateEnd;
 
-    if (bothDates && (comparableDate(localForm.dateStart) > comparableDate(localForm.dateEnd))) {
+    if (bothDates && (localForm.dateStart > localForm.dateEnd)) {
       setDateError('Date "From" must be before date "To".');
       setSearchNote('');
     } else {

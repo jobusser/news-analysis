@@ -1,8 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { getCountry, getCountryVolume, getWorldVolume } from './requests';
-import { fetchCountryArticles } from '../../api/requests';
+import { fetchData } from '../../api/requests';
 
-import { isQuery, isForm, getErrorMessage } from './utils';
+import { isQuery, isForm, getErrorMessage, formatRequestData } from './utils';
 
 const CountryContext = createContext();
 
@@ -15,8 +14,8 @@ export function CountryProvider({ children }) {
     key3: '',
     theme: '',
     sourcelang: '',
-    dateStart: '',
-    dateEnd: '',
+    dateStart: null,
+    dateEnd: null,
   });
 
   const [articles, setArticles] = useState(null);
@@ -24,27 +23,21 @@ export function CountryProvider({ children }) {
   const [countryVolume, setCountryVolume] = useState(null);
   const [error, setError] = useState('');
 
-  // TODO: change to only be if dates are filled in and country not selected
   useEffect(() => {
     console.log('FORMDATA', formData);
-    let localError = getErrorMessage(selectedCountry, formData); // avoid asynchronously updating error state
+    let localError = ''; // avoid asynchronously updating error state
+
+    const formattedFormData = formatRequestData(selectedCountry, formData);
+    console.log('Formatted data in provider', formattedFormData);
 
     // make requests
+    // // TODO: error checking on responses
     (async function() {
-      // request country data
-      if (!localError && isQuery(selectedCountry, formData)) {
-        // request country data
-        const articlesResponse = await getCountry(selectedCountry, formData);
-        if (articlesResponse.success) {
-          console.log("Received country data", articlesResponse.data)
-          setArticles(articlesResponse.data)
-        } else {
-          localError = articlesResponse.data;
-        }
-      } else {
-        setArticles(null);
-      }
+      const data = await fetchData(formattedFormData);
+      console.log("Received all data", data);
 
+
+      {/*
       // request raw volume
       if (!localError && isQuery(selectedCountry, formData)) {
         // request country data
@@ -72,6 +65,7 @@ export function CountryProvider({ children }) {
       } else {
         setWorldVolume(null);
       }
+        */}
 
       if (localError) {
         setError(localError);

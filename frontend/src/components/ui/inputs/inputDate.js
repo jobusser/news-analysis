@@ -66,7 +66,7 @@ const InputDate = forwardRef(({ label, placeholder, formSubmit }, ref) => {
     }
 
     setError('');
-    return date;
+    return formattedDate;
 
   }
 

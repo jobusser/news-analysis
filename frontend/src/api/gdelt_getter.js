@@ -8,7 +8,7 @@ export async function getArticlesList(keys, country, theme, sourcelang, start, e
   return response.data;
 }
 
-export async function getRawVolume(keys, country, theme, sourcelang, start, end) {
+export async function getCountryTimeline(keys, country, theme, sourcelang, start, end) {
   const url = `https://api.gdeltproject.org/api/v2/doc/doc?${queryParam(keys, country, theme, sourcelang)}${timeParams(start, end)}${modeParam('timelinevolraw')}${formatParam()}`;
   console.log('Get raw volume:', url);
   const response = await axios.get(url);
