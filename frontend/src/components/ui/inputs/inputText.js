@@ -17,15 +17,21 @@ const InputText = forwardRef(({ label, placeholder, formSubmit }, ref) => {
     }
   }
 
-  // TODO: at least three characters and other validations
   function validate() {
-    const alphaNumeric = /^[a-z0-9 ]*$/;
-    if (text.match(alphaNumeric)) {
-      setError('');
-      return text;
-    } else {
-      setError('No special characters');
+    const inputText = text.trim();
+
+    if (inputText.length !== 0 && inputText.length < 3) {
+      setError('Key is too short.');
       return null;
+    }
+    const acceptable = /^[a-zA-Z ]*$/;
+    if (!inputText.match(acceptable)) {
+      setError('No numbers or special characters.');
+      return null;
+    } else {
+      setError('');
+      setText(inputText);
+      return inputText;
     }
   };
 
