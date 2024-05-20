@@ -11,15 +11,28 @@ export async function fetchData(formData) {
   const worldTimeline = await getWorldTimeline(keys, theme, sourceLang, dateStartString, dateEndString);
   const worldVolume = isForm(formData) ? await getCountryVolumes(keys, theme, sourceLang, dateStartString, dateEndString) : null;
 
+  console.log("RAW REQUEST DATA");
+  console.log("ArticleList", articleList);
+  console.log("countryTimeline", countryTimeline);
+  console.log("worldTimeline", worldTimeline);
+  console.log("WorldVolume", worldVolume);
+
   // work out totals
   let relevantInCountry = 0;
   let relevantInWorld = 0;
   let totalInWorld = 0;
 
-  for (let i = 0; i < countryTimeline.timeline[0].data.length; i++) {
-    relevantInCountry += countryTimeline.timeline[0].data[i].value;
-    relevantInWorld += worldTimeline.timeline[0].data[i].value;
-    totalInWorld += worldTimeline.timeline[0].data[i].norm;
+  if (Object.keys(worldTimeline).length !== 0) {
+    for (let i = 0; i < worldTimeline.timeline[0].data.length; i++) {
+      relevantInWorld += worldTimeline.timeline[0].data[i].value;
+      totalInWorld += worldTimeline.timeline[0].data[i].norm;
+    }
+
+    if (Object.keys(countryTimeline).length !== 0) {
+      for (let i = 0; i < countryTimeline.timeline[0].data.length; i++) {
+        relevantInCountry += countryTimeline.timeline[0].data[i].value;
+      }
+    }
   }
 
   // make timeline
@@ -32,11 +45,12 @@ export async function fetchData(formData) {
   const newsOverview = {};
   newsOverview.relevantInWorld = relevantInWorld;
   newsOverview.totalInWorld = totalInWorld;
-  newsOverview.countryTotal = isCountry(formData) ? newsOverview.countryTotal = relevantInCountry : null;
+  newsOverview.countryTotal = relevantInCountry;
   newsOverview.timeline = timeline;
 
+
   const data = {}
-  data.articleList = articleList;
+  data.articleList = Object.keys(articleList).length !== 0 ? articleList : null;
   data.newsOverview = newsOverview;
   data.worldVolume = !!(worldVolume) ? avgWorldVolume : null;
 

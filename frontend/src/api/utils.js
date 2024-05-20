@@ -92,25 +92,48 @@ function convertDates(timeline) {
 
 export function makeTimeline(countryTimeline, worldVolume, formData) {
   // at timestamp, timeline includes: number of articles, countryCoverage and averageCoverage
-  const sourceCountry = formData.countryLongName;
 
-  let timeline = countryTimeline.timeline[0].data.map((entry, index) => {
-    const { date, value } = entry;
-    const newEntry = { date, value };
+  const isCountryTimeline = Object.keys(countryTimeline).length !== 0;
+  const isWorldVolume = !!(worldVolume);
 
-    if (worldVolume && worldVolume[sourceCountry]) {
-      newEntry.countryCoverageMagnitude = worldVolume[sourceCountry][index].value;
-    }
+  if (!isCountryTimeline && !isWorldVolume) return null;
 
-    return newEntry;
-  });
+  let timeline = {};
+
+  if (isCountryTimeline) {
+    const sourceCountry = formData.countryLongName;
+
+    timeline = countryTimeline.timeline[0].data.map((entry, index) => {
+      const { date, value } = entry;
+      const newEntry = { date, value };
+
+      if (isWorldVolume && worldVolume[sourceCountry]) {
+        newEntry.countryCoverageMagnitude = worldVolume[sourceCountry][index].value;
+      }
+
+      return newEntry;
+    });
+  }
 
   //add average world magnitude
-  if (worldVolume) {
+  if (isWorldVolume) {
     const averageCoverage = calculateAverageTimestampValue(worldVolume);
 
-    for (let i = 0; i < timeline.length; i++) {
-      timeline[i].averageCoverageMagnitude = averageCoverage[i];
+    if (isCountryTimeline) {
+      for (let i = 0; i < timeline.length; i++) {
+        timeline[i].averageCoverageMagnitude = averageCoverage[i];
+      }
+    } else {
+      // timestamps need to be added if not done not above
+      const randomCountry = worldVolume[Object.keys(worldVolume)[0]];
+      timeline = randomCountry
+      timeline = timeline.map((entry, index) => {
+        const { date } = entry;
+        return {
+          date: date,
+          averageCoverageMagnitude: averageCoverage[index]
+        };
+      });
     }
   }
 

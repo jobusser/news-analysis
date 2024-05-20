@@ -30,6 +30,8 @@ export async function getCountryVolumes(keys, theme, sourcelang, start, end) {
   const data = response.data;
   const formattedData = {};
 
+  if (Object.keys(data).length === 0) return null;
+
   data.timeline.forEach(country => {
     let name = country.series.slice(0, -17);
     switch (name) {
