@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { fetchData } from '../../api/requests';
 
-import { isQuery, isForm, getErrorMessage, formatRequestData } from './utils';
+import { isQuery, formatRequestData } from './utils';
 
 const CountryContext = createContext();
 
@@ -18,74 +18,27 @@ export function CountryProvider({ children }) {
     dateEnd: null,
   });
 
-  const [articles, setArticles] = useState(null);
+  // data from api
+  const [articleList, setArticleList] = useState(null);
+  const [newsOverview, setNewsOverview] = useState(null);
   const [worldVolume, setWorldVolume] = useState(null);
-  const [countryVolume, setCountryVolume] = useState(null);
-  const [error, setError] = useState('');
 
+  //fetch data
+  // TODO: add loading effect
   useEffect(() => {
-    // TODO: only search if isQuery
-    console.log('FORMDATA', formData);
-    let localError = ''; // avoid asynchronously updating error state
-
     const formattedFormData = formatRequestData(selectedCountry, formData);
-    console.log('Formatted data in provider', formattedFormData);
 
-    // make requests
-    // // TODO: error checking on responses
     (async function() {
       if (isQuery(selectedCountry, formData)) {
         const data = await fetchData(formattedFormData);
         console.log("Received all data", data);
-      }
-
-      {/*
-      // request raw volume
-      if (!localError && isQuery(selectedCountry, formData)) {
-        // request country data
-        const countryVolumeResponse = await getCountryVolume(selectedCountry, formData);
-        if (countryVolumeResponse.success) {
-          console.log("Received country volume data", countryVolumeResponse.data)
-          setCountryVolume(countryVolumeResponse.data)
-        } else {
-          localError = countryVolumeResponse.data;
-        }
-      } else {
-        setCountryVolume(null);
-      }
-
-      // request world volume
-      if (!localError && isForm(formData)) {
-        // request country data
-        const worldVolumeResponse = await getWorldVolume(selectedCountry, formData);
-        if (worldVolumeResponse.success) {
-          console.log("Received world volume data", worldVolumeResponse.data)
-          setWorldVolume(worldVolumeResponse.data)
-        } else {
-          localError = worldVolumeResponse.data;
-        }
-      } else {
-        setWorldVolume(null);
-      }
-        */}
-
-      if (localError) {
-        setError(localError);
+        setArticleList(data.articleList);
+        setNewsOverview(data.newsOverview);
+        setWorldVolume(data.worldVolume);
       }
     })();
 
   }, [selectedCountry, formData]);
-
-
-  // error timeout
-  useEffect(() => {
-    if (error !== '') {
-      const timer = setTimeout(() => {
-        setError('');
-      }, 5000); // Clear error after 5 seconds
-      return () => clearTimeout(timer); // Cleanup timer
-    }
-  }, [error]);
 
   return (
     <CountryContext.Provider value={{
@@ -95,14 +48,11 @@ export function CountryProvider({ children }) {
       setHoveredCountry,
       formData,
       setFormData,
-      articles,
+      articleList,
+      newsOverview,
       worldVolume,
-      countryVolume
     }}>
       {children}
-      {error && <div className={'big-error'}>
-        {error}
-      </div>}
     </CountryContext.Provider >
   );
 };

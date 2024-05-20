@@ -2,14 +2,6 @@ export function isQuery(selectedCountry, formData) {
   return selectedCountry || formData.key1 || formData.key2 || formData.key3 || formData.theme || formData.sourcelang
 }
 
-export function isDate(formData) {
-  return formData.dateStart || formData.dateEnd;
-}
-
-export function isForm(formData) {
-  return formData.key1 || formData.key2 || formData.key3 || formData.theme || formData.sourcelang
-}
-
 export function formatRequestData(selectedCountry, formData) {
   let fromDate = formData.dateStart;
   let toDate = formData.dateEnd;

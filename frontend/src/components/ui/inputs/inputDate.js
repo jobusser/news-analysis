@@ -42,7 +42,7 @@ const InputDate = forwardRef(({ label, placeholder, formSubmit }, ref) => {
     }
 
     const parts = date.split('/');
-    const formattedDate = new Date(parseInt(parts[2]), parseInt(parts[1]) - 1, parseInt(parts[0]));
+    const formattedDate = new Date(parseInt(parts[2]), parseInt(parts[1]) - 1, parseInt(parts[0]), 0, 0, 0);
 
     if (!formattedDate.valueOf()
       || parseInt(parts[0]) !== formattedDate.getDate()

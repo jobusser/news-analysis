@@ -25,7 +25,7 @@ const CountryTerritory = React.memo(({ countryData, coordinates, globeRadius }) 
 
       if (worldVolume[countryData.name]) {
         // set the color corresponingly
-        const intensity = Math.min(1, worldVolume[countryData.name] / 0.1);
+        const intensity = Math.min(1, worldVolume[countryData.name] / 10);
 
         const red = 255;
         const green = Math.round(255 * (1 - intensity));
