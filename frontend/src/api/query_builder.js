@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 function queryKeys(keys) {
   if (!Array.isArray(keys) || keys.length === 0) {
     return '';
@@ -70,6 +68,4 @@ export function timeParams(start, end) {
 export function formatParam() {
   return '&format=json';
 }
-
-
 

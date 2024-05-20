@@ -1,15 +1,6 @@
 function isKeys(keys) {
-  if (!Array.isArray(keys)) return false; // Ensure keys is an array
+  if (!Array.isArray(keys)) return false;
   return keys.some(key => key !== '');
-}
-
-export function isQuery(formData) {
-  return !!(
-    formData.country?.trim() ||
-    isKeys(formData.keys) ||
-    formData.theme?.trim() ||
-    formData.sourcelang?.trim()
-  );
 }
 
 export function isForm(formData) {
@@ -37,10 +28,9 @@ function formatDate(date) {
 
 
 export function adjustDates(start, end) {
-  const timeDifference = start.getTimezoneOffset();
-  console.log(start, end);
-
   // Convert date objects to UTC format strings
+  const timeDifference = start.getTimezoneOffset();
+
   const dateStartUTC = new Date(start.getTime() - timeDifference * 60000);
   const dateEndUTC = new Date(end.getTime() - timeDifference * 60000);
 
@@ -48,16 +38,14 @@ export function adjustDates(start, end) {
   const dateEndString = formatDate(dateEndUTC);
 
   return {
-    timeDifference: timeDifference,
-    dateStartUTC: dateStartUTC,
-    dateEndUTC, dateEndUTC,
-    dateStartString, dateStartString,
+    dateStartString: dateStartString,
     dateEndString: dateEndString,
   };
 
 }
 
 function calculateAverageTimestampValue(worldVolume) {
+  // average coverage over countries of a topic at a timestamp
   const countries = Object.keys(worldVolume);
   if (countries.length === 0) {
     return [];
@@ -78,16 +66,37 @@ function calculateAverageTimestampValue(worldVolume) {
   return averages;
 }
 
-// TODO: Finish this
-// make sure timeline is an array
-// add world average coverage from above
-// edit timestamps to date objects of local time
-export function makeTimeline(countryTimeline, worldVolume, formData) {
-  const sourceCountry = formData.country;
+function convertDate(dateString) {
+  // Convert UTC date string to local time date object
+  const year = dateString.substring(0, 4);
+  const month = Number(dateString.substring(4, 6)) - 1;
+  const day = dateString.substring(6, 8);
+  const hour = dateString.substring(9, 11);
+  const minute = dateString.substring(11, 13);
+  const second = dateString.substring(13, 15);
 
-  const timeline = countryTimeline.timeline[0].data.map((entry, index) => {
-    const { timestamp, value } = entry;
-    const newEntry = { timestamp, value };
+  const utcDate = new Date(Date.UTC(year, month, day, hour, minute, second));
+  const localDate = new Date(utcDate.getTime() + utcDate.getTimezoneOffset() * 60000);
+
+  return localDate;
+}
+
+function convertDates(timeline) {
+  return timeline.map(entry => {
+    return {
+      ...entry,
+      date: convertDate(entry.date)
+    }
+  });
+}
+
+export function makeTimeline(countryTimeline, worldVolume, formData) {
+  // at timestamp, timeline includes: number of articles, countryCoverage and averageCoverage
+  const sourceCountry = formData.countryLongName;
+
+  let timeline = countryTimeline.timeline[0].data.map((entry, index) => {
+    const { date, value } = entry;
+    const newEntry = { date, value };
 
     if (worldVolume && worldVolume[sourceCountry]) {
       newEntry.countryCoverageMagnitude = worldVolume[sourceCountry][index].value;
@@ -96,6 +105,38 @@ export function makeTimeline(countryTimeline, worldVolume, formData) {
     return newEntry;
   });
 
+  //add average world magnitude
+  if (worldVolume) {
+    const averageCoverage = calculateAverageTimestampValue(worldVolume);
+
+    for (let i = 0; i < timeline.length; i++) {
+      timeline[i].averageCoverageMagnitude = averageCoverage[i];
+    }
+  }
+
+  // convert dates to local time
+  timeline = convertDates(timeline);
+
   return timeline;
 }
+
+
+export function averageWorldVolume(worldVolume) {
+  // average coverage of all countries
+  const averageVolume = {};
+
+  Object.keys(worldVolume).forEach(country => {
+    const countryData = worldVolume[country];
+    if (countryData.length === 0) {
+      averageVolume[country] = 0;
+    } else {
+      const totalValue = countryData.reduce((sum, entry) => sum + entry.value, 0);
+      const averageValue = totalValue / countryData.length;
+      averageVolume[country] = averageValue;
+    }
+  });
+
+  return averageVolume;
+}
+
 

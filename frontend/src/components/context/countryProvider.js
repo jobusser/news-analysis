@@ -34,9 +34,10 @@ export function CountryProvider({ children }) {
     // make requests
     // // TODO: error checking on responses
     (async function() {
-      const data = await fetchData(formattedFormData);
-      console.log("Received all data", data);
-
+      if (isQuery(selectedCountry, formData)) {
+        const data = await fetchData(formattedFormData);
+        console.log("Received all data", data);
+      }
 
       {/*
       // request raw volume
