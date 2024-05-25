@@ -2,6 +2,18 @@ export function isQuery(selectedCountry, formData) {
   return selectedCountry || formData.key1 || formData.key2 || formData.key3 || formData.theme || formData.sourcelang
 }
 
+export function isDate(formData) {
+  return !!(formData.dateStart) || !!(formData.dateEnd);
+}
+
+export function isSameDay(dateStart, dateEnd) {
+  return (
+    dateStart.getFullYear() === dateEnd.getFullYear() &&
+    dateStart.getMonth() === dateEnd.getMonth() &&
+    dateStart.getDate() === dateEnd.getDate()
+  );
+}
+
 export function formatRequestData(selectedCountry, formData) {
   let fromDate = formData.dateStart;
   let toDate = formData.dateEnd;

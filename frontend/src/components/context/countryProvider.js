@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { fetchData } from '../../api/requests';
 
-import { isQuery, formatRequestData } from './utils';
+import { isQuery, isDate, isSameDay, formatRequestData } from './utils';
 
 const CountryContext = createContext();
 
@@ -26,12 +26,26 @@ export function CountryProvider({ children }) {
 
   //fetch data
   // TODO: add loading effect
+  // add deselect and set data to null
   useEffect(() => {
     const formattedFormData = formatRequestData(selectedCountry, formData);
 
     (async function() {
       if (isQuery(selectedCountry, formData)) {
         const data = await fetchData(formattedFormData);
+
+        const dateInfo = {}
+        dateInfo.startDate = formattedFormData.start;
+        dateInfo.endDate = formattedFormData.end;
+        if (isDate(formData)) {
+          dateInfo.isDefault = false;
+          dateInfo.isOneDay = isSameDay(formattedFormData.start, formattedFormData.end);
+        } else {
+          dateInfo.isDefault = true;
+          dateInfo.isOneDay = false;
+        }
+
+        data.newsOverview.dateInfo = dateInfo;
         console.log("Received all data", data);
         setArticleList(data.articleList);
         setNewsOverview(data.newsOverview);

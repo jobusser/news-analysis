@@ -27,7 +27,8 @@ function VolumeChart({ data }) {
     };
   });
 
-  return (
+  return null;
+  /* return (
     <ResponsiveContainer width="100%" height={300}>
       <BarChart data={formattedData}>
         <XAxis dataKey="date" tick={false} />
@@ -45,7 +46,7 @@ function VolumeChart({ data }) {
         />
       </BarChart>
     </ResponsiveContainer>
-  );
+  ); */
 }
 
 export default VolumeChart;
