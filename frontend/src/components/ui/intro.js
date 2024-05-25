@@ -6,7 +6,7 @@ function IntroText() {
   const fullText = "Select a country to start";
   const [text, setText] = useState("");
   const [isVisible, setIsVisible] = useState(true);
-  const { selectedCountry } = useCountry();
+  const { isData } = useCountry();
 
 
   useEffect(() => {
@@ -29,10 +29,10 @@ function IntroText() {
   }, []);
 
   useEffect(() => {
-    if (selectedCountry !== null) {
+    if (isData !== false) {
       setIsVisible(false);
     }
-  }, [selectedCountry]
+  }, [isData]
   );
 
   if (!isVisible) return null;

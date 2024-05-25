@@ -19,6 +19,7 @@ export function CountryProvider({ children }) {
   });
 
   // data from api
+  const [isData, setIsData] = useState(false);
   const [articleList, setArticleList] = useState(null);
   const [newsOverview, setNewsOverview] = useState(null);
   const [worldVolume, setWorldVolume] = useState(null);
@@ -35,6 +36,7 @@ export function CountryProvider({ children }) {
         setArticleList(data.articleList);
         setNewsOverview(data.newsOverview);
         setWorldVolume(data.worldVolume);
+        setIsData(true);
       }
     })();
 
@@ -47,6 +49,8 @@ export function CountryProvider({ children }) {
       hoveredCountry,
       setHoveredCountry,
       formData,
+      isData,
+      setIsData,
       setFormData,
       articleList,
       newsOverview,

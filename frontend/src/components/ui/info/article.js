@@ -15,7 +15,7 @@ function Article({ number, article, includeCountry }) {
   const defaultImage = "https://via.placeholder.com/150?text=News";
 
   return (
-    <div className="article content">
+    <div className="article">
       <div className="article-header">
         <div className="article-title">
           <h2>

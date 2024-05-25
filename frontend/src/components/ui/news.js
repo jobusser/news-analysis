@@ -5,17 +5,20 @@ import NewsHeader from "./info/newsHeader";
 import NewsOverview from "./info/newsOverview";
 import Feed from "./info/feed";
 
+// TODO: add hide button
+// possibly an info button that can also display intro text if need be
+// possibly a clear all button
 function News() {
-  const { articles } = useCountry();
+  const { isData, setIsData } = useCountry();
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
-    if (articles) {
+    if (isData) {
       setIsVisible(true);
     } else {
       setIsVisible(false);
     }
-  }, [articles]);
+  }, [isData]);
 
 
   return (
