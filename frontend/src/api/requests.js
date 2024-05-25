@@ -45,9 +45,10 @@ export async function fetchData(formData) {
   }
 
   const newsOverview = {};
-  newsOverview.relevantInWorld = relevantInWorld;
   newsOverview.totalInWorld = totalInWorld;
-  newsOverview.countryTotal = relevantInCountry;
+  newsOverview.relevantInWorld = relevantInWorld;
+  newsOverview.selectedRegion = isCountry(formData) ? countryLongName : null;
+  newsOverview.relevantInSelectedRegion = relevantInCountry;
   newsOverview.timeline = timeline;
 
 
