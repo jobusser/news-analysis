@@ -1,24 +1,20 @@
 import React from 'react';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import ChartTooltip from './chartTooltip';
+import { useCountry } from "../../../context/countryProvider";
 
-function VolumeChart({ data }) {
+function VolumeChart() {
+  const { newsOverview } = useCountry();
 
-  const formattedData = data.map(entry => {
-    const date = new Date(
-      // YYYYMMDDTHHMMSSZ to date object
-      entry.date.substring(0, 4),
-      Number(entry.date.substring(4, 6)) - 1,
-      entry.date.substring(6, 8),
-      entry.date.substring(9, 11),
-      entry.date.substring(11, 13),
-      entry.date.substring(13, 15)
-    );
+  if (!newsOverview || !newsOverview.timeline) {
+    return <div></div>;
+  }
 
-    const localDate = new Date(date.getTime() - (date.getTimezoneOffset() * 60000));
+  const formattedData = newsOverview.timeline.map((entry, index, array) => {
+    const isTimeNull = array.slice(0, 2).every(e => e.date.getHours() === 0 && e.date.getMinutes() === 0);
 
-    const day = String(localDate.getDate()) + " " + localDate.toLocaleString('default', { month: 'long' }) + ", " + String(localDate.getFullYear());
-    const time = String(localDate.getHours()) + ":" + String(localDate.getMinutes());
+    const day = String(entry.date.getDate()) + " " + entry.date.toLocaleString('default', { month: 'long' }) + ", " + String(entry.date.getFullYear());
+    const time = isTimeNull ? null : String(entry.date.getHours()).padStart(2, '0') + ":" + String(entry.date.getMinutes()).padStart(2, '0');
 
     return {
       ...entry,
@@ -27,26 +23,58 @@ function VolumeChart({ data }) {
     };
   });
 
-  return null;
-  /* return (
+  const containsCountryOrAverage = formattedData.some(d => d.countryCoverageMagnitude !== undefined || d.averageCoverageMagnitude !== undefined);
+
+  return (
     <ResponsiveContainer width="100%" height={300}>
-      <BarChart data={formattedData}>
-        <XAxis dataKey="date" tick={false} />
-        <YAxis />
-        <Tooltip
-          content={<ChartTooltip />}
-          cursor={{ fill: 'transparent' }}
-        />
-        <Bar
-          dataKey="value"
-          fill="#8884fa"
-          radius={[10, 10, 0, 0]}
-          onMouseEnter={(data, index, e) => e.target.style.fill = '#ffffff'}
-          onMouseLeave={(data, index, e) => e.target.style.fill = '#8884d8'}
-        />
-      </BarChart>
+      {containsCountryOrAverage ? (
+        <LineChart data={formattedData}>
+          <XAxis dataKey="date" tick={false} />
+          <YAxis />
+          <Tooltip content={<ChartTooltip />} />
+          <Legend />
+          {formattedData.some(d => d.countryCoverageMagnitude !== undefined) && (
+            <Line
+              type="monotone"
+              dataKey="countryCoverageMagnitude"
+              stroke="#8884d8"
+              strokeWidth={2}
+              dot={false}
+              name="Country Coverage"
+            />
+          )}
+          {formattedData.some(d => d.averageCoverageMagnitude !== undefined) && (
+            <Line
+              type="monotone"
+              dataKey="averageCoverageMagnitude"
+              stroke="#cccccc"
+              strokeWidth={2}
+              dot={false}
+              name="Average Coverage"
+            />
+          )}
+        </LineChart>
+      ) : (
+        <LineChart data={formattedData}>
+          <XAxis dataKey="day" />
+          <YAxis tickFormatter={(tick) => Number.isInteger(tick) ? tick : ''} />
+          <Tooltip content={<ChartTooltip />} />
+          <Legend />
+          {formattedData.some(d => d.value !== undefined) && (
+            <Line
+              type="monotone"
+              dataKey="value"
+              stroke="#8884d8"
+              strokeWidth={2}
+              dot={false}
+              name="Number of Articles"
+            />
+          )}
+        </LineChart>
+      )}
     </ResponsiveContainer>
-  ); */
+  );
 }
 
 export default VolumeChart;
+

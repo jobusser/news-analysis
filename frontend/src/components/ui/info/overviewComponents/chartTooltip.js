@@ -23,11 +23,20 @@ function ChartTooltip({ active, payload, label }) {
     left: `${cursorX + 20}px`,
   };
 
+  const { value, countryCoverageMagnitude, averageCoverageMagnitude, time, day } = payload[0].payload;
+
   return (
     <div className="tooltip" style={tooltipStyle}>
-      {`${payload[0].value} articles`}
-      <br />
-      {`${payload[0].payload.time} on ${payload[0].payload.day}`}
+      {value !== undefined && (
+        <div>{`Country articles: ${value}`}</div>
+      )}
+      {countryCoverageMagnitude !== undefined && (
+        <div>{`Country Coverage: ${countryCoverageMagnitude.toFixed(2)}%`}</div>
+      )}
+      {averageCoverageMagnitude !== undefined && (
+        <div>{`World Coverage: ${averageCoverageMagnitude.toFixed(2)}%`}</div>
+      )}
+      <div> <br /> {(time) ? `${time} on ${day}` : day}</div>
     </div>
   );
 }

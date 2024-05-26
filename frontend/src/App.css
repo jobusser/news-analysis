@@ -236,6 +236,7 @@ a:active {
 }
 
 .percentage-box {
+  position: relative;
   padding: 10px;
   font-size: 30px;
   font-weight: bold;
