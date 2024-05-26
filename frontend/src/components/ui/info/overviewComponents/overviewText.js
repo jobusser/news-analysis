@@ -28,7 +28,7 @@ function OverviewText() {
           if (newsOverview.relevantInSelectedRegion > 0) {
             setOverviewText(
               <p>
-                A total of <span>{newsOverview.totalInRelevantRegion}</span> articles were published online in {newsOverview.selectedRegion} {dateText}.
+                A total of <span>{newsOverview.relevantInSelectedRegion}</span> articles were published online in {newsOverview.selectedRegion} {dateText}.
               </p>
             );
           } else {
