@@ -53,6 +53,9 @@ export async function getCountryVolumes(keys, theme, sourcelang, start, end) {
       case 'Ivory Coast':
         name = 'Côte d\'Ivoire';
         break;
+      case 'South Sudan':
+        name = 'S. Sudan';
+        break;
     }
     formattedData[name] = country.data;
   });
