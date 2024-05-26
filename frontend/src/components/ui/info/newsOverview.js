@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useCountry } from "../../context/countryProvider";
+import OverviewText from "./overviewText";
 import VolumeChart from "./volumeChart";
 
 const monthNames = ["January", "February", "March", "April", "May", "June",
@@ -17,7 +18,6 @@ function getDateText(dateInfo) {
 function NewsOverview() {
   const { newsOverview, worldVolume } = useCountry();
 
-  const [overviewText, setOverviewText] = useState(null);
   const [percentage, setPercentage] = useState("");
   const [color, setColor] = useState("");
 
@@ -26,47 +26,6 @@ function NewsOverview() {
   // TODO: safety
   useEffect(() => {
     if (newsOverview) {
-      const dateText = getDateText(newsOverview.dateInfo)
-      if (newsOverview.totalInWorld === 0) {
-        setOverviewText(
-          <p>
-            No articles were found {dateText}.
-          </p>
-        );
-      } else if (newsOverview.relevantInWorld === 0) {
-        setOverviewText(
-          <p>
-            Of the {newsOverview.totalInWorld} articles published online {dateText},
-            no articles relate to the search query.
-          </p>
-        );
-      } else if (!newsOverview.selectedRegion) {
-        // no country was selected
-        setOverviewText(
-          <p>
-            Of the {newsOverview.totalInWorld} articles published online {dateText},
-            a total of <span>{newsOverview.relevantInWorld}</span> relate to the search query.
-          </p>
-        );
-      } else if (newsOverview.relevantInSelectedRegion === 0) {
-        setOverviewText(
-          <p>
-            Of the {newsOverview.totalInWorld} articles published online {dateText},
-            a total of <span>{newsOverview.relevantInWorld}</span> relate to the search query.
-            No articles were published in {!!(newsOverview.selectedRegion) ? newsOverview.selectedRegion : "the selected country"}.
-          </p>
-        );
-      } else {
-        setOverviewText(
-          <p>
-            Of the {newsOverview.totalInWorld} articles published online {dateText},
-            a total of <span>{newsOverview.relevantInWorld}</span> relate to the search query.
-            {!!(newsOverview.selectedRegion) ? newsOverview.selectedRegion : "The selected country"} accounted for
-            <span>{newsOverview.relevantInSelectedRegion}</span> of the published articles.
-          </p>
-        );
-      }
-
       if (!!(newsOverview.selectedRegion) && worldVolume) {
         const fraction = worldVolume[newsOverview.selectedRegion];
         setPercentage(fraction.toFixed(1));
@@ -110,7 +69,6 @@ function NewsOverview() {
         */
 
     } else {
-      setOverviewText(null);
       setPercentage("");
       setColor("");
       setGraphData(null);
@@ -123,7 +81,7 @@ function NewsOverview() {
     <div className="news-overview content">
       <>
         <div className="summary">
-          {overviewText}
+          < OverviewText />
           <div className="percentage-box" style={{ backgroundColor: color }}>
             {percentage}%
           </div>
