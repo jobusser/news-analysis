@@ -6,7 +6,7 @@ import { useCountry } from '../context/countryProvider';
 
 
 const CountryTerritory = React.memo(({ countryData, coordinates, globeRadius }) => {
-  const { selectedCountry, setSelectedCountry, hoveredCountry, setHoveredCountry, worldVolume } = useCountry();
+  const { selectedCountry, setSelectedCountry, hoveredCountry, setHoveredCountry, worldVolume, awaitingData } = useCountry();
   const { camera } = useThree();
 
   // creation
@@ -105,7 +105,7 @@ const CountryTerritory = React.memo(({ countryData, coordinates, globeRadius }) 
     object={polygon}
     onPointerOver={handleMouseOver}
     onPointerOut={handleMouseOut}
-    onClick={handleSelect} />;
+    onClick={awaitingData ? null : handleSelect} />;
 });
 
 export default CountryTerritory;
