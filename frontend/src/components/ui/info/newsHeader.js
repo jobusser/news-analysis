@@ -2,14 +2,15 @@ import React, { useState, useEffect } from "react";
 import { useCountry } from "../../context/countryProvider";
 
 function NewsHeader() {
-  const { newsOverview } = useCountry();
+  const { selectedCountry } = useCountry();
 
   const [name, setName] = useState("");
 
   useEffect(() => {
-    if (newsOverview && newsOverview.selectedRegion) setName(newsOverview.selectedRegion);
-    else setName("World");
-  }, [newsOverview]
+    if (selectedCountry) setName(selectedCountry.name);
+    else setName("Earth");
+
+  }, [selectedCountry]
   );
 
   return (

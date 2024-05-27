@@ -41,6 +41,7 @@ function VolumeChart() {
               strokeWidth={2}
               dot={false}
               name="Country Coverage"
+              isAnimationActive={false}
             />
           )}
           {formattedData.some(d => d.averageCoverageMagnitude !== undefined) && (
@@ -51,6 +52,7 @@ function VolumeChart() {
               strokeWidth={2}
               dot={false}
               name="Average Coverage"
+              isAnimationActive={false}
             />
           )}
         </LineChart>
@@ -68,6 +70,7 @@ function VolumeChart() {
               strokeWidth={2}
               dot={false}
               name="Number of Articles"
+              isAnimationActive={false}
             />
           )}
         </LineChart>

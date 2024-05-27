@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { ClipLoader } from "react-spinners";
 import { useCountry } from "../context/countryProvider";
 
 import NewsHeader from "./info/newsHeader";
@@ -9,7 +10,7 @@ import Feed from "./info/feed";
 // possibly an info button that can also display intro text if need be
 // possibly a clear all button
 function News() {
-  const { isData, setIsData } = useCountry();
+  const { isData, setIsData, awaitingData } = useCountry();
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
@@ -27,9 +28,17 @@ function News() {
         <div className="content-container">
           <NewsHeader />
           <hr className="separator" />
-          <NewsOverview />
-          <hr className="separator" />
-          <Feed />
+          {awaitingData ? (
+            <ClipLoader
+
+            />
+          ) : (
+            <>
+              <NewsOverview />
+              <hr className="separator" />
+              <Feed />
+            </>
+          )}
         </div>
       )}
     </>
