@@ -28,7 +28,7 @@ function ChartTooltip({ active, payload, label }) {
   return (
     <div className="tooltip" style={tooltipStyle}>
       {value !== undefined && (
-        <div>{`Country articles: ${value}`}</div>
+        <div>{`${countryCoverageMagnitude !== undefined ? 'Country articles' : 'World articles'}: ${value}`}</div>
       )}
       {countryCoverageMagnitude !== undefined && (
         <div>{`Country Coverage: ${countryCoverageMagnitude.toFixed(2)}%`}</div>

@@ -2,25 +2,14 @@ import React, { useState, useEffect } from "react";
 import { useCountry } from "../../context/countryProvider";
 
 function NewsHeader() {
-  const { selectedCountry } = useCountry();
+  const { newsOverview } = useCountry();
 
   const [name, setName] = useState("");
-  const [iso, setIso] = useState("");
-  const [continent, setContinent] = useState("");
 
   useEffect(() => {
-    if (selectedCountry) {
-      setName(selectedCountry.name);
-      setIso(selectedCountry.iso_a3);
-      setContinent(selectedCountry.continent);
-
-    } else {
-      setName("Earth");
-      setIso("");
-      setContinent("");
-    }
-
-  }, [selectedCountry]
+    if (newsOverview && newsOverview.selectedRegion) setName(newsOverview.selectedRegion);
+    else setName("World");
+  }, [newsOverview]
   );
 
   return (

@@ -19,10 +19,12 @@ export function CountryProvider({ children }) {
   });
 
   // data from api
-  const [isData, setIsData] = useState(false);
   const [articleList, setArticleList] = useState(null);
   const [newsOverview, setNewsOverview] = useState(null);
   const [worldVolume, setWorldVolume] = useState(null);
+
+  const [awaitingData, setAwaitingData] = useState(false);
+  const [isData, setIsData] = useState(false);
 
   //fetch data
   // TODO: add loading effect
@@ -32,29 +34,47 @@ export function CountryProvider({ children }) {
 
     (async function() {
       if (isQuery(selectedCountry, formData)) {
-        const data = await fetchData(formattedFormData);
+        setAwaitingData(true);
 
-        const dateInfo = {}
-        dateInfo.startDate = formattedFormData.start;
-        dateInfo.endDate = formattedFormData.end;
-        if (isDate(formData)) {
-          dateInfo.isDefault = false;
-          dateInfo.isOneDay = isSameDay(formattedFormData.start, formattedFormData.end);
-        } else {
-          dateInfo.isDefault = true;
-          dateInfo.isOneDay = false;
+        try {
+          const data = await fetchData(formattedFormData);
+
+          const dateInfo = {};
+          dateInfo.startDate = formattedFormData.start;
+          dateInfo.endDate = formattedFormData.end;
+          if (isDate(formData)) {
+            dateInfo.isDefault = false;
+            dateInfo.isOneDay = isSameDay(formattedFormData.start, formattedFormData.end);
+          } else {
+            dateInfo.isDefault = true;
+            dateInfo.isOneDay = false;
+          }
+
+          data.newsOverview.dateInfo = dateInfo;
+          console.log("Received all data", data);
+          setArticleList(data.articleList);
+          setNewsOverview(data.newsOverview);
+          setWorldVolume(data.worldVolume);
+          setIsData(true);
+
+        } catch (error) {
+          console.error("Error fetching data", error);
+        } finally {
+          setAwaitingData(false);
         }
-
-        data.newsOverview.dateInfo = dateInfo;
-        console.log("Received all data", data);
-        setArticleList(data.articleList);
-        setNewsOverview(data.newsOverview);
-        setWorldVolume(data.worldVolume);
-        setIsData(true);
+      } else {
+        setIsData(false);
+        setArticleList(null);
+        setNewsOverview(null);
+        setWorldVolume(null);
       }
     })();
-
   }, [selectedCountry, formData]);
+
+  useEffect(() => {
+    console.log("Awaiting data!:", awaitingData);
+
+  }, [awaitingData]);
 
   return (
     <CountryContext.Provider value={{
@@ -66,6 +86,7 @@ export function CountryProvider({ children }) {
       isData,
       setIsData,
       setFormData,
+      awaitingData,
       articleList,
       newsOverview,
       worldVolume,

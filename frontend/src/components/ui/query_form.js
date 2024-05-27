@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import InputFromList from './inputs/inputFromList';
 import InputDate from './inputs/inputDate';
 import InputText from './inputs/inputText';
@@ -7,11 +7,9 @@ import ToggleButton from './inputs/toggleButton';
 import { useCountry } from '../context/countryProvider';
 
 import { getLanguageSearch, getThemeSearch } from './utils/fuzzySearchers';
-import { comparableDate } from './utils/dateCompare';
 
-// TODO: add error for each input type, and bigger error for specifying query needs at least one
 function QueryForm() {
-  const { formData, setFormData } = useCountry();
+  const { formData, setFormData, awaitingData } = useCountry();
   const [showMoreOptions, setShowMoreOptions] = useState(false);
   const [dateError, setDateError] = useState('');
   const [searchNote, setSearchNote] = useState('');
@@ -132,6 +130,7 @@ function QueryForm() {
 
   return (
     <div className='content-container'>
+
       <h1>{showMoreOptions ? "Query" : "Search"}</h1>
       <form className="query-form" onSubmit={(e) => e.preventDefault()}>
         <InputText
@@ -209,6 +208,7 @@ function QueryForm() {
             id="submit-button"
             type="button"
             onClick={handleFormSubmit}
+            disabled={awaitingData ? true : false}
           >
             Find articles
           </button>
