@@ -11,8 +11,6 @@ function UI() {
       </ div>
       <div className="right UI-container">
         <News />
-        <IntroText />
-
       </ div>
     </>
   );

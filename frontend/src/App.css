@@ -55,6 +55,12 @@ button:hover {
   justify-content: right;
 }
 
+#news-hider-container {
+  display: flex;
+  align-itmes: center;
+  justify-content: left;
+}
+
 .input-container {
   display: flex;
   align-items: center;
@@ -195,7 +201,7 @@ a:active {
 .right {
   right: 0;
   align-items: flex-end;
-  justify-content: center;
+  justify-content: start;
 }
 
 .tooltip {

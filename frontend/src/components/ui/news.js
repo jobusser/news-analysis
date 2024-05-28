@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ClipLoader } from "react-spinners";
+import { IoList, IoArrowForward } from "react-icons/io5";
+
 import { useCountry } from "../context/countryProvider";
 
 import NewsHeader from "./info/newsHeader";
@@ -11,37 +13,62 @@ import Feed from "./info/feed";
 // possibly a clear all button
 function News() {
   const { isData, setIsData, awaitingData } = useCountry();
-  const [isVisible, setIsVisible] = useState(true);
+  const [showNews, setShowNews] = useState(false);
+  const [isDataVisible, setIsVisiblesetIsDataVisible] = useState(true);
+
+  function toggleNewsVisibility() {
+    setShowNews(!showNews);
+  }
 
   useEffect(() => {
     if (isData) {
-      setIsVisible(true);
+      setIsVisiblesetIsDataVisible(true);
     } else {
-      setIsVisible(false);
+      setIsVisiblesetIsDataVisible(false);
     }
   }, [isData]);
 
 
   return (
-    <>
-      {isVisible && (
-        <div className="content-container">
-          <NewsHeader />
-          <hr className="separator" />
-          {awaitingData ? (
-            <ClipLoader
-
-            />
+    <div className="content-container">
+      <div id='news-hider-container' >
+        <button onClick={toggleNewsVisibility} id={'news-hider'}>
+          {showNews ? (
+            <IoArrowForward size={20} />
           ) : (
-            <>
-              <NewsOverview />
-              <hr className="separator" />
-              <Feed />
-            </>
+            <IoList size={20} />
           )}
-        </div>
+        </button>
+      </div>
+
+      {showNews && (
+        <>
+          {isDataVisible ? (
+            <>
+              <NewsHeader />
+              <hr className="separator" />
+              {awaitingData ? (
+                <ClipLoader
+
+                />
+              ) : (
+                <>
+                  <NewsOverview />
+                  <hr className="separator" />
+                  <Feed />
+                </>
+              )}
+            </>
+          ) : (
+            <h1>
+              Select a country or try a search to start.
+            </h1>
+
+          )}
+        </>
       )}
-    </>
+
+    </div>
   );
 }
 
