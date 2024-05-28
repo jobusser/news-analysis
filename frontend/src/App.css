@@ -49,6 +49,12 @@ button:hover {
   background-color: #333;
 }
 
+#search-hider-container {
+  display: flex;
+  align-itmes: center;
+  justify-content: right;
+}
+
 .input-container {
   display: flex;
   align-items: center;

@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { IoSearch, IoSearchCircle, IoSearchSharp, IoSendSharp } from "react-icons/io5";
+import { IoSearch, IoArrowBack, IoSendSharp } from "react-icons/io5";
 
 import InputFromList from './inputs/inputFromList';
 import InputDate from './inputs/inputDate';
@@ -136,9 +136,15 @@ function QueryForm() {
 
   return (
     <div className='content-container'>
-      <button onClick={toggleFormVisibility} id={'search-expander'}>
-        <IoSearch size={20} />
-      </button>
+      <div id='search-hider-container' >
+        <button onClick={toggleFormVisibility} id={'search-hider'}>
+          {showForm ? (
+            <IoArrowBack size={20} />
+          ) : (
+            <IoSearch size={20} />
+          )}
+        </button>
+      </div>
 
       {showForm && (
         <>
