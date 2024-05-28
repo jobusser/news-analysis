@@ -1,8 +1,10 @@
 import React, { useState, useRef } from 'react';
+import { IoSearch, IoSearchCircle, IoSearchSharp, IoSendSharp } from "react-icons/io5";
+
 import InputFromList from './inputs/inputFromList';
 import InputDate from './inputs/inputDate';
 import InputText from './inputs/inputText';
-import ToggleButton from './inputs/toggleButton';
+import ExpandButton from './inputs/expandButton';
 
 import { useCountry } from '../context/countryProvider';
 
@@ -10,6 +12,7 @@ import { getLanguageSearch, getThemeSearch } from './utils/fuzzySearchers';
 
 function QueryForm() {
   const { formData, setFormData, awaitingData } = useCountry();
+  const [showForm, setShowForm] = useState(false);
   const [showMoreOptions, setShowMoreOptions] = useState(false);
   const [dateError, setDateError] = useState('');
   const [searchNote, setSearchNote] = useState('');
@@ -22,6 +25,9 @@ function QueryForm() {
   const dateStartRef = useRef();
   const dateEndRef = useRef();
 
+  function toggleFormVisibility() {
+    setShowForm(!showForm);
+  }
 
   function toggleOptions() {
     setShowMoreOptions(!showMoreOptions)
@@ -130,92 +136,98 @@ function QueryForm() {
 
   return (
     <div className='content-container'>
+      <button onClick={toggleFormVisibility} id={'search-expander'}>
+        <IoSearch size={20} />
+      </button>
 
-      <h1>{showMoreOptions ? "Query" : "Search"}</h1>
-      <form className="query-form" onSubmit={(e) => e.preventDefault()}>
-        <InputText
-          ref={key1Ref}
-          label={showMoreOptions ? "Key 1:" : 'Keyword:'}
-          placeholder={'cyber'}
-          formSubmit={handleFormSubmit}
-        />
-        {showMoreOptions && (
-          <>
+      {showForm && (
+        <>
+          <h1> {showMoreOptions ? "Query" : "Search"}</h1>
+          <form className="query-form" onSubmit={(e) => e.preventDefault()}>
             <InputText
-              ref={key2Ref}
-              label={"Key 2:"}
-              placeholder={'hacker'}
+              ref={key1Ref}
+              label={showMoreOptions ? "Key 1:" : 'Keyword:'}
+              placeholder={'cyber'}
               formSubmit={handleFormSubmit}
             />
-            <InputText
-              ref={key3Ref}
-              label={"Key 3:"}
-              placeholder={'security'}
-              formSubmit={handleFormSubmit}
-            />
-            <InputFromList
-              ref={themeRef}
-              label={"Theme:"}
-              placeholder={"cyber attack"}
-              fuzzySearcher={getThemeSearch()}
-              formSubmit={handleFormSubmit}
-            />
-            <InputFromList
-              ref={languageRef}
-              label={"Language:"}
-              placeholder={"spanish"}
-              fuzzySearcher={getLanguageSearch()}
-              formSubmit={handleFormSubmit}
-            />
+            {showMoreOptions && (
+              <>
+                <InputText
+                  ref={key2Ref}
+                  label={"Key 2:"}
+                  placeholder={'hacker'}
+                  formSubmit={handleFormSubmit}
+                />
+                <InputText
+                  ref={key3Ref}
+                  label={"Key 3:"}
+                  placeholder={'security'}
+                  formSubmit={handleFormSubmit}
+                />
+                <InputFromList
+                  ref={themeRef}
+                  label={"Theme:"}
+                  placeholder={"cyber attack"}
+                  fuzzySearcher={getThemeSearch()}
+                  formSubmit={handleFormSubmit}
+                />
+                <InputFromList
+                  ref={languageRef}
+                  label={"Language:"}
+                  placeholder={"spanish"}
+                  fuzzySearcher={getLanguageSearch()}
+                  formSubmit={handleFormSubmit}
+                />
 
-            <hr className="separator" />
+                <hr className="separator" />
 
-            <h1>Dates</h1>
-            <InputDate
-              ref={dateStartRef}
-              label={"From:"}
-              placeholder={"DD/MM/YYYY"}
-              formSubmit={handleFormSubmit}
-            />
-            <InputDate
-              ref={dateEndRef}
-              label={"To:"}
-              placeholder={"DD/MM/YYYY"}
-              formSubmit={handleFormSubmit}
-            />
-            {dateError && (
-              <div className='date-error'>
-                {dateError}
-              </div>
+                <h1>Dates</h1>
+                <InputDate
+                  ref={dateStartRef}
+                  label={"From:"}
+                  placeholder={"DD/MM/YYYY"}
+                  formSubmit={handleFormSubmit}
+                />
+                <InputDate
+                  ref={dateEndRef}
+                  label={"To:"}
+                  placeholder={"DD/MM/YYYY"}
+                  formSubmit={handleFormSubmit}
+                />
+                {dateError && (
+                  <div className='date-error'>
+                    {dateError}
+                  </div>
 
+                )}
+              </>
             )}
-          </>
-        )}
-        {searchNote && (
-          <div className='search-note'>
-            {searchNote}
-          </div>
-        )}
+            {searchNote && (
+              <div className='search-note'>
+                {searchNote}
+              </div>
+            )}
 
-        <div className="button-container">
-          <ToggleButton
-            id={'options-button'}
-            textOff={'More options'}
-            textOn={'Less options'}
-            toggleCallback={toggleOptions}
-          />
-          <button
-            id="submit-button"
-            type="button"
-            onClick={handleFormSubmit}
-            disabled={awaitingData ? true : false}
-          >
-            Find articles
-          </button>
-        </div>
-      </form>
+            <div className="button-container">
+              <ExpandButton
+                id={'options-button'}
+                toggleCallback={toggleOptions}
+                size={20}
+              />
+              <button
+                id="submit-button"
+                type="button"
+                onClick={handleFormSubmit}
+                disabled={awaitingData ? true : false}
+              >
+                <IoSendSharp size={20} />
+              </button>
+            </div>
+          </form>
+        </>
+      )}
     </div>
   );
+}
 
-
-} export default QueryForm;
+export default QueryForm;

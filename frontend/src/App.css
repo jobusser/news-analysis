@@ -29,6 +29,26 @@ input, select, textarea, button {
   font-size: inherit;
 }
 
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3em;
+  height: 3em;
+  padding: 10px;
+  margin: 10px;
+  border: none;
+  cursor: pointer;
+  color: #ccc;
+  background-color: #000;
+  border-radius: 50%;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #333;
+}
+
 .input-container {
   display: flex;
   align-items: center;
@@ -95,13 +115,7 @@ input, select, textarea, button {
   margin-top: 20px;
 }
 
-.button-container button {
-  margin-left: 10px;
-  padding: 10px 20px;
-  border: none;
-  cursor: pointer;
-  border: solid 1px white;
-}
+
 
 .date-error {
   color: red;
@@ -164,17 +178,18 @@ a:active {
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
 }
 
 .left {
   left: 0;
   align-items: flex-start;
+  justify-content: start;
 }
 
 .right {
   right: 0;
   align-items: flex-end;
+  justify-content: center;
 }
 
 .tooltip {

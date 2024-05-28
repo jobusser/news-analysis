@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import { IoArrowDown, IoArrowUp, IoArrowDownCircle, IoArrowUpCircle } from "react-icons/io5";
 
-function ToggleButton({ id, textOff, textOn, toggleCallback }) {
+function ExpandButton({ id, toggleCallback, size }) {
   const [toggle, setToggle] = useState(false);
 
   const toggleOptions = () => {
@@ -14,11 +15,15 @@ function ToggleButton({ id, textOff, textOn, toggleCallback }) {
         type='button'
         onClick={toggleOptions}
       >
-        {toggle ? textOn : textOff}
+        {toggle ? (
+          <IoArrowUp size={size} />
+        ) : (
+          <IoArrowDown size={size} />
+        )}
       </button>
     </div>
   )
 
 }
 
-export default ToggleButton;
+export default ExpandButton;
