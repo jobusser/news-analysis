@@ -184,22 +184,24 @@ a:active {
   overflow: hidden;
 }
 
-.left, .right {
+.left {
   top: 0;
+  left: 0;
   width: 35%; 
   height: 100%;
   display: flex;
   flex-direction: column;
-}
-
-.left {
-  left: 0;
   align-items: flex-start;
   justify-content: start;
 }
 
 .right {
+  top: 0;
   right: 0;
+  width: 35%; 
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   align-items: flex-end;
   justify-content: start;
 }
@@ -216,9 +218,11 @@ a:active {
 .content-container {
   pointer-events: auto;
   overflow-y: auto;
-  overflow-x: hidden; 
+  overflow-x: auto; 
   display: flex;
   flex-direction: column;
+  flex-shrink: 1;
+  max-width: 100%;
   background-color: #111;
   margin: 30px;
   padding: 20px;
@@ -251,6 +255,7 @@ a:active {
 /* News overview */
 
 .news-overview {
+  display: flex;
   gap: 20px;
 }
 
@@ -258,6 +263,7 @@ a:active {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-shrink: 1;
 }
 
 .summary p {
@@ -285,22 +291,32 @@ a:active {
 
 
 /* Articles */
-.article-header {
+.article {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  margin-bottom: 30px;
+}
+
+
+.article-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
 .article-title {
   flex: 1;
   margin: 3px;
+  font-size: 12px;
 }
 
 .article-image-wrapper {
   position: relative;
-  width: 20%;
-  padding-top: 20%;
+  width: 125px;
+  height: 125px;
   overflow: hidden;
+  flex-shrink: 0;
 }
 
 .article-image {
@@ -315,7 +331,7 @@ a:active {
 
 .article-tags {
   display: flex;
-  flex-wrap: wrap;
+  justify-content: start;
   margin-top: 10px;
   gap: 10px;
 }

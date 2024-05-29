@@ -26,7 +26,7 @@ function VolumeChart() {
   const containsCountryOrAverage = formattedData.some(d => d.countryCoverageMagnitude !== undefined || d.averageCoverageMagnitude !== undefined);
 
   return (
-    <ResponsiveContainer width="100%" height={300}>
+    <ResponsiveContainer width="100%" >
       {containsCountryOrAverage ? (
         <LineChart data={formattedData}>
           <XAxis dataKey="date" tick={false} />
