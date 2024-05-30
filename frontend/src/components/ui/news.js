@@ -4,6 +4,7 @@ import { IoList, IoArrowForward } from "react-icons/io5";
 
 import { useCountry } from "../context/countryProvider";
 
+import IntroInfo from "./info/introInfo";
 import NewsHeader from "./info/newsHeader";
 import NewsOverview from "./info/newsOverview";
 import Feed from "./info/feed";
@@ -13,7 +14,7 @@ import Feed from "./info/feed";
 // possibly a clear all button
 function News() {
   const { isData, setIsData, awaitingData } = useCountry();
-  const [showNews, setShowNews] = useState(true);
+  const [showNews, setShowNews] = useState(false);
   const [isDataVisible, setIsVisiblesetIsDataVisible] = useState(true);
 
   function toggleNewsVisibility() {
@@ -32,36 +33,35 @@ function News() {
   return (
     <>
       {showNews ? (
-        <>
-          <div className="content-container">
-            {isDataVisible ? (
-              <>
-                <div id='news-hider-container' >
-                  <button onClick={toggleNewsVisibility} id={'news-hider'}>
-                    {showNews ? (
-                      <IoArrowForward size={20} />
-                    ) : (
-                      <IoList size={20} />
-                    )}
-                  </button>
-                </div>
-                <NewsHeader />
-                <hr className="separator" />
-                {awaitingData ? (
-                  <ClipLoader />
-                ) : (
-                  <>
-                    <NewsOverview />
-                    <hr className="separator" />
-                    <Feed />
-                  </>
-                )}
-              </>
-            ) : (
-              <h1>Select a country or try a search to start.</h1>
-            )}
+        <div className="content-container">
+          <div id='news-hider-container' >
+            <button onClick={toggleNewsVisibility} id={'news-hider'}>
+              {showNews ? (
+                <IoArrowForward size={20} />
+              ) : (
+                <IoList size={20} />
+              )}
+            </button>
           </div>
-        </>
+
+          {isDataVisible ? (
+            <>
+              <NewsHeader />
+              <hr className="separator" />
+              {awaitingData ? (
+                <ClipLoader />
+              ) : (
+                <>
+                  <NewsOverview />
+                  <hr className="separator" />
+                  <Feed />
+                </>
+              )}
+            </>
+          ) : (
+            <IntroInfo />
+          )}
+        </div>
       ) : (
 
         <div id='news-shower-container' >

@@ -8,7 +8,15 @@ const InputDate = forwardRef(({ label, placeholder, formSubmit }, ref) => {
   const inputRef = useRef(null);
 
   function handleChange(event) {
+
     const input = event.target.value.replace(/[^\d/]/g, '');
+
+
+    if (input.length < date.length) {
+      setDate(input);
+      return
+    }
+
     let formattedDate = input;
 
     if (input.length === 2) {
