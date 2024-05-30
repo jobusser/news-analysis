@@ -13,7 +13,7 @@ import Feed from "./info/feed";
 // possibly a clear all button
 function News() {
   const { isData, setIsData, awaitingData } = useCountry();
-  const [showNews, setShowNews] = useState(false);
+  const [showNews, setShowNews] = useState(true);
   const [isDataVisible, setIsVisiblesetIsDataVisible] = useState(true);
 
   function toggleNewsVisibility() {
@@ -30,39 +30,51 @@ function News() {
 
 
   return (
-    <div className="news content-container">
-      <div id='news-hider-container' >
-        <button onClick={toggleNewsVisibility} id={'news-hider'}>
-          {showNews ? (
-            <IoArrowForward size={20} />
-          ) : (
-            <IoList size={20} />
-          )}
-        </button>
-      </div>
-
-      {showNews && (
+    <>
+      {showNews ? (
         <>
-          {isDataVisible ? (
-            <>
-              <NewsHeader />
-              <hr className="separator" />
-              {awaitingData ? (
-                <ClipLoader />
-              ) : (
-                <>
-                  <NewsOverview />
-                  <hr className="separator" />
-                  <Feed />
-                </>
-              )}
-            </>
-          ) : (
-            <h1>Select a country or try a search to start.</h1>
-          )}
+          <div className="content-container">
+            {isDataVisible ? (
+              <>
+                <div id='news-hider-container' >
+                  <button onClick={toggleNewsVisibility} id={'news-hider'}>
+                    {showNews ? (
+                      <IoArrowForward size={20} />
+                    ) : (
+                      <IoList size={20} />
+                    )}
+                  </button>
+                </div>
+                <NewsHeader />
+                <hr className="separator" />
+                {awaitingData ? (
+                  <ClipLoader />
+                ) : (
+                  <>
+                    <NewsOverview />
+                    <hr className="separator" />
+                    <Feed />
+                  </>
+                )}
+              </>
+            ) : (
+              <h1>Select a country or try a search to start.</h1>
+            )}
+          </div>
         </>
+      ) : (
+
+        <div id='news-shower-container' >
+          <button onClick={toggleNewsVisibility} id={'news-hider'}>
+            {showNews ? (
+              <IoArrowForward size={20} />
+            ) : (
+              <IoList size={20} />
+            )}
+          </button>
+        </div>
       )}
-    </div>
+    </>
   );
 }
 export default News;

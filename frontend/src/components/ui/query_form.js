@@ -135,19 +135,18 @@ function QueryForm() {
   }
 
   return (
-    <div className='content-container'>
-      <div id='search-hider-container' >
-        <button onClick={toggleFormVisibility} id={'search-hider'}>
-          {showForm ? (
-            <IoArrowBack size={20} />
-          ) : (
-            <IoSearch size={20} />
-          )}
-        </button>
-      </div>
-
-      {showForm && (
-        <>
+    <>
+      {showForm ? (
+        <div className='content-container'>
+          <div id='search-hider-container' >
+            <button onClick={toggleFormVisibility} id={'search-hider'}>
+              {showForm ? (
+                <IoArrowBack size={20} />
+              ) : (
+                <IoSearch size={20} />
+              )}
+            </button>
+          </div>
           <h1> {showMoreOptions ? "Query" : "Search"}</h1>
           <form className="query-form" onSubmit={(e) => e.preventDefault()}>
             <InputText
@@ -213,7 +212,6 @@ function QueryForm() {
                 {searchNote}
               </div>
             )}
-
             <div className="button-container">
               <ExpandButton
                 id={'options-button'}
@@ -230,9 +228,19 @@ function QueryForm() {
               </button>
             </div>
           </form>
-        </>
+        </div>
+      ) : (
+        <div id='search-shower-container' >
+          <button onClick={toggleFormVisibility} id={'search-hider'}>
+            {showForm ? (
+              <IoArrowBack size={20} />
+            ) : (
+              <IoSearch size={20} />
+            )}
+          </button>
+        </div>
       )}
-    </div>
+    </>
   );
 }
 
