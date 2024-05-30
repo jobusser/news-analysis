@@ -5,7 +5,7 @@ import VolumeChart from "./overviewComponents/volumeChart";
 function NewsOverview() {
 
   return (
-    <div className="news-overview content">
+    <div className="news-overview">
       <div className="summary">
         <OverviewText />
         <PercentageBox />

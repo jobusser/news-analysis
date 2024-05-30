@@ -14,9 +14,7 @@ function NewsHeader() {
   );
 
   return (
-    <div id="news-header" className="content">
-      <h1>{name}</h1>
-    </div>
+    <h1>{name}</h1>
   );
 
 }

@@ -21,7 +21,7 @@ function Feed() {
   }, [articleList, selectedCountry]);
 
   return (
-    <div className="content feed-container">
+    <div className="feed-container">
       {feedArticles ? (
         feedArticles.map((article, index) => (
           <Article key={index} number={index + 1} article={article} includeCountry={includeCountry} />

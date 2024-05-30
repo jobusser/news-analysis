@@ -30,7 +30,7 @@ function News() {
 
 
   return (
-    <div className="content-container">
+    <div className="news content-container">
       <div id='news-hider-container' >
         <button onClick={toggleNewsVisibility} id={'news-hider'}>
           {showNews ? (
@@ -48,9 +48,7 @@ function News() {
               <NewsHeader />
               <hr className="separator" />
               {awaitingData ? (
-                <ClipLoader
-
-                />
+                <ClipLoader />
               ) : (
                 <>
                   <NewsOverview />
@@ -60,18 +58,13 @@ function News() {
               )}
             </>
           ) : (
-            <h1>
-              Select a country or try a search to start.
-            </h1>
-
+            <h1>Select a country or try a search to start.</h1>
           )}
         </>
       )}
-
     </div>
   );
 }
-
 export default News;
 
 
