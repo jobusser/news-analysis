@@ -27,8 +27,6 @@ export function CountryProvider({ children }) {
   const [isData, setIsData] = useState(false);
 
   //fetch data
-  // TODO: add loading effect
-  // add deselect and set data to null
   useEffect(() => {
     const formattedFormData = formatRequestData(selectedCountry, formData);
 
@@ -71,10 +69,15 @@ export function CountryProvider({ children }) {
     })();
   }, [selectedCountry, formData]);
 
-  useEffect(() => {
-    console.log("Awaiting data!:", awaitingData);
-
-  }, [awaitingData]);
+  function clearData() {
+    setAwaitingData(true);
+    setArticleList(null);
+    setNewsOverview(null);
+    setWorldVolume(null);
+    setSelectedCountry(null);
+    setIsData(false);
+    setAwaitingData(false);
+  }
 
   return (
     <CountryContext.Provider value={{
@@ -84,7 +87,7 @@ export function CountryProvider({ children }) {
       setHoveredCountry,
       formData,
       isData,
-      setIsData,
+      clearData,
       setFormData,
       awaitingData,
       articleList,

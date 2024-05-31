@@ -5,6 +5,7 @@ import InputFromList from './inputs/inputFromList';
 import InputDate from './inputs/inputDate';
 import InputText from './inputs/inputText';
 import ExpandButton from './inputs/expandButton';
+import ClearDataButton from './inputs/clearDataButton';
 
 import { useCountry } from '../context/countryProvider';
 
@@ -139,6 +140,7 @@ function QueryForm() {
       {showForm ? (
         <div className='content-container'>
           <div id='search-hider-container' >
+            <ClearDataButton id={'clear-data-button-container'} size={20} />
             <button onClick={toggleFormVisibility} id={'search-hider'}>
               {showForm ? (
                 <IoArrowBack size={20} />
@@ -231,6 +233,7 @@ function QueryForm() {
         </div>
       ) : (
         <div id='search-shower-container' >
+          <ClearDataButton id={'clear-data-button-container'} size={20} />
           <button onClick={toggleFormVisibility} id={'search-hider'}>
             {showForm ? (
               <IoArrowBack size={20} />

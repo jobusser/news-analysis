@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useCountry } from "../context/countryProvider";
 
-//TODO: update
 function IntroText() {
   const fullText = "Select a country to start";
   const [text, setText] = useState("");
@@ -42,8 +41,6 @@ function IntroText() {
       {text}
     </h1>
   );
-
-
 }
 
 export default IntroText;

@@ -8,7 +8,7 @@ function NewsHeader() {
 
   useEffect(() => {
     if (selectedCountry) setName(selectedCountry.name);
-    else setName("Earth");
+    else setName("Global");
 
   }, [selectedCountry]
   );

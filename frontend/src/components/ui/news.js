@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { ClipLoader } from "react-spinners";
 import { IoList, IoArrowForward } from "react-icons/io5";
 
 import { useCountry } from "../context/countryProvider";
@@ -13,7 +12,7 @@ import Feed from "./info/feed";
 // possibly an info button that can also display intro text if need be
 // possibly a clear all button
 function News() {
-  const { isData, setIsData, awaitingData } = useCountry();
+  const { isData, awaitingData } = useCountry();
   const [showNews, setShowNews] = useState(false);
   const [isDataVisible, setIsVisiblesetIsDataVisible] = useState(true);
 
@@ -48,9 +47,7 @@ function News() {
             <>
               <NewsHeader />
               <hr className="separator" />
-              {awaitingData ? (
-                <ClipLoader />
-              ) : (
+              {!awaitingData && (
                 <>
                   <NewsOverview />
                   <hr className="separator" />
