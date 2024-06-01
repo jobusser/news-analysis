@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { IoList, IoArrowForward } from "react-icons/io5";
+import { IoList, IoInformation, IoArrowForward } from "react-icons/io5";
 
 import { useCountry } from "../context/countryProvider";
 
@@ -66,7 +66,7 @@ function News() {
             {showNews ? (
               <IoArrowForward size={20} />
             ) : (
-              <IoList size={20} />
+              <IoInformation size={20} />
             )}
           </button>
         </div>
