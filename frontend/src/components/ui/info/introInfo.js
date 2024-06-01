@@ -1,12 +1,3 @@
-import InputText from '../inputs/inputText';
-/*
-                <InputText
-                  ref={key2Ref}
-                  label={"Key 2:"}
-                  placeholder={'hacker'}
-                  formSubmit={handleFormSubmit}
-                />
-*/
 function IntroInfo() {
   return (
     <>
@@ -43,12 +34,12 @@ function IntroInfo() {
       <div className='form-simulation'>
         <div className="input-simultation" style={{ display: 'flex', alignItems: 'center' }}>
           <div className='input-simulation-label'> Keys: </div>
-          <div className='input-simulation-input'> exact matches in the article title and text. </div>
+          <div className='input-simulation-input'> exact matches in the title and text of articles </div>
         </div>
 
         <div className="input-simultation" style={{ display: 'flex', alignItems: 'center' }}>
           <div className='input-simulation-label'> Theme: </div>
-          <div className='input-simulation-input'>  of articles from through NLP. </div>
+          <div className='input-simulation-input'>  of articles determined with GDELT's NLP </div>
         </div>
 
         <div className="input-simultation" style={{ display: 'flex', alignItems: 'center' }}>
@@ -58,7 +49,7 @@ function IntroInfo() {
       </div>
 
       <p>
-        The news of the last week is shown if dates are not entered.
+        Note that the input is case insensitive. The news of the last week is shown if dates are not entered.
       </p>
 
       <h3> The analysis </h3>
