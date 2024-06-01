@@ -1,3 +1,12 @@
+import InputText from '../inputs/inputText';
+/*
+                <InputText
+                  ref={key2Ref}
+                  label={"Key 2:"}
+                  placeholder={'hacker'}
+                  formSubmit={handleFormSubmit}
+                />
+*/
 function IntroInfo() {
   return (
     <>
@@ -12,69 +21,63 @@ function IntroInfo() {
       <h3> GDELT </h3>
       <p>
         The <a href="https://www.gdeltproject.org">GDELT Project</a> is a global monitoring system
-        that tracks news of all types across the world in multiple languages.
-        The insights from codifying human society in realtime using GDELT allows for the
-        comparison of themes, emotions, and events throughout various regions.
+        that tracks news across the world.
+        Codifying human society in realtime using GDELT allows for
+        insights of themes, emotions, and events throughout various regions.
       </p>
       <p>
-        The core functionality of this website is powered by
-        the <a href="https://blog.gdeltproject.org/gdelt-doc-2-0-api-debuts/">GDELT Doc API</a>.
-        With the goal of aggregating text-based news to provide a comparable overview
-        of country-specific focus, this website monitors the text news published worldwide
-        with updates occurring every 15 minutes.
+        The core of this website is powered by the <a href="https://blog.gdeltproject.org/gdelt-doc-2-0-api-debuts/">GDELT Doc API</a>.
+        Text-based news throughout is aggregated to compare country-specific focus by monitoring the
+        news published worldwide with updates every 15 minutes.
       </p>
       <p>
-        The GDELT project, most unfortunately, does not specify the language and location reach.
+        The GDELT project, most unfortunately, does not specify its language and location reach.
         Keep in mind that the comparisons and articles you find here are not perfect.
       </p>
 
       <h3> The search </h3>
       <p>
-        A search query comprises of several elements.
-        At least one of the search fields are required.
-        The search query includes:
-        <ul>
-          <li><strong>Source Country:</strong> as selected on the globe, the country where the article was published.</li>
-          <li><strong>Keys:</strong> exact matches in the article title and text.</li>
-          <li><strong>Theme:</strong> predefined categories of news through natural language processing.</li>
-          <li><strong>Language:</strong> language of the articles.</li>
-        </ul>
-        The news of the last 24 hours is shown by default.
+        A search query comprises of an article source country as selected on the globe, and the search box items:
       </p>
 
-      <h3> What you will see</h3>
-      <p>
-        An overview of everything that can be found is provided.
-        A key, theme, or language search allows for the comparison of
-        country-specific news.
-        Countries are compared by the percentage of articles published in that
-        country that are relevant to the search.
-        Country relevance is shown from yellow to red. Red means that
-        1o percent or more of the articles in that country relate to the
-        search.
-        A grey color indicates that no relevant articles were found,
-        this could indicate a percentage of 0 or that GDELT does not monitor
-        that country.
+      <div className='form-simulation'>
+        <div className="input-simultation" style={{ display: 'flex', alignItems: 'center' }}>
+          <div className='input-simulation-label'> Keys: </div>
+          <div className='input-simulation-input'> exact matches in the article title and text. </div>
+        </div>
 
-        Articles are provided based on how closely they relate to the
-        search query and how reputable the source of news is.
-        This sorting is done by GDELT.
+        <div className="input-simultation" style={{ display: 'flex', alignItems: 'center' }}>
+          <div className='input-simulation-label'> Theme: </div>
+          <div className='input-simulation-input'>  of articles from through NLP. </div>
+        </div>
+
+        <div className="input-simultation" style={{ display: 'flex', alignItems: 'center' }}>
+          <div className='input-simulation-label'> Language: </div>
+          <div className='input-simulation-input'> of the article. </div>
+        </div>
+      </div>
+
+      <p>
+        The news of the last week is shown if dates are not entered.
       </p>
 
       <h3> The analysis </h3>
       <p>
-        You will see an overview of all relevant news articles.
+        An overview of all articles relating to the search query is presented.
         Searches by key, theme, or language allow for the comparison of country-specific news across the world.
-        Countries are compared based on the percentage of articles relevant to your search.
+        country-specific news.
       </p>
       <p>
-        A color scale from yellow to red indicates how relevant the search is within a country.
-        A yellow highlight indicates that few relevant articles were found in that country.
-        A red highlight indicates that 10% or more of the articles in that country are relevant to the search.
-        A grey colormeans that no relevant articles found, which may indicate either a 0% relevance or that GDELT does not monitor that country.
+        A color scale indicates how relevant the search is within a country.
+        A <span class="yellow highlight">yellow country</span> has a smaller percentage of published articles relating to the search query.
+        A <span class="red highlight">red country</span> indicates that 10% or more of the articles published in the region relate to the search.
+        A <span class="grey highlight">grey country</span> has no relevant articles relating to the search,
+        which may either indicate a relevance of 0% or that GDELT does not monitor that country.
       </p>
       <p>
-        Articles are sorted by how closely they match the search query and the reputation of the news source. This sorting is handled by GDELT.
+        Specific articles are provided based on how closely they relate to the
+        search query and how reputable the publisher is.
+        This sorting is done by GDELT.
       </p>
 
 

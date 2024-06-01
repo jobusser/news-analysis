@@ -107,12 +107,14 @@ button:hover {
 }
 
 .input-container label {
+  flex-shrik: 0;
   margin-right: 15px;
   font-size: 16px;
 }
 
 .input-container input {
   flex: 1;
+  flex-grow: 1;
   padding: 8px 8px;
   border: none;
 }
@@ -402,5 +404,55 @@ span {
   border-radius: 15px;
   font-size: 0.9em;
   font-weight: bold;
+}
+
+/* Intro info */
+.form-simulation {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  margin: 5px 30px 5px 30px;
+  gap: 10px;
+}
+
+.input-simulation {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: start;
+}
+
+.input-simulation-label {
+  flex-shrink: 0;
+  margin-right: 15px;
+  font-size: 16px;
+}
+
+.input-simulation-input {
+  flex-grow: 1;
+  background-color: rgba(0, 0, 0, 1);
+  border-radius: 10px;
+  padding: 8px 8px 8px 8px;
+  font-family: inherit;
+  font-size: 16;
+  color: #999;
+}
+
+.highlight {
+  background-color: #111;
+  padding: 0;
+  font-size: 1em;
+}
+
+.yellow {
+  color: yellow;
+}
+
+.red {
+  color: red;
+}
+
+.grey {
+  color: grey;
 }
 
