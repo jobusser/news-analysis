@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IoArrowDown, IoArrowUp, IoArrowDownCircle, IoArrowUpCircle } from "react-icons/io5";
+import { IoArrowDown, IoArrowUp } from "react-icons/io5";
 
 function ExpandButton({ id, toggleCallback, size }) {
   const [toggle, setToggle] = useState(false);

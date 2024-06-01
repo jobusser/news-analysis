@@ -8,7 +8,7 @@ const monthNames = [
 ];
 
 function getDateText(dateInfo) {
-  if (dateInfo.isDefault) return "in the last 24 hours";
+  if (dateInfo.isDefault) return "in the last week";
   if (dateInfo.isOneDay) return "on " + dateInfo.startDate.getDate() + " " + monthNames[dateInfo.startDate.getMonth()] + " " + dateInfo.startDate.getFullYear();
 
   return "from " + dateInfo.startDate.getDate().toString() + "/" + (dateInfo.startDate.getMonth() + 1).toString() + "/" + dateInfo.startDate.getFullYear().toString() +

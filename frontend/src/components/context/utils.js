@@ -25,7 +25,7 @@ export function formatRequestData(selectedCountry, formData) {
   } else if (!fromDate && !toDate) {
     toDate = new Date();
     fromDate = new Date(toDate);
-    fromDate.setDate(toDate.getDate() - 1);
+    fromDate.setDate(toDate.getDate() - 7);
 
   } else if (!fromDate) {
     toDate.setHours(23, 59, 59, 999);

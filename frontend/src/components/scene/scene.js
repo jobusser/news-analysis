@@ -31,8 +31,8 @@ function Scene() {
         position={[0, 0, -5]}
         enableZoom={true}
         enablePan={false}
-        rotateSpeed={0.2}
-        minDistance={0.7}
+        rotateSpeed={0.15}
+        minDistance={1.4}
         maxDistance={10}
         minZoom={1}
         maxZoom={1}

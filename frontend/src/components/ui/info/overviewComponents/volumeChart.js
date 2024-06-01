@@ -58,7 +58,7 @@ function VolumeChart() {
         </LineChart>
       ) : (
         <LineChart data={formattedData}>
-          <XAxis dataKey="day" />
+          <XAxis dataKey="day" tick={false} />
           <YAxis tickFormatter={(tick) => Number.isInteger(tick) ? tick : ''} />
           <Tooltip content={<ChartTooltip />} />
           <Legend />

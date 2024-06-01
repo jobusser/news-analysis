@@ -8,13 +8,10 @@ import NewsHeader from "./info/newsHeader";
 import NewsOverview from "./info/newsOverview";
 import Feed from "./info/feed";
 
-// TODO: add hide button
-// possibly an info button that can also display intro text if need be
-// possibly a clear all button
 function News() {
   const { isData, awaitingData } = useCountry();
   const [showNews, setShowNews] = useState(false);
-  const [isDataVisible, setIsVisiblesetIsDataVisible] = useState(true);
+  const [isDataVisible, setIsDataVisible] = useState(true);
 
   function toggleNewsVisibility() {
     setShowNews(!showNews);
@@ -22,9 +19,10 @@ function News() {
 
   useEffect(() => {
     if (isData) {
-      setIsVisiblesetIsDataVisible(true);
+      setIsDataVisible(true);
+      setShowNews(true);
     } else {
-      setIsVisiblesetIsDataVisible(false);
+      setIsDataVisible(false);
     }
   }, [isData]);
 

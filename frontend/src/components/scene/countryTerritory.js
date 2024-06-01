@@ -15,7 +15,7 @@ const CountryTerritory = React.memo(({ countryData, coordinates, globeRadius }) 
   }, [globeRadius]);
 
   const VISIBLE_OPACITY = 0.5;
-  const HOVERED_OPACITY = 0.4;
+  const HOVERED_OPACITY = 0.3;
 
   useEffect(() => {
 
@@ -45,6 +45,7 @@ const CountryTerritory = React.memo(({ countryData, coordinates, globeRadius }) 
   useEffect(() => {
 
     const isHovered = (hoveredCountry && hoveredCountry.name === countryData.name);
+    const isSelected = (selectedCountry && selectedCountry.name === countryData.name);
 
     if (worldVolume) {
       if (isHovered) {
@@ -53,16 +54,16 @@ const CountryTerritory = React.memo(({ countryData, coordinates, globeRadius }) 
         polygon.children[0].material.opacity = VISIBLE_OPACITY;
       }
     } else {
-      if (isHovered) {
+      if (isSelected || isHovered) {
         polygon.children[0].material.color.set('#ffff00');
-        polygon.children[0].material.opacity = HOVERED_OPACITY;
+        polygon.children[0].material.opacity = VISIBLE_OPACITY + HOVERED_OPACITY;
         polygon.children[0].material.visible = true;
       } else {
         polygon.children[0].material.visible = false;
       }
     }
 
-  }, [hoveredCountry, worldVolume]);
+  }, [hoveredCountry, selectedCountry, worldVolume]);
 
 
 

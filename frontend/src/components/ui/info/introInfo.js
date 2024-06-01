@@ -1,8 +1,4 @@
 function IntroInfo() {
-  // TODO: Intro on the app
-  // GDELT database and limits
-  // Info on the search - what a key is, etc
-  // Info on what is returned
   return (
     <>
       <h1>Global news analysis</h1>
@@ -13,7 +9,7 @@ function IntroInfo() {
       </p>
 
       <hr className="separator" />
-      <h2> GDELT </h2>
+      <h3> GDELT </h3>
       <p>
         The <a href="https://www.gdeltproject.org">GDELT Project</a> is a global monitoring system
         that tracks news of all types across the world in multiple languages.
@@ -32,7 +28,7 @@ function IntroInfo() {
         Keep in mind that the comparisons and articles you find here are not perfect.
       </p>
 
-      <h2> The search </h2>
+      <h3> The search </h3>
       <p>
         A search query comprises of several elements.
         At least one of the search fields are required.
@@ -46,7 +42,7 @@ function IntroInfo() {
         The news of the last 24 hours is shown by default.
       </p>
 
-      <h2> What you will see</h2>
+      <h3> What you will see</h3>
       <p>
         An overview of everything that can be found is provided.
         A key, theme, or language search allows for the comparison of
@@ -65,7 +61,7 @@ function IntroInfo() {
         This sorting is done by GDELT.
       </p>
 
-      <h2> The analysis</h2>
+      <h3> The analysis </h3>
       <p>
         You will see an overview of all relevant news articles.
         Searches by key, theme, or language allow for the comparison of country-specific news across the world.
