@@ -11,11 +11,13 @@ export async function fetchData(formData) {
   const worldTimeline = isForm(formData) ? await getWorldTimeline(keys, theme, sourceLang, dateStartString, dateEndString) : null;
   const worldVolume = isForm(formData) ? await getCountryVolumes(keys, theme, sourceLang, dateStartString, dateEndString) : null;
 
+  /*
   console.log("RAW REQUEST DATA");
   console.log("ArticleList", articleList);
   console.log("countryTimeline", countryTimeline);
   console.log("worldTimeline", worldTimeline);
   console.log("WorldVolume", worldVolume);
+  */
 
   // work out totals
   let relevantInCountry = 0;

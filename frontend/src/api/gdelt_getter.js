@@ -1,30 +1,32 @@
 import axios from 'axios';
 import { queryParam, timeParams, modeParam, maxRecordsParam, formatParam } from './query_builder';
 
+const logging = false;
+
 export async function getArticlesList(keys, country, theme, sourcelang, start, end, maxRecords) {
   const url = `https://api.gdeltproject.org/api/v2/doc/doc?${queryParam(keys, country, theme, sourcelang)}${timeParams(start, end)}${modeParam('artlist')}${maxRecordsParam(maxRecords)}${formatParam()}`;
-  console.log('Get Articles:', url);
+  if (logging) console.log('Get Articles:', url);
   const response = await axios.get(url);
   return response.data;
 }
 
 export async function getCountryTimeline(keys, country, theme, sourcelang, start, end) {
   const url = `https://api.gdeltproject.org/api/v2/doc/doc?${queryParam(keys, country, theme, sourcelang)}${timeParams(start, end)}${modeParam('timelinevolraw')}${formatParam()}`;
-  console.log('Get raw volume:', url);
+  if (logging) console.log('Get raw volume:', url);
   const response = await axios.get(url);
   return response.data;
 }
 
 export async function getWorldTimeline(keys, theme, sourcelang, start, end) {
   const url = `https://api.gdeltproject.org/api/v2/doc/doc?${queryParam(keys, null, theme, sourcelang)}${timeParams(start, end)}${modeParam('timelinevolraw')}${formatParam()}`;
-  console.log('Get raw volume:', url);
+  if (logging) console.log('Get raw volume:', url);
   const response = await axios.get(url);
   return response.data;
 }
 
 export async function getCountryVolumes(keys, theme, sourcelang, start, end) {
   const url = `https://api.gdeltproject.org/api/v2/doc/doc?${queryParam(keys, null, theme, sourcelang)}${timeParams(start, end)}${modeParam('timelinesourcecountry')}${formatParam()}`;
-  console.log('Get country volume:', url);
+  if (logging) console.log('Get country volume:', url);
   const response = await axios.get(url);
 
   const data = response.data;
@@ -33,6 +35,10 @@ export async function getCountryVolumes(keys, theme, sourcelang, start, end) {
   if (Object.keys(data).length === 0) return null;
 
   data.timeline.forEach(country => {
+    if (country.series.length === 17) {
+      return; // undefined GDELT behavior
+    }
+
     let name = country.series.slice(0, -17);
     switch (name) {
       case 'United States':

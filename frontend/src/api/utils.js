@@ -115,6 +115,10 @@ export function makeTimeline(countryTimeline, worldVolume, formData) {
     });
   }
 
+  console.log("WorldVolume", worldVolume);
+  console.log("Source country", formData.countryLongName);
+  console.log("PRE TIMELINE", timeline);
+
   //add average world magnitude
   if (isWorldVolume) {
     const averageCoverage = calculateAverageTimestampValue(worldVolume);
