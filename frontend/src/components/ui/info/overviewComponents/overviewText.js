@@ -15,6 +15,20 @@ function getDateText(dateInfo) {
     " to " + dateInfo.endDate.getDate().toString() + "/" + (dateInfo.endDate.getMonth() + 1).toString() + "/" + dateInfo.endDate.getFullYear().toString();
 }
 
+function formatNumber(number) {
+  const numberString = String(number);
+  let formattedNumber = '';
+
+  for (let i = numberString.length - 1, count = 0; i >= 0; i--, count++) {
+    if (count !== 0 && count % 3 === 0) {
+      formattedNumber = ',' + formattedNumber;
+    }
+    formattedNumber = numberString[i] + formattedNumber;
+  }
+
+  return formattedNumber;
+}
+
 function OverviewText() {
   const { newsOverview } = useCountry();
   const [overviewText, setOverviewText] = useState(null);
@@ -28,7 +42,7 @@ function OverviewText() {
           if (newsOverview.relevantInSelectedRegion > 0) {
             setOverviewText(
               <p>
-                A total of <span>{newsOverview.relevantInSelectedRegion}</span> articles were published online in {newsOverview.selectedRegion} {dateText}.
+                A total of <span>{formatNumber(newsOverview.relevantInSelectedRegion)}</span> articles were published online in {newsOverview.selectedRegion} {dateText}.
               </p>
             );
           } else {
@@ -48,25 +62,32 @@ function OverviewText() {
       } else if (newsOverview.relevantInWorld === 0) {
         setOverviewText(
           <p>
-            Of the {newsOverview.totalInWorld} articles published online {dateText}, no articles relate to the search query.
+            Of the <span>{formatNumber(newsOverview.totalInWorld)}</span> articles published online {dateText},
+            no articles relate to the search query.
           </p>
         );
       } else if (!newsOverview.selectedRegion) {
         setOverviewText(
           <p>
-            Of the {newsOverview.totalInWorld} articles published online {dateText}, a total of <span>{newsOverview.relevantInWorld}</span> relate to the search query.
+            Of the <span>{formatNumber(newsOverview.totalInWorld)}</span> articles published online {dateText},
+            a total of <span>{formatNumber(newsOverview.relevantInWorld)}</span> relate to the search query.
           </p>
         );
       } else if (newsOverview.relevantInSelectedRegion === 0) {
         setOverviewText(
           <p>
-            Of the {newsOverview.totalInWorld} articles published online {dateText}, a total of <span>{newsOverview.relevantInWorld}</span> relate to the search query. No articles were published in {newsOverview.selectedRegion}.
+            Of the <span>{formatNumber(newsOverview.totalInWorld)}</span> articles published online {dateText},
+            a total of <span>{formatNumber(newsOverview.relevantInWorld)}</span> relate to the search query.
+            No articles were published in {newsOverview.selectedRegion}.
           </p>
         );
       } else {
         setOverviewText(
           <p>
-            Of the {newsOverview.totalInWorld} articles published online {dateText}, a total of <span>{newsOverview.relevantInWorld}</span> relate to the search query. {newsOverview.selectedRegion} accounted for <span>{newsOverview.relevantInSelectedRegion}</span> of the published articles.
+            Of the <span>{formatNumber(newsOverview.totalInWorld)}</span> articles published online {dateText},
+            a total of <span>{formatNumber(newsOverview.relevantInWorld)}</span> relate to the
+            search query. {newsOverview.selectedRegion} accounted
+            for <span>{formatNumber(newsOverview.relevantInSelectedRegion)}</span> of the published articles.
           </p>
         );
       }

@@ -55,12 +55,11 @@ function IntroInfo() {
       <h3> The analysis </h3>
       <p>
         An overview of all articles relating to the search query is presented.
-        Searches by key, theme, or language allow for the comparison of country-specific news across the world.
-        country-specific news.
+        Searches by key, theme, or language allow for the comparison of country-specific coverage intensity across the world.
       </p>
       <p>
         A color scale indicates how relevant the search is within a country.
-        A <span class="yellow highlight">yellow country</span> has a smaller percentage of published articles relating to the search query.
+        A <span class="yellow highlight">yellow country</span> has a smaller coverage percentage of published articles relating to the search query.
         A <span class="red highlight">red country</span> indicates that 10% or more of the articles published in the region relate to the search.
         A <span class="grey highlight">grey country</span> has no relevant articles relating to the search,
         which may either indicate a relevance of 0% or that GDELT does not monitor that country.

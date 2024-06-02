@@ -35,16 +35,16 @@ function PercentageBox() {
     if (newsOverview) {
       if (!worldVolume) {
         var fraction = '?'
-        setTooltipText("Other data, like a search query, is needed for coverage magnitude.");
+        setTooltipText("Nothing found, try adding to the search box for coverage magnitude.");
       } else if (!newsOverview.selectedRegion) {
         // world selected
         var fraction = (newsOverview.totalInWorld !== 0) ? newsOverview.relevantInWorld / newsOverview.totalInWorld : 0;
-        setTooltipText("of articles in the world relate to the search query.");
+        setTooltipText("of articles in the world relate to the search.");
 
       } else if (newsOverview.selectedRegion && worldVolume[newsOverview.selectedRegion]) {
         // country with info
         var fraction = worldVolume[newsOverview.selectedRegion];
-        setTooltipText(`of articles in ${newsOverview.selectedRegion} relate to the search query.`);
+        setTooltipText(`of articles in ${newsOverview.selectedRegion} relate to the search.`);
 
       } else {
         var fraction = '?';
