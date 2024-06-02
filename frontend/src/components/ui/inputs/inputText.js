@@ -48,17 +48,19 @@ const InputText = forwardRef(({ label, placeholder, formSubmit }, ref) => {
     <>
       <div className="input-container" style={{ display: 'flex', alignItems: 'center' }}>
         <label htmlFor="text-input" >{label}</label>
-        <input
-          id="text-input"
-          type="text"
-          value={text}
-          ref={inputRef}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
-          onKeyDown={handleKeyDown}
-          onChange={(e) => setText(e.target.value)}
-          placeholder={placeholder}
-        />
+        <div className='input-wrapper'>
+          <input
+            id="text-input"
+            type="text"
+            value={text}
+            ref={inputRef}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
+            onKeyDown={handleKeyDown}
+            onChange={(e) => setText(e.target.value)}
+            placeholder={placeholder}
+          />
+        </div>
       </div>
 
       {error && (<p className='input-error'>{error}</p>)}

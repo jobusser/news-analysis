@@ -71,6 +71,15 @@ export function CountryProvider({ children }) {
 
   function clearData() {
     setAwaitingData(true);
+    setFormData({
+      key1: '',
+      key2: '',
+      key3: '',
+      theme: '',
+      sourcelang: '',
+      dateStart: null,
+      dateEnd: null,
+    });
     setArticleList(null);
     setNewsOverview(null);
     setWorldVolume(null);

@@ -9,7 +9,7 @@ function IntroInfo() {
       </p>
 
       <hr className="separator" />
-      <h3> GDELT </h3>
+      <h3> The data </h3>
       <p>
         The <a href="https://www.gdeltproject.org">GDELT Project</a> is a global monitoring system
         that tracks news across the world.
@@ -52,7 +52,7 @@ function IntroInfo() {
         Note that the input is case insensitive. The news of the last week is shown if dates are not entered.
       </p>
 
-      <h3> The analysis </h3>
+      <h3> The result </h3>
       <p>
         An overview of all articles relating to the search query is presented.
         Searches by <span>key</span>, <span>theme</span>, or <span>language</span> allow for the comparison of country-specific coverage intensity across the world.

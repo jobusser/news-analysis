@@ -80,8 +80,8 @@ function PercentageBox() {
   }, []);
 
   const tooltipStyle = {
-    top: `${cursorY - 20}px`,
-    left: `${cursorX + 20}px`,
+    top: `${cursorY + 30}px`,
+    left: `${cursorX - 20}px`,
   };
 
   return (

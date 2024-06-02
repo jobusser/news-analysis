@@ -74,6 +74,7 @@ button:hover {
   flex-direction: row;
   align-itmes: center;
   justify-content: right;
+  width: 100%;
 }
 
 #clear-data-button-container {
@@ -94,8 +95,10 @@ button:hover {
 
 #news-hider-container {
   display: flex;
+  flex-direction: row;
   align-itmes: center;
   justify-content: left;
+  width: 100%;
 }
 
 form {
@@ -106,6 +109,7 @@ form {
   gap: 10px;
 
 }
+
 
 .input-container {
   display: flex;
@@ -121,7 +125,6 @@ form {
 }
 
 .input-container input {
-  flex: 1;
   flex-grow: 1;
   padding: 8px 8px;
   border: none;
@@ -176,8 +179,6 @@ form {
   margin-top: 20px;
 }
 
-
-
 .date-error {
   color: red;
   padding-top: 5px;
@@ -188,6 +189,14 @@ form {
 .search-note {
    padding-top: 20px;
   padding-bottom: 10px;
+}
+
+.form-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%
 }
 
 
@@ -432,7 +441,7 @@ img {
 
 span {
   background-color: #000;
-  padding: 6px 6px;
+  padding: 4px 6px 4px 6px;
   border-radius: 15px;
   font-size: 1em;
   font-weight: bold;

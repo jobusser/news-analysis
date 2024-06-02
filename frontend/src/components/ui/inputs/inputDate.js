@@ -91,17 +91,19 @@ const InputDate = forwardRef(({ label, placeholder, formSubmit }, ref) => {
     <>
       <div className="input-container" style={{ display: 'flex', alignItems: 'center' }}>
         <label htmlFor="date-input" >{label}</label>
-        <input
-          id="date-input"
-          type="text"
-          value={date}
-          ref={inputRef}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
-          onKeyDown={handleKeyDown}
-          onChange={handleChange}
-          placeholder={placeholder}
-        />
+        <div className='input-wrapper'>
+          <input
+            id="date-input"
+            type="text"
+            value={date}
+            ref={inputRef}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
+            onKeyDown={handleKeyDown}
+            onChange={handleChange}
+            placeholder={placeholder}
+          />
+        </div>
       </div>
 
       {error && (<p className='input-error'>{error}</p>)}
