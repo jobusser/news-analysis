@@ -43,7 +43,7 @@ export function formatRequestData(selectedCountry, formData) {
     sourceLang: formData.sourcelang,
     start: fromDate,
     end: toDate,
-    maxRecords: 10,
+    maxRecords: 25,
     countryLongName: selectedCountry ? selectedCountry.name : '',
   };
 }

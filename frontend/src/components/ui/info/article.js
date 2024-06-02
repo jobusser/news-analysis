@@ -1,4 +1,5 @@
 import React from "react";
+import { IoImage, IoImageOutline } from "react-icons/io5";
 
 function Article({ number, article, includeCountry }) {
   const {
@@ -48,12 +49,16 @@ function Article({ number, article, includeCountry }) {
       </div>
 
       <div className="article-image-wrapper">
-        <img
-          className="article-image"
-          src={socialimage || defaultImage}
-          alt="Article Image"
-          onError={(e) => { e.target.src = defaultImage; }}
-        />
+        {socialimage ? (
+          <img
+            className="article-image"
+            src={socialimage}
+            alt="Article Image"
+            onError={(e) => { e.target.src = defaultImage; }}
+          />
+        ) : (
+          <IoImageOutline size={40} />
+        )}
       </div>
     </div>
   );
