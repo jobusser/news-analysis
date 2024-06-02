@@ -1,10 +1,44 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import ChartTooltip from './chartTooltip';
 import { useCountry } from "../../../context/countryProvider";
 
 function VolumeChart() {
-  const { newsOverview } = useCountry();
+  const { newsOverview, worldVolume } = useCountry();
+  const [color, setColor] = useState("#8884d8");
+
+  function getColor(percentage) {
+    if (typeof percentage === "number") {
+      const intensity = Math.min(1, percentage / 10);
+      const red = 255;
+      const green = Math.round(255 * (1 - intensity));
+      const blue = 0;
+      return 'rgb(' + red + ', ' + green + ', ' + blue + ', 0.9)';
+
+    } else {
+      return '#8884d8';
+    }
+  }
+
+  useEffect(() => {
+    if (newsOverview) {
+      if (!worldVolume) {
+        var fraction = '?'
+      } else if (!newsOverview.selectedRegion) {
+        // world selected
+        var fraction = (newsOverview.totalInWorld !== 0) ? newsOverview.relevantInWorld / newsOverview.totalInWorld : 0;
+
+      } else if (newsOverview.selectedRegion && worldVolume[newsOverview.selectedRegion]) {
+        // country with info
+        var fraction = worldVolume[newsOverview.selectedRegion];
+
+      } else {
+        var fraction = '?';
+      }
+    }
+    setColor(getColor(fraction));
+  }, [newsOverview, worldVolume]
+  );
 
   if (!newsOverview || !newsOverview.timeline) {
     return <div></div>;
@@ -37,7 +71,7 @@ function VolumeChart() {
             <Line
               type="monotone"
               dataKey="countryCoverageMagnitude"
-              stroke="#8884d8"
+              stroke={color}
               strokeWidth={2}
               dot={false}
               name="Country Coverage"

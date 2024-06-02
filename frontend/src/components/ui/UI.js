@@ -1,7 +1,7 @@
 import React from "react";
-import IntroText from "./intro";
 import News from "./news";
 import QueryForm from "./query_form";
+import { useCountry } from "../context/countryProvider";
 
 function UI() {
   return (

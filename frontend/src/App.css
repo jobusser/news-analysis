@@ -351,6 +351,11 @@ a:active {
   flex-wrap: wrap;
   width: 100%;
   max-width: 100%;
+  border-radius: 10px;
+}
+
+.article:hover {
+  background-color: #222;
 }
 
 
@@ -417,10 +422,11 @@ img {
 
 .article-tags {
   display: flex;
-  justify-content: start;
+  align-items: center;
+  justify-content: space-evenly;
   flex-shrink: 0;
   flex-wrap: wrap;
-  margin-top: 10px;
+  width: 100%;
   gap: 10px;
 }
 
@@ -428,7 +434,7 @@ span {
   background-color: #000;
   padding: 6px 6px;
   border-radius: 15px;
-  font-size: 0.8em;
+  font-size: 1em;
   font-weight: bold;
 }
 
