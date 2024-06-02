@@ -98,12 +98,20 @@ button:hover {
   justify-content: left;
 }
 
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+
+}
+
 .input-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  margin: 10px 0;
 }
 
 .input-container label {
@@ -255,6 +263,7 @@ a:active {
   overflow-x: auto; 
   display: flex;
   flex-direction: column;
+  align-items: center;
   flex-shrink: 1;
   max-width: 100%;
   background-color: #111;
@@ -329,6 +338,8 @@ a:active {
 .feed-container {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  gap: 30px;
 }
 
 /* Articles */
@@ -336,7 +347,10 @@ a:active {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 30px;
+  box-sizing: border-box;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 100%;
 }
 
 
@@ -345,18 +359,23 @@ a:active {
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
+  flex: 1;
+  min-width: 0;
 }
 
 .article-title {
   flex: 1;
   margin: 3px;
   font-size: 12px;
+  max-width: 100%;
+  word-wrap: break-word;
 }
 
 .article-image-wrapper {
   position: relative;
   min-width: 25%;
-  height: 90%;
+  max-width: 25%;
+  min-height: 90%;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -364,6 +383,11 @@ a:active {
   flex-shrink: 0;
   border-radius: 15px;
   background-color: #222;
+}
+
+img {
+  width: 100%;
+  height: auto;
 }
 
 .percentage-box {
@@ -395,6 +419,7 @@ a:active {
   display: flex;
   justify-content: start;
   flex-shrink: 0;
+  flex-wrap: wrap;
   margin-top: 10px;
   gap: 10px;
 }
@@ -403,7 +428,7 @@ span {
   background-color: #000;
   padding: 6px 6px;
   border-radius: 15px;
-  font-size: 0.9em;
+  font-size: 0.8em;
   font-weight: bold;
 }
 

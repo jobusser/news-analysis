@@ -149,8 +149,8 @@ function QueryForm() {
               )}
             </button>
           </div>
-          <h1> {showMoreOptions ? "Query" : "Search"}</h1>
           <form className="query-form" onSubmit={(e) => e.preventDefault()}>
+            <h1> {showMoreOptions ? "Query" : "Search"}</h1>
             <InputText
               ref={key1Ref}
               label={showMoreOptions ? "Key 1:" : 'Keyword:'}
@@ -189,6 +189,7 @@ function QueryForm() {
                 <hr className="separator" />
 
                 <h1>Dates</h1>
+
                 <InputDate
                   ref={dateStartRef}
                   label={"From:"}

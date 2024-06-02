@@ -39,12 +39,12 @@ function IntroInfo() {
 
         <div className="input-simultation" style={{ display: 'flex', alignItems: 'center' }}>
           <div className='input-simulation-label'> Theme: </div>
-          <div className='input-simulation-input'>  of articles determined with GDELT's NLP </div>
+          <div className='input-simulation-input'>  categories determined with GDELT's NLP </div>
         </div>
 
         <div className="input-simultation" style={{ display: 'flex', alignItems: 'center' }}>
           <div className='input-simulation-label'> Language: </div>
-          <div className='input-simulation-input'> of the article. </div>
+          <div className='input-simulation-input'> publishing language. </div>
         </div>
       </div>
 
@@ -55,7 +55,7 @@ function IntroInfo() {
       <h3> The analysis </h3>
       <p>
         An overview of all articles relating to the search query is presented.
-        Searches by key, theme, or language allow for the comparison of country-specific coverage intensity across the world.
+        Searches by <span>key</span>, <span>theme</span>, or <span>language</span> allow for the comparison of country-specific coverage intensity across the world.
       </p>
       <p>
         A color scale indicates how relevant the search is within a country.
