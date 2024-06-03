@@ -1,11 +1,26 @@
+import GlobeIcon from "./globeIcon";
+
 function IntroInfo() {
+
   return (
     <>
-      <h1>Global news analysis</h1>
+      <div className="intro-logo">
+        <div id="globe-icon">
+          <GlobeIcon size={60} />
+        </div>
+        <div>
+          Nav
+        </div>
+        <div>
+          News
+        </div>
+      </div>
+
       <hr className="separator" />
+
       <p>
         Select a country or try a search to start.
-        More information on the workings of the website is given below.
+        More information on the workings of <span className="green highlight">NavNews</span> is given below.
       </p>
 
       <hr className="separator" />
@@ -17,7 +32,7 @@ function IntroInfo() {
         insights of themes, emotions, and events throughout various regions.
       </p>
       <p>
-        The core of this website is powered by the <a href="https://blog.gdeltproject.org/gdelt-doc-2-0-api-debuts/">GDELT Doc API</a>.
+        The core of <span class="green highlight">NavNews</span> is powered by the <a href="https://blog.gdeltproject.org/gdelt-doc-2-0-api-debuts/">GDELT Doc API</a>.
         Text-based news throughout is aggregated to compare country-specific focus by monitoring the
         news published worldwide with updates every 15 minutes.
       </p>

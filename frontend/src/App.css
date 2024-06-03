@@ -257,6 +257,36 @@ a:active {
   justify-content: start;
 }
 
+.middle {
+  top: 0;
+  width: 100%; 
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+#portrait-buttons-container {
+  pointer-events: auto;
+  display: flex;
+  flex-shrink: 1;
+  max-width: 100%;
+  background-color: #111;
+  margin: 30px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+#portrait-buttons-container-show {
+  display: flex;
+  flex-direction: row;
+  align-itmes: center;
+  justify-content: center;
+  width: 100%;
+
+}
+
 .tooltip {
   position: fixed;
   z-index: 1000;
@@ -277,7 +307,7 @@ a:active {
   max-width: 100%;
   background-color: #111;
   margin: 30px;
-  padding: 30px;
+  padding: 10px 20px 10px 20px;
   border-radius: 10px;
 }
 
@@ -448,6 +478,24 @@ span {
 }
 
 /* Intro info */
+
+.intro-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  font-size: 50px;
+  font-weight: normal;
+  color: #0d9344;
+  margin-bottom: 40px;
+}
+
+#globe-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .form-simulation {
   display: flex;
   flex-direction: column;
@@ -480,9 +528,16 @@ span {
 }
 
 .highlight {
-  background-color: #111;
+  background-color: transparent;
+  border-radius: 15px;
+  font-size: 1em;
+  font-weight: normal;
   padding: 0;
   font-size: 1em;
+}
+
+.green {
+  color: #0d9344;
 }
 
 .yellow {
