@@ -7,16 +7,18 @@ import ClearDataButton from "./inputs/clearDataButton";
 import { useCountry } from "../context/countryProvider";
 
 function UI() {
-  const { isData } = useCountry();
-
-  const [isLandscape, setIsLandscape] = useState(true);
+  const { isData, isLandscape } = useCountry();
 
   const [showNews, setShowNews] = useState(false);
   const [showForm, setShowForm] = useState(false);
 
-  function handleWindowSizeChange() {
-    setIsLandscape(window.innerWidth >= 768)
-  }
+
+  useEffect(() => {
+    if (isLandscape) {
+      setShowForm(false);
+      setShowNews(false);
+    }
+  }, [isLandscape]);
 
 
   function toggleFormVisibility() {
@@ -43,13 +45,7 @@ function UI() {
   }, [isData]);
 
 
-  useEffect(() => {
-    window.addEventListener('resize', handleWindowSizeChange);
-    handleWindowSizeChange();
-    return () => {
-      window.removeEventListener('resize', handleWindowSizeChange);
-    }
-  }, []);
+
 
   return (
     <>
@@ -117,29 +113,10 @@ function UI() {
           </div>
         </>
       ) : (
-        <div className="middle UI-container">
-          {(!showForm && !showNews) ? (
-            <div id="portrait-buttons-container">
-              <button onClick={portraitToggleFormVisibility} >
-                {showForm ? (
-                  <IoClose size={20} />
-                ) : (
-                  <IoSearch size={20} />
-                )}
-              </button>
-              <ClearDataButton id={'clear-data-button-container'} size={20} />
-              <button onClick={portraitToggleNewsVisibility} >
-                {showNews ? (
-                  <IoClose size={20} />
-                ) : (
-                  <IoInformation size={20} />
-                )}
-              </button>
-            </div>
-
-          ) : (
-            <div className="content-container">
-              <div id="portrait-buttons-container-show">
+        <div className="middle-UI-container">
+          <div className="middle">
+            {(!showForm && !showNews) ? (
+              <div id="portrait-buttons-container">
                 <button onClick={portraitToggleFormVisibility} >
                   {showForm ? (
                     <IoClose size={20} />
@@ -157,14 +134,35 @@ function UI() {
                 </button>
               </div>
 
-              {showNews && (
-                <News />
-              )}
-              {showForm && (
-                <QueryForm />
-              )}
-            </div>
-          )}
+            ) : (
+              <div className="content-container">
+                <div id="portrait-buttons-container-show">
+                  <button onClick={portraitToggleFormVisibility} >
+                    {showForm ? (
+                      <IoClose size={20} />
+                    ) : (
+                      <IoSearch size={20} />
+                    )}
+                  </button>
+                  <ClearDataButton id={'clear-data-button-container'} size={20} />
+                  <button onClick={portraitToggleNewsVisibility} >
+                    {showNews ? (
+                      <IoClose size={20} />
+                    ) : (
+                      <IoInformation size={20} />
+                    )}
+                  </button>
+                </div>
+
+                {showNews && (
+                  <News />
+                )}
+                {showForm && (
+                  <QueryForm />
+                )}
+              </div>
+            )}
+          </div>
         </div>
       )}
     </>

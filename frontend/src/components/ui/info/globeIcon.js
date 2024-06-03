@@ -1,14 +1,20 @@
+import React, { useState, useEffect } from "react";
 import { FaGlobeAfrica, FaGlobeEurope, FaGlobeAsia, FaGlobeAmericas } from "react-icons/fa";
 
 function GlobeIcon({ size }) {
-
   const icons = [FaGlobeAfrica, FaGlobeEurope, FaGlobeAsia, FaGlobeAmericas];
-  const rand = Math.floor(Math.random() * icons.length);
+  const [currentIconIndex, setCurrentIconIndex] = useState(Math.floor(Math.random() * icons.length));
 
-  if (rand === 0) return (<FaGlobeAfrica size={size} />);
-  if (rand === 1) return (<FaGlobeEurope size={size} />);
-  if (rand === 2) return (<FaGlobeAsia size={size} />);
-  if (rand === 3) return (<FaGlobeAmericas size={size} />);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIconIndex(Math.floor(Math.random() * icons.length));
+    }, 5000); // Change every 15 seconds
+
+    return () => clearInterval(interval); // Cleanup interval on component unmount
+  }, [icons.length]);
+
+  const CurrentIcon = icons[currentIconIndex];
+  return <CurrentIcon size={size} />;
 }
 
 export default GlobeIcon;

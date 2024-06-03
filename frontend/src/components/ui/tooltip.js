@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useCountry } from "../context/countryProvider";
 
 function Tooltip() {
-  const { hoveredCountry } = useCountry();
+  const { hoveredCountry, isLandscape } = useCountry();
   const [cursorX, setCursorX] = useState(0);
   const [cursorY, setCursorY] = useState(0);
 
@@ -27,9 +27,13 @@ function Tooltip() {
   };
 
   return (
-    <div className="tooltip" style={tooltipStyle}>
-      {hoveredCountry.name}
-    </div>
+    <>
+      {isLandscape && (
+        <div className="tooltip" style={tooltipStyle}>
+          {hoveredCountry.name}
+        </div>
+      )}
+    </>
   );
 
 }

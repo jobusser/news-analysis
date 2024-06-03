@@ -26,6 +26,27 @@ export function CountryProvider({ children }) {
   const [awaitingData, setAwaitingData] = useState(false);
   const [isData, setIsData] = useState(false);
 
+  // other context
+  const [isLandscape, setIsLandscape] = useState(true);
+
+  function handleWindowSizeChange() {
+    if (window.innerWidth <= 1350 && isLandscape) {
+      setIsLandscape(false);
+    } else if (window.innerWidth > 1350 && !isLandscape) {
+      setIsLandscape(true);
+
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener('resize', handleWindowSizeChange);
+    handleWindowSizeChange();
+    return () => {
+      window.removeEventListener('resize', handleWindowSizeChange);
+    }
+  }, [isLandscape]);
+
+
   //fetch data
   useEffect(() => {
     const formattedFormData = formatRequestData(selectedCountry, formData);
@@ -102,6 +123,7 @@ export function CountryProvider({ children }) {
       articleList,
       newsOverview,
       worldVolume,
+      isLandscape,
     }}>
       {children}
     </CountryContext.Provider >
