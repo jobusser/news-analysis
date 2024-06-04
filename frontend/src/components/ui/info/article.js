@@ -17,28 +17,30 @@ function Article({ number, article, includeCountry }) {
 
   return (
     <div className="article">
-      <div className="article-title">
-        <h2 className="article-title-text">
-          <a href={url} target="_blank" rel="noopener noreferrer">
-            {title}
-          </a>
-        </h2>
-      </div>
+      <div className="article-header">
+        <div className="article-title">
+          <h2 className="article-title-text">
+            <a href={url} target="_blank" rel="noopener noreferrer">
+              {title}
+            </a>
+          </h2>
+        </div>
 
-      {socialimage ? (
-        <div className="article-image-wrapper">
-          <img
-            className="article-image"
-            src={socialimage}
-            alt="Article Image"
-            onError={(e) => { e.target.src = defaultImage; }}
-          />
-        </div>
-      ) : (
-        <div className="article-default-wrapper">
-          <IoImageOutline size={40} />
-        </div>
-      )}
+        {socialimage ? (
+          <div className="article-image-wrapper">
+            <img
+              className="article-image"
+              src={socialimage}
+              alt="Article Image"
+              onError={(e) => { e.target.src = defaultImage; }}
+            />
+          </div>
+        ) : (
+          <div className="article-default-wrapper">
+            <IoImageOutline size={40} />
+          </div>
+        )}
+      </div>
 
       <div className="article-tags">
         <span>

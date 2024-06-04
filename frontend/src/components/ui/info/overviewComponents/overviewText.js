@@ -97,7 +97,7 @@ function OverviewText() {
   }, [newsOverview]);
 
   return (
-    <div>
+    <div className="news-overview-text">
       {overviewText}
     </div>
   );

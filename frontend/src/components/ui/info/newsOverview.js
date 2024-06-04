@@ -7,8 +7,8 @@ function NewsOverview() {
   return (
     <div className="news-overview">
       <div className="summary">
-        <OverviewText />
         <PercentageBox />
+        <OverviewText />
       </div>
       <VolumeChart />
     </div>

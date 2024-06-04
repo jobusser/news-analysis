@@ -354,27 +354,21 @@ a:active {
 .news-overview {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 20px;
 }
 
 .summary {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-shrink: 1;
-  box-sizing: border-box;
-}
-
-.summary p {
-  flex: 1;
-  margin: 0;
-  line-height: 2;
-  text-overflow: ellipsis; /* Add ellipsis if text overflows */
+  position: relative;
 }
 
 .percentage-box {
-  position: relative;
+  position: absolute;
+  top: 0;
+  right: 0;
   padding: 10px;
+  margin: 5px;
   font-size: 30px;
   font-weight: bold;
   border-radius: 10px;
@@ -382,13 +376,23 @@ a:active {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 20%; 
+  width: 100px;
   height: 100px;
-  flex-shrink: 0;
-  text-align: center;
-  margin-left: 20px;
 }
 
+.news-overview-text {
+  margin: 0;
+  line-height: 2;
+  width: 100%;
+  float: right;
+}
+
+.news-overview-text:before {
+  content: "";
+  float: right;
+  width: 130px;
+  height: 130px;
+}
 
 .feed-container {
   display: flex;
@@ -396,6 +400,7 @@ a:active {
   width: 100%;
   max-width: 100%;
   gap: 30px;
+  box-sizing: border-box;
 }
 
 /* Articles */
@@ -409,45 +414,67 @@ a:active {
   width: 100%;
   max-width: 100%;
   border-radius: 10px;
-  
+  box-sizing: border-box;
 }
 
 .article:hover {
   background-color: #222;
 }
 
+.article-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  max-width: 100%;
+  gap: 5px;
+  box-sizing: border-box;
+}
+
 .article-title {
-  flex: 1;
   font-size: 12px;
   max-width: 100%;
   word-wrap: break-word;
-  text-align: center;
-  padding: 5px;
+  box-sizing: border-box;
 }
 
-.article-title-text {
-  margin-block-end: 0;
-}
 
 .article-image-wrapper {
-  max-width: 80%;
-  max-height: 200px;
+  min-width: 33%;
+  max-width: 33%;
+  height: auto;
+  max-height: 150px;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 15px;
-  background-color: #222;
+  padding: 5px;
+  box-sizing: border-box;
 }
 
-.aritcle-default-wrapper {
-  max-width: 100%;
+
+
+.article-default-wrapper {
+  min-width: 33%;
+  max-width: 33%;
+  min-height: 100px;
+  max-height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #222;
+  border-radius: 15px;
+  padding: 5px;
+  box-sizing: border-box;
 }
 
 .article-image {
   width: 100%;
   height: auto%;
   object-fit: cover;
+  box-sizing: border-box;
+  border-radius: 15px;
 }
 
 .article-tags {
@@ -459,78 +486,21 @@ a:active {
   width: 100%;
   gap: 5px;
   padding: 5px 5px 0.83em 5px;
+  box-sizing: border-box;
 }
 
 @media (max-width: 499px) {
-  .article {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    box-sizing: border-box;
-    flex-wrap: nowrap;
-    width: 100%;
-    max-width: 100%;
-    border-radius: 10px;
+.article-image-wrapper {
+  min-height: 150px;
+  max-height: 200px;
+  min-width: 150px;
+  max-width: 200px;
   }
-
-  .article:hover {
-    background-color: #222;
-  }
-
-
-  .article-text {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
-    flex: 1;
-    min-width: 0;
-  }
-
-  .article-title {
-    flex: 1;
-    margin: 3px;
-    font-size: 12px;
-    max-width: 100%;
-    word-wrap: break-word;
-  }
-  
-  .article-image-wrapper {
-   position: relative;
-    min-width: 25%;
-    max-width: 100%;
-    min-height: 80%;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    border-radius: 15px;
-    background-color: #222;
-  }
-
-  img {
-    width: 100%;
-    height: auto;
-  }
-
-  .article-image {
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .article-tags {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    flex-shrink: 0;
-    flex-wrap: wrap;
-    width: 100%;
-    gap: 10px;
+.article-default-wrapper {
+  min-width: 100px;
+  max-width: 100px;
+  min-height: 100px;
+  max-height: 100px;
   }
 }
 
