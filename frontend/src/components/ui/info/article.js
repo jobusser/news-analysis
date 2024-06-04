@@ -17,49 +17,51 @@ function Article({ number, article, includeCountry }) {
 
   return (
     <div className="article">
-      <div className="article-text">
-        <div className="article-title">
-          <h2>
-            <a href={url} target="_blank" rel="noopener noreferrer">
-              {title}
-            </a>
-          </h2>
-        </div>
-        <div className="article-tags">
-          <span>
-            <strong>
-              <a href={baseSiteUrl} target="_blank" rel="noopener noreferrer">
-                {domain}
-              </a>
-            </strong>
-          </span>
-          <span>
-            <strong>{seendate.substring(6, 8) + "/" + seendate.substring(4, 6) + "/" + seendate.substring(0, 4)}</strong>
-          </span>
-          <span>
-            <strong>{language}</strong>
-          </span>
-          {includeCountry && (
-            <span>
-              <strong>{sourcecountry}</strong>
-            </span>
-          )}
-        </div>
-
+      <div className="article-title">
+        <h2 className="article-title-text">
+          <a href={url} target="_blank" rel="noopener noreferrer">
+            {title}
+          </a>
+        </h2>
       </div>
 
-      <div className="article-image-wrapper">
-        {socialimage ? (
+      {socialimage ? (
+        <div className="article-image-wrapper">
           <img
             className="article-image"
             src={socialimage}
             alt="Article Image"
             onError={(e) => { e.target.src = defaultImage; }}
           />
-        ) : (
+        </div>
+      ) : (
+        <div className="article-default-wrapper">
           <IoImageOutline size={40} />
+        </div>
+      )}
+
+      <div className="article-tags">
+        <span>
+          <strong>
+            <a href={baseSiteUrl} target="_blank" rel="noopener noreferrer">
+              {domain}
+            </a>
+          </strong>
+        </span>
+        <span>
+          <strong>{seendate.substring(6, 8) + "/" + seendate.substring(4, 6) + "/" + seendate.substring(0, 4)}</strong>
+        </span>
+        <span>
+          <strong>{language}</strong>
+        </span>
+        {includeCountry && (
+          <span>
+            <strong>{sourcecountry}</strong>
+          </span>
         )}
       </div>
+
+
     </div>
   );
 }
