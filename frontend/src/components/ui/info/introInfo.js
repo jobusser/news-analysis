@@ -49,12 +49,12 @@ function IntroInfo() {
       <div className='form-simulation'>
         <div className="input-simultation" style={{ display: 'flex', alignItems: 'center' }}>
           <div className='input-simulation-label'> Keys: </div>
-          <div className='input-simulation-input'> exact matches in the title and text of articles </div>
+          <div className='input-simulation-input'> exact matches in the text of articles </div>
         </div>
 
         <div className="input-simultation" style={{ display: 'flex', alignItems: 'center' }}>
           <div className='input-simulation-label'> Theme: </div>
-          <div className='input-simulation-input'>  categories determined with GDELT's NLP </div>
+          <div className='input-simulation-input'> GDELT's NLP categories </div>
         </div>
 
         <div className="input-simultation" style={{ display: 'flex', alignItems: 'center' }}>

@@ -116,17 +116,21 @@ form {
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding-right: 10px;
 }
 
 .input-container label {
-  flex-shrik: 0;
+  white-space: nowrap;
+  flex-shrik: 1;
   margin-right: 15px;
   font-size: 16px;
 }
 
 .input-container input {
   flex-grow: 1;
-  padding: 8px 8px;
+  padding: 8px;
   border: none;
 }
 
@@ -387,12 +391,21 @@ a:active {
   float: right;
 }
 
+.news-overview-text span {
+  background-color: #000;
+  padding: 4px 6px 4px 6px;
+  border-radius: 15px;
+  font-size: 1em;
+  font-weight: bold;
+}
+
 .news-overview-text:before {
   content: "";
   float: right;
   width: 130px;
   height: 130px;
 }
+
 
 .feed-container {
   display: flex;
@@ -453,8 +466,6 @@ a:active {
   box-sizing: border-box;
 }
 
-
-
 .article-default-wrapper {
   min-width: 33%;
   max-width: 33%;
@@ -489,12 +500,20 @@ a:active {
   box-sizing: border-box;
 }
 
+.article-tags span {
+  background-color: #000;
+  padding: 4px 6px 4px 6px;
+  border-radius: 15px;
+  font-size: 1em;
+  font-weight: bold;
+}
+
 @media (max-width: 499px) {
 .article-image-wrapper {
   min-height: 150px;
   max-height: 200px;
   min-width: 150px;
-  max-width: 200px;
+  max-width: 150px;
   }
 .article-default-wrapper {
   min-width: 100px;
@@ -507,7 +526,6 @@ a:active {
 
 
 span {
-  background-color: #000;
   padding: 4px 6px 4px 6px;
   border-radius: 15px;
   font-size: 1em;
