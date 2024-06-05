@@ -57,7 +57,7 @@ const InputDate = forwardRef(({ label, placeholder, formSubmit }, ref) => {
       || parseInt(parts[1]) - 1 !== formattedDate.getMonth()
       || parseInt(parts[2]) !== formattedDate.getFullYear()) {
 
-      setError('Invalid date');
+      setError('Invalid date.');
       return null;
     }
 
@@ -65,11 +65,11 @@ const InputDate = forwardRef(({ label, placeholder, formSubmit }, ref) => {
     const upperLimit = new Date().setHours(23, 59, 59);
 
     if (formattedDate > upperLimit) {
-      setError("Date cannot be in the future");
+      setError("Date cannot be in the future.");
       return null;
 
     } else if (formattedDate < lowerLimit) {
-      setError("Date must be 2017 or later");
+      setError("Only articles in 2017 or later are considered.");
       return null;
     }
 
