@@ -33,10 +33,10 @@ All attention is on the interactive representation of the globe.
    - Enhancements through bump maps, reflectivity, and opacity yield a more rough and realistic asset.
 
 2. **The solar system:**
-   - The scene's entirety is the Earth, Sun, and sparrkling stars.
+   - The scene's entirety is the Earth, Sun, and sparkling stars.
    - The Earth's position, rotation, and axis is approximated using the the time of day and time of year.
    Seasonal changes can also be seen on the texture of the Earth with the coming and goings of winter.
-   - Custom shaders written in GLSL are used throughout to soften and immersify the scene.rsive.
+   - Custom shaders written in GLSL are used throughout to soften and immerse.
  
 The scene of NavNews can easily be described as an overkill.
 Consider it a combination of finding joy in the creation process and 
@@ -49,13 +49,13 @@ creating meaningful perspective for understanding the news around the world.
 NavNews leverages data from [The GDELT Project](https://www.gdeltproject.org/), 
 an ambitious, comprehensive global monitoring system that tracks and codifies news from around the world. 
 By utilizing the [GDELT Doc API](https://blog.gdeltproject.org/gdelt-doc-2-0-api-debuts/), 
-NavNews can showcase articles published across the globe froma dataset that updates every 15 minutes
+NavNews can showcase articles published across the globe from a dataset that updates every 15 minutes
 by using some simple pipelining and processing. 
 
 The GDELT project, most unfortunately, does not specify its limitations in terms of the exact
 languages and locations it covers. 
 As a result, the comparisons and articles you find in NavNews are imperfect.
-Certain topics and regions might will be underrepresented.
+Certain topics and regions might be underrepresented.
 Despite these limitations, GDELT provides a robust platform for exploring and understanding global news trends.
 
 ## The use
@@ -77,7 +77,7 @@ Users can query the database of articles using several parameters:
 The query results provide a comprehensive overview, including:
 - **Article count:** the number of articles relevant to the search query, compared to the world and the total number of articles published.
 - **Graphical coverage:** a graph illustrating the coverage of news related to the search, showing trends over time. Depending on the search, this
-trend line is compared to the coverage of the world.
+trendline is compared to the coverage of the world.
 - **Relevant articles:** a list of the most relevant articles, allowing users to delve deeper into specific news stories and verify the search results.
 
 #### Applications
